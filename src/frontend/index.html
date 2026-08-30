@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BidBazaar | Second-Hand Marketplace</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <div class="brand">BidBazaar</div>
+        <nav>
+          <a href="#home">Home</a>
+          <a href="#auctions">Auctions</a>
+          <a href="#categories">Categories</a>
+          <a href="#sell">Sell</a>
+          <a href="#login">Login</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="hero">
+        <div class="container hero-content">
+          <div class="hero-text">
+            <span class="badge">Trusted second-hand marketplace</span>
+            <h1>Buy, sell, and bid on quality used items.</h1>
+            <p>
+              BidBazaar brings together buyers, sellers, admins, and delivery teams in one smart marketplace.
+            </p>
+            <div class="hero-actions">
+              <a href="#auctions" class="btn primary">Explore Auctions</a>
+              <a href="#sell" class="btn secondary">Become a Seller</a>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <h3>Live Auction</h3>
+            <div class="auction-card">
+              <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80" alt="Auction item" />
+              <div>
+                <p class="item-name">Vintage Camera</p>
+                <p class="price">Current Bid: $420</p>
+                <p class="time">Ends in 02:14:35</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="categories" class="section">
+        <div class="container">
+          <h2>Popular Categories</h2>
+          <div class="grid categories">
+            <div class="card"><span>Electronics</span></div>
+            <div class="card"><span>Furniture</span></div>
+            <div class="card"><span>Fashion</span></div>
+            <div class="card"><span>Vehicles</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="auctions" class="section muted">
+        <div class="container">
+          <h2>Featured Listings</h2>
+          <div class="grid listings">
+            <article class="card item">
+              <h3>Gaming Laptop</h3>
+              <p>Condition: Very Good</p>
+              <p>Starting Bid: $650</p>
+            </article>
+            <article class="card item">
+              <h3>Mountain Bike</h3>
+              <p>Condition: Excellent</p>
+              <p>Starting Bid: $280</p>
+            </article>
+            <article class="card item">
+              <h3>Designer Watch</h3>
+              <p>Condition: Like New</p>
+              <p>Starting Bid: $520</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>© <span id="year"></span> BidBazaar. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
