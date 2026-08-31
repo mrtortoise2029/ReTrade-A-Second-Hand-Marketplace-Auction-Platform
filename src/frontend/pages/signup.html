@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReTrade - Sign Up</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <main class="login-page">
+
+        <section class="left-panel">
+            <div class="left-content">
+                <div class="brand">
+                    <div class="brand-icon">R</div>
+                    <span>ReTrade</span>
+                </div>
+
+                <div class="hero-content">
+                    <h1>
+                        Become a<br>
+                        Trusted Seller<br>
+                        or Buyer
+                    </h1>
+
+                    <p>
+                        Join 450,000+ members buying and selling with confidence.
+                    </p>
+                </div>
+
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <div>
+                            <h3>Escrow Protected</h3>
+                            <p>Safe payments</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📦</div>
+                        <div>
+                            <h3>Fast Listings</h3>
+                            <p>Sell in minutes</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <div>
+                            <h3>Live Auctions</h3>
+                            <p>Real-time deals</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🌿</div>
+                        <div>
+                            <h3>Eco Impact</h3>
+                            <p>Less waste, more value</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="copyright">
+                    © 2025 ReTrade. Secure & trusted.
+                </div>
+            </div>
+        </section>
+
+        <section class="right-panel">
+            <div class="login-container" style="max-width: 520px;">
+                <div class="login-header">
+                    <h2>Create account</h2>
+                    <p>Start selling or buying on ReTrade</p>
+                </div>
+
+                <div class="social-login">
+                    <button class="social-btn" type="button">
+                        <span class="google-icon">G</span>
+                        Google
+                    </button>
+
+                    <button class="social-btn" type="button">
+                        <span class="github-icon">ϟ</span>
+                        GitHub
+                    </button>
+
+                    <button class="social-btn" type="button">
+                        <span class="facebook-icon">f</span>
+                        Facebook
+                    </button>
+                </div>
+
+                <div class="divider">
+                    <span>or sign up with email</span>
+                </div>
+
+                <form class="login-form">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">👤</span>
+                                <input type="text" id="firstName" placeholder="First Name" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">👤</span>
+                                <input type="text" id="lastName" placeholder="Last Name" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">✉</span>
+                            <input type="email" id="email" placeholder="you@example.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">📞</span>
+                            <input type="tel" id="phone" placeholder="+880 1XXXXXXXXX" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role">Select Role</label>
+                        <div class="input-wrapper">
+                            
+                            <select id="role" required>
+                                <option value="buyer">Buyer</option>
+                                <option value="seller">Seller</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="sellerFields" style="display: none;">
+                        <div class="form-group">
+                            <label for="businessName">Business Name</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">🏢</span>
+                                <input type="text" id="businessName" placeholder="Business Name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nidUpload">Upload NID</label>
+                            <div class="input-wrapper file-input-wrap">
+                                <input type="file" id="nidUpload" accept=".pdf,.jpg,.jpeg,.png" class="file-input">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tradeLicense">Upload Trade Licence (if have)</label>
+                            <div class="input-wrapper file-input-wrap">
+                                <input type="file" id="tradeLicense" accept=".pdf,.jpg,.jpeg,.png" class="file-input">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="businessDescription">Business Description</label>
+                            <div class="input-wrapper">
+                                <textarea id="businessDescription" rows="4" placeholder="Tell us about your business..." style="width:100%; resize:vertical; min-height:110px; border:1px solid #dce3ec; border-radius:10px; padding:12px 14px; font-family:inherit; font-size:14px; color:#273347; outline:none;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="sign-in-btn">
+                        Create Account
+                        <span>→</span>
+                    </button>
+                </form>
+
+                <div class="register-text">
+                    Already have an account?
+                    <a href="login.html">Log In</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const roleSelect = document.getElementById('role');
+        const sellerFields = document.getElementById('sellerFields');
+
+        function toggleSellerFields() {
+            if (roleSelect.value === 'seller') {
+                sellerFields.style.display = 'block';
+            } else {
+                sellerFields.style.display = 'none';
+            }
+        }
+
+        roleSelect.addEventListener('change', toggleSellerFields);
+    </script>
+
+</body>
+</html>

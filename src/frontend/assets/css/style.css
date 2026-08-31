@@ -10,18 +10,23 @@ GLOBAL
 
 html {
 scroll-behavior: smooth;
+width: 100%;
+min-height: 100%;
 }
 
 body {
 font-family: "Inter", sans-serif;
 background: #f8fafc;
 color: #0f172a;
+width: 100%;
+min-height: 100vh;
+margin: 0;
+overflow-x: hidden;
 }
 
 .container {
-width: 90%;
-max-width: 1200px;
-margin: auto;
+width: min(1200px, calc(100% - 48px));
+margin: 0 auto;
 }
 
 a {
@@ -113,7 +118,10 @@ HERO
 =================================== */
 
 .hero {
-padding: 100px 0;
+min-height: calc(100vh - 80px);
+padding: 90px 0;
+display: flex;
+align-items: center;
 background:
 radial-gradient(circle at 10% 20%, #dbeafe 0%, transparent 30%),
 radial-gradient(circle at 90% 10%, #ede9fe 0%, transparent 30%);
@@ -124,6 +132,8 @@ display: grid;
 grid-template-columns: 1fr 1fr;
 align-items: center;
 gap: 70px;
+width: min(1200px, calc(100% - 48px));
+margin: 0 auto;
 }
 
 .live-badge {
@@ -1152,6 +1162,7 @@ body {
     width: 100%;
     min-height: 100vh;
     display: flex;
+    background: #f8fafc;
 }
 
 
@@ -1181,7 +1192,7 @@ body {
     width: 100%;
     min-height: 100vh;
 
-    padding: 34px 30px;
+    padding: 40px 48px 30px;
 
     display: flex;
     flex-direction: column;
@@ -1226,8 +1237,8 @@ body {
 }
 
 .hero-content h1 {
-    font-size: 50px;
-    line-height: 1.18;
+    font-size: clamp(2.4rem, 3vw, 4rem);
+    line-height: 1.12;
     font-weight: 800;
 
     letter-spacing: -0.6px;
@@ -1330,8 +1341,8 @@ body {
 ========================================= */
 
 .login-container {
-    width: 100%;
-    max-width: 325px;
+    width: min(100%, 430px);
+    padding: 24px 18px;
 }
 
 
@@ -1376,13 +1387,13 @@ body {
 }
 
 .social-btn {
-    height: 30px;
+    height: 42px;
 
     background: #ffffff;
 
     border: 1px solid #dfe5ee;
 
-    border-radius: 7px;
+    border-radius: 10px;
 
     display: flex;
     align-items: center;
@@ -1392,8 +1403,8 @@ body {
 
     font-family: inherit;
 
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 13px;
+    font-weight: 600;
 
     color: #202939;
 
@@ -1473,15 +1484,15 @@ body {
 }
 
 .form-group {
-    margin-bottom: 13px;
+    margin-bottom: 16px;
 }
 
 .form-group label {
     display: block;
 
-    margin-bottom: 5px;
+    margin-bottom: 7px;
 
-    font-size: 12px;
+    font-size: 13px;
 
     font-weight: 600;
 
@@ -1501,11 +1512,11 @@ body {
 .input-wrapper input,
 .form-group select {
     width: 100%;
-    height: 32px;
+    height: 46px;
 
     border: 1px solid #dce3ec;
 
-    border-radius: 7px;
+    border-radius: 10px;
 
     background: #ffffff;
 
@@ -1513,7 +1524,7 @@ body {
 
     font-family: inherit;
 
-    font-size: 9px;
+    font-size: 14px;
 
     color: #273347;
 
@@ -1521,7 +1532,32 @@ body {
 }
 
 .input-wrapper input {
-    padding: 0 30px;
+    padding: 0 38px 0 38px;
+}
+
+.file-input-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 90px;
+    border: 1px solid #dce3ec;
+    border-radius: 10px;
+    background: #ffffff;
+
+    padding: 8px 12px;
+    margin-top: 10px;
+}
+
+.file-input {
+    width: auto !important;
+    height: auto !important;
+    padding:auto !important;
+
+
+    font-family: inherit;
+    font-size: 13px;
+    color: #273347;
 }
 
 .form-group select {
@@ -1548,16 +1584,17 @@ body {
 .input-icon {
     position: absolute;
 
-    left: 10px;
+    left: 12px;
     top: 50%;
 
     transform: translateY(-50%);
 
     color: #9aa9bc;
 
-    font-size: 10px;
+    font-size: 14px;
 
     pointer-events: none;
+    
 }
 
 
@@ -1568,7 +1605,7 @@ body {
 .password-toggle {
     position: absolute;
 
-    right: 8px;
+    right: 12px;
     top: 50%;
 
     transform: translateY(-50%);
@@ -1579,7 +1616,7 @@ body {
 
     color: #8b9aaf;
 
-    font-size: 9px;
+    font-size: 14px;
 
     cursor: pointer;
 }
@@ -1593,11 +1630,11 @@ body {
     text-align: right;
 
     margin-top: -3px;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
 }
 
 .forgot-password a {
-    font-size: 8px;
+    font-size: 12px;
 
     color: #4389e7;
 
@@ -1615,11 +1652,11 @@ body {
 
 .sign-in-btn {
     width: 100%;
-    height: 30px;
+    height: 46px;
 
     border: none;
 
-    border-radius: 7px;
+    border-radius: 10px;
 
     background: #4d8fe2;
 
@@ -1627,9 +1664,9 @@ body {
 
     font-family: inherit;
 
-    font-size: 9px;
+    font-size: 14px;
 
-    font-weight: 600;
+    font-weight: 700;
 
     cursor: pointer;
 
@@ -1659,11 +1696,11 @@ body {
 ========================================= */
 
 .register-text {
-    margin-top: 18px;
+    margin-top: 20px;
 
     text-align: center;
 
-    font-size: 9px;
+    font-size: 13px;
 
     color: #738198;
 }
@@ -1731,7 +1768,7 @@ body {
     }
 
     .hero-content h1 {
-        font-size: 30px;
+        font-size: clamp(2rem, 7vw, 2.8rem);
     }
 
     .features {
