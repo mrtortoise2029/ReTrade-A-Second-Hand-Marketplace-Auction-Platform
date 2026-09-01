@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReTrade - Buy & Sell with Confidence</title>
+
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+
+
+</head>
+
+<body>
+
+
+
+
+<nav class="logged-navbar">
+
+    <div class="nav-left">
+
+         <div class="logo">
+            <div class="logo-icon">R</div>
+            <span>ReTrade</span>
+        </div>
+
+        <div class="nav-divider"></div>
+
+        <div class="main-nav">
+
+            <a href="home.html" class="nav-item active">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
+
+            <a href="marketplace.html" class="nav-item">
+                <i class="fa-solid fa-store"></i>
+                <span>Marketplace</span>
+            </a>
+
+            <a href="auction.html" class="nav-item">
+                <i class="fa-solid fa-gavel"></i>
+                <span>Auctions</span>
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="nav-search">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+            type="text"
+            placeholder="Search anything..."
+        >
+
+        <span class="search-shortcut">⌘ K</span>
+
+    </div>
+
+
+    <div class="nav-right">
+
+  
+        <a href="sell.html" class="sell-item-btn">
+            <i class="fa-solid fa-plus"></i>
+            <span>Sell</span>
+        </a>
+
+
+        <!-- Saved -->
+        <button class="action-btn" title="Saved Items">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+
+        <!-- Notifications -->
+        <button class="action-btn notification">
+
+            <i class="fa-regular fa-bell"></i>
+
+            <span class="notification-badge">3</span>
+
+        </button>
+
+
+        <!-- User Profile -->
+        <div class="profile-dropdown">
+
+            <button class="profile-trigger" id="profileTrigger">
+
+                <div class="profile-avatar">
+                    FA
+                </div>
+
+                <div class="profile-text">
+                    <span class="profile-name">
+                        Fahiz Ahmed
+                    </span>
+
+                    <span class="profile-status">
+                        <span></span>
+                        Online
+                    </span>
+                </div>
+
+                <i class="fa-solid fa-chevron-down"></i>
+
+            </button>
+
+
+            <!-- DROPDOWN -->
+
+            <div class="dropdown-content" id="profileDropdown">
+
+                <!-- User Info -->
+                <div class="dropdown-header">
+
+                    <div class="dropdown-avatar">
+                        FA
+                    </div>
+
+                    <div>
+                        <h4>Fahiz Ahmed</h4>
+                        <p>Verified Member</p>
+                    </div>
+
+                </div>
+
+
+                <div class="dropdown-line"></div>
+
+
+                <!-- Account -->
+                <span class="dropdown-label">
+                    ACCOUNT
+                </span>
+
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    Dashboard
+                </a>
+
+                <a href="profile.html">
+                    <i class="fa-regular fa-user"></i>
+                    My Profile
+                </a>
+
+
+                <div class="dropdown-line"></div>
+
+
+                <!-- Marketplace -->
+                <span class="dropdown-label">
+                    MARKETPLACE
+                </span>
+
+                <a href="my-listings.html">
+                    <i class="fa-solid fa-box"></i>
+                    My Listings
+                </a>
+
+                <a href="orders.html">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    My Orders
+                </a>
+
+                <a href="my-bids.html">
+                    <i class="fa-solid fa-gavel"></i>
+                    My Bids
+                </a>
+
+
+                <div class="dropdown-line"></div>
+
+
+                <a href="settings.html">
+                    <i class="fa-solid fa-gear"></i>
+                    Settings
+                </a>
+
+                <a href="login.html" class="logout">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Log Out
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="container hero-container">
+
+        <div class="hero-content">
+
+            <div class="live-badge">
+                <span></span>
+                Live Auctions Happening Now
+            </div>
+
+            <h1>
+                Buy & Sell <br>
+                <span>Second-Hand</span><br>
+                with Confidence
+            </h1>
+
+            <p>
+                The premium marketplace for pre-owned goods — fixed price,
+                live auctions, AI-powered pricing, and escrow protection.
+                Shop smarter. Sell faster. Impact less.
+            </p>
+
+            <div class="search-box">
+                <input type="text" placeholder="Search for anything...">
+                <button>Search <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+
+            <div class="popular-search">
+                <span>Popular:</span>
+                <button>MacBook</button>
+                <button>iPhone</button>
+                <button>Jordan 1</button>
+                <button>PS5</button>
+                <button>Leica</button>
+            </div>
+
+        </div>
+
+
+        <!-- Hero Cards -->
+
+        <div class="hero-cards">
+
+            <div class="column-one">
+
+                <div class="mini-product card">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500">
+                    <div class="mini-info">
+                        <h4>Swiss Watch</h4>
+                        <h3>$380</h3>
+                    </div>
+                </div>
+
+                <div class="auction-mini card">
+                    <span class="auction-badge">● Live Auction</span>
+                    <h2>$1,240</h2>
+                    <p><i class="fa-regular fa-clock"></i> 01:29:45 remaining</p>
+                </div>
+
+            </div>
+
+
+            <div class="column-two">
+
+                <div class="sales-card">
+                    <p>Today's Sales</p>
+                    <h2>$48,320</h2>
+                    <span>+12.4% from yesterday</span>
+                </div>
+
+                <div class="mini-product card">
+                    <img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=500">
+                    <div class="mini-info">
+                        <h4>Sony WH-1000XM5</h4>
+                        <h3>$195</h3>
+                    </div>
+                </div>
+
+                <div class="co2-card card">
+                    <div>
+                        <i class="fa-solid fa-leaf"></i>
+                        <span>CO₂ Saved</span>
+                    </div>
+                    <h2>2.4M kg</h2>
+                    <p>This platform</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= STATS ================= -->
+
+<section class="stats">
+
+    <div class="container stats-container">
+
+        <div class="stat-box">
+            <span>📦</span>
+            <h2>142K+</h2>
+            <p>Active Listings</p>
+        </div>
+
+        <div class="stat-box">
+            <span>✅</span>
+            <h2>28K+</h2>
+            <p>Verified Sellers</p>
+        </div>
+
+        <div class="stat-box">
+            <span>🤝</span>
+            <h2>890K+</h2>
+            <p>Successful Trades</p>
+        </div>
+
+        <div class="stat-box">
+            <span>🌿</span>
+            <h2>2.4M+</h2>
+            <p>CO₂ Saved (kg)</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CATEGORIES ================= -->
+
+<section class="section" id="categories">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div>
+                <h2>Popular Categories</h2>
+                <p>Browse thousands of items across every category</p>
+            </div>
+
+            <a href="#" class="outline-btn">
+                View All <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+        </div>
+
+
+        <div class="categories-grid">
+
+            <div class="category-card">
+                <div class="category-icon blue">📱</div>
+                <h4>Electronics</h4>
+                <p>12.4K</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon pink">👗</div>
+                <h4>Fashion</h4>
+                <p>8.2K</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon green">🏠</div>
+                <h4>Home & Garden</h4>
+                <p>5.6K</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon orange">⚽</div>
+                <h4>Sports</h4>
+                <p>3.9K</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon purple">📚</div>
+                <h4>Books</h4>
+                <p>7.1K</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon red">🚗</div>
+                <h4>Vehicles</h4>
+                <p>1.8K</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon cyan">🎨</div>
+                <h4>Collectibles</h4>
+                <p>4.3K</p>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon brown">🛋️</div>
+                <h4>Furniture</h4>
+                <p>2.7K</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FEATURED PRODUCTS ================= -->
+
+<section class="section white-bg" id="products">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div>
+                <h2>Featured Products</h2>
+                <p>Hand-picked deals from verified sellers</p>
+            </div>
+
+            <a href="#" class="outline-btn">
+                Browse All <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+        </div>
+
+
+        <div class="product-grid">
+
+            <!-- Product 1 -->
+
+            <div class="product-card">
+
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600">
+                    <span>Like New</span>
+                </div>
+
+                <div class="product-info">
+
+                    <h3>Premium Swiss Watch — Tissot PR100</h3>
+
+                    <div class="price">
+                        <span>$380</span>
+                        <del>$650</del>
+                    </div>
+
+                    <div class="seller">
+                        <span>Marcus L.</span>
+                        <span class="rating">★ 4.8</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 2 -->
+
+            <div class="product-card">
+
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=600">
+                    <span>Excellent</span>
+                </div>
+
+                <div class="product-info">
+
+                    <h3>Sony WH-1000XM5 Noise Canceling Headphones</h3>
+
+                    <div class="price">
+                        <span>$195</span>
+                        <del>$380</del>
+                    </div>
+
+                    <div class="seller">
+                        <span>Priya S.</span>
+                        <span class="rating">★ 4.9</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 3 -->
+
+            <div class="product-card">
+
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=600">
+                    <span>Good</span>
+                </div>
+
+                <div class="product-info">
+
+                    <h3>MacBook Pro M2 16" — Space Gray</h3>
+
+                    <div class="price">
+                        <span>$1,650</span>
+                        <del>$2,499</del>
+                    </div>
+
+                    <div class="seller">
+                        <span>Tom K.</span>
+                        <span class="rating">★ 4.7</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 4 -->
+
+            <div class="product-card">
+
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600">
+                    <span>Like New</span>
+                </div>
+
+                <div class="product-info">
+
+                    <h3>Nike Air Jordan 1 Retro High OG</h3>
+
+                    <div class="price">
+                        <span>$240</span>
+                        <del>$340</del>
+                    </div>
+
+                    <div class="seller">
+                        <span>Zara M.</span>
+                        <span class="rating">★ 5.0</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= LIVE AUCTIONS ================= -->
+
+<section class="section" id="auctions">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div>
+                <h2>
+                    Live Auctions
+                    <span class="live-small">● Live</span>
+                </h2>
+
+                <p>Bid now before time runs out</p>
+            </div>
+
+            <a href="#" class="outline-btn">
+                View All Auctions <i class="fa-solid fa-chevron-right"></i>
+            </a>
+
+        </div>
+
+
+        <div class="auction-grid">
+
+            <div class="auction-card">
+
+                <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=700">
+
+                <div class="auction-content">
+
+                    <span class="live-label">● LIVE</span>
+
+                    <h3>Vintage Leica M6 Film Camera</h3>
+
+                    <div class="auction-price">
+                        <span>Current Bid</span>
+                        <h2>$1,240</h2>
+                    </div>
+
+                    <div class="auction-bottom">
+                        <span>18 bidders</span>
+                        <span>⏱ 01:30:00</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="auction-card">
+
+                <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=700">
+
+                <div class="auction-content">
+
+                    <span class="live-label">● LIVE</span>
+
+                    <h3>Apple Watch Ultra 2 Titanium</h3>
+
+                    <div class="auction-price">
+                        <span>Current Bid</span>
+                        <h2>$680</h2>
+                    </div>
+
+                    <div class="auction-bottom">
+                        <span>31 bidders</span>
+                        <span>⏱ 00:35:00</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="auction-card">
+
+                <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=700">
+
+                <div class="auction-content">
+
+                    <span class="live-label">● LIVE</span>
+
+                    <h3>Bose QuietComfort 45 Bundle</h3>
+
+                    <div class="auction-price">
+                        <span>Current Bid</span>
+                        <h2>$195</h2>
+                    </div>
+
+                    <div class="auction-bottom">
+                        <span>9 bidders</span>
+                        <span>⏱ 00:15:00</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= HOW IT WORKS ================= -->
+
+<section class="how-section" id="how">
+
+    <div class="container">
+
+        <div class="center-heading">
+            <h2>How ReTrade Works</h2>
+            <p>
+                From listing to delivery in 4 simple steps —
+                secure, fast, and transparent.
+            </p>
+        </div>
+
+
+        <div class="steps-grid">
+
+            <div class="step-card">
+                <div class="step-icon">📸</div>
+                <span>01</span>
+                <h3>List Your Item</h3>
+                <p>
+                    Snap photos, fill in the details, set your price
+                    or start an auction.
+                </p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-icon">🔍</div>
+                <span>02</span>
+                <h3>Buyers Discover</h3>
+                <p>
+                    Your item is shown to thousands of relevant buyers
+                    through smart recommendations.
+                </p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-icon">💰</div>
+                <span>03</span>
+                <h3>Secure Payment</h3>
+                <p>
+                    Funds go into escrow, protecting both buyer
+                    and seller throughout the process.
+                </p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-icon">📦</div>
+                <span>04</span>
+                <h3>Fast Delivery</h3>
+                <p>
+                    Our delivery network ensures quick,
+                    trackable and secure delivery.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ENVIRONMENT ================= -->
+
+<section class="section impact-section">
+
+    <div class="container impact-container">
+
+        <div class="impact-content">
+
+            <div class="environment-tag">
+                <i class="fa-solid fa-leaf"></i>
+                Environmental Impact
+            </div>
+
+            <h2>
+                Shopping Second-Hand<br>
+                Saves the Planet
+            </h2>
+
+            <p>
+                Every item re-traded instead of discarded reduces carbon
+                emissions, electronic waste, and resource consumption.
+                ReTrade tracks your personal environmental impact.
+            </p>
+
+
+            <div class="impact-stats">
+
+                <div>
+                    <span>🌿</span>
+                    <h3>2.4M kg</h3>
+                    <p>CO₂ Saved</p>
+                </div>
+
+                <div>
+                    <span>🔋</span>
+                    <h3>780K kg</h3>
+                    <p>E-Waste Reduced</p>
+                </div>
+
+                <div>
+                    <span>💧</span>
+                    <h3>1.2B L</h3>
+                    <p>Water Saved</p>
+                </div>
+
+                <div>
+                    <span>🌳</span>
+                    <h3>114K</h3>
+                    <p>Trees Equivalent</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="impact-image">
+
+            <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=900">
+
+            <div class="impact-floating">
+                <p>Your CO₂ Impact Today</p>
+                <h2>-12.4 kg</h2>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= TESTIMONIALS ================= -->
+
+<section class="section white-bg">
+
+    <div class="container">
+
+        <div class="center-heading dark">
+            <h2>Loved by Thousands</h2>
+            <p>Real stories from our community</p>
+        </div>
+
+
+        <div class="testimonial-grid">
+
+            <div class="testimonial-card">
+
+                <div class="stars">★★★★★</div>
+
+                <p>
+                    "ReTrade completely changed how I shop. Found my dream
+                    camera for 60% less than retail, and the escrow system
+                    made me feel totally safe."
+                </p>
+
+                <div class="user">
+
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100">
+
+                    <div>
+                        <h4>Sarah Chen</h4>
+                        <span>Regular Buyer</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="testimonial-card">
+
+                <div class="stars">★★★★★</div>
+
+                <p>
+                    "I've sold over 200 items here. The AI pricing tool is
+                    spot-on, and the auction system helps me get top dollar
+                    for rare finds."
+                </p>
+
+                <div class="user">
+
+                    <img src="https://images.unsplash.com/photo-1507003211169-0c6d3fc62b89?w=100">
+
+                    <div>
+                        <h4>James Okoro</h4>
+                        <span>Power Seller</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="testimonial-card">
+
+                <div class="stars">★★★★★</div>
+
+                <p>
+                    "The live auction feature is addictive! Anti-sniping is
+                    a game-changer — no more losing items at the last
+                    second."
+                </p>
+
+                <div class="user">
+
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100">
+
+                    <div>
+                        <h4>Nina Patel</h4>
+                        <span>Collector</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FAQ ================= -->
+
+<section class="faq-section">
+
+    <div class="container faq-container">
+
+        <div class="center-heading dark">
+            <h2>Frequently Asked Questions</h2>
+            <p>Everything you need to know about ReTrade</p>
+        </div>
+
+
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <h3>How does the escrow payment work?</h3>
+                <p>
+                    When you buy an item, payment is held securely in escrow.
+                    The seller only receives funds after delivery is confirmed.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <h3>What happens if I win an auction?</h3>
+                <p>
+                    You'll receive an instant notification and have 24 hours
+                    to complete payment.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How is the seller trust score calculated?</h3>
+                <p>
+                    Trust scores are based on successful deliveries, ratings,
+                    cancellation rates, response time and verification status.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Can I sell internationally?</h3>
+                <p>
+                    Currently we support domestic sales with international
+                    shipping planned for the future.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="cta-banner">
+
+            <h2>Ready to Start Trading?</h2>
+
+            <p>
+                Join 28,000+ verified sellers and 450,000+
+                active buyers on ReTrade today.
+            </p>
+
+            <div class="cta-buttons">
+                <a href="#" class="cta-outline">Create Free Account</a>
+                <a href="#" class="cta-primary">
+                    Browse Marketplace
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div class="footer-brand">
+
+                <div class="logo footer-logo">
+                    <div class="logo-icon">R</div>
+                    <span>ReTrade</span>
+                </div>
+
+                <p>
+                    The premium second-hand marketplace for conscious
+                    shoppers and savvy sellers.
+                </p>
+
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-google"></i></a>
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+
+            </div>
+
+
+            <div class="footer-column">
+                <h4>Marketplace</h4>
+                <a href="#">Browse All</a>
+                <a href="#">Auctions</a>
+                <a href="#">New Arrivals</a>
+                <a href="#">Ending Soon</a>
+            </div>
+
+
+            <div class="footer-column">
+                <h4>Sell</h4>
+                <a href="#">Create Listing</a>
+                <a href="#">Seller Dashboard</a>
+                <a href="#">Pricing Guide</a>
+                <a href="#">Seller FAQ</a>
+            </div>
+
+
+            <div class="footer-column">
+                <h4>Company</h4>
+                <a href="#">About Us</a>
+                <a href="#">Careers</a>
+                <a href="#">Blog</a>
+                <a href="#">Press</a>
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>© 2026 ReTrade. All rights reserved.</p>
+
+            <div>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<script>
+    const profileTrigger = document.getElementById("profileTrigger");
+    const profileDropdown = document.getElementById("profileDropdown");
+
+    profileTrigger.addEventListener("click", function (event) {
+        event.stopPropagation();
+
+        profileDropdown.classList.toggle("show");
+    });
+
+    document.addEventListener("click", function (event) {
+
+        if (!profileTrigger.contains(event.target) &&
+            !profileDropdown.contains(event.target)) {
+
+            profileDropdown.classList.remove("show");
+        }
+    });
+</script>
+
+</body>
+</html>
