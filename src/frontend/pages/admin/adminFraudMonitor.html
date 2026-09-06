@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReTrade - Fraud Monitor</title>
+<link rel="stylesheet" href="../../assets/css/admin.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="page">
+<aside class="sidebar">
+<div class="brand"><div class="brand-icon">R</div><span class="brand-name">ReTrade</span><span class="admin-badge">Admin</span></div>
+<div class="profile"><div class="avatar-admin">AU</div><div class="profile-info"><strong>Admin</strong><span>Super Admin</span></div></div>
+<nav class="nav">
+<a href="adminOverview.html" class="nav-item"><span class="nav-icon">⌁</span><span>Overview</span></a>
+<a href="adminSeller.html" class="nav-item"><span class="nav-icon">♙</span><span>Sellers</span><span class="badge">3</span></a>
+<a href="adminListing.html" class="nav-item"><span class="nav-icon">▱</span><span>Listings</span><span class="badge">12</span></a>
+<a href="adminAuction.html" class="nav-item"><span class="nav-icon">♧</span><span>Auctions</span></a>
+<a href="adminAnalytics.html" class="nav-item"><span class="nav-icon">▥</span><span>Analytics</span></a>
+<a href="adminFraudMonitor.html" class="nav-item active"><span class="nav-icon">△</span><span>Fraud Monitor</span><span class="badge">2</span></a>
+<a href="adminWalletCommission.html" class="nav-item"><span class="nav-icon">$</span><span>Wallet &amp; Commission</span></a>
+<a href="adminDeliveries.html" class="nav-item"><span class="nav-icon">▱</span><span>Deliveries</span></a>
+<a href="adminNotifications.html" class="nav-item"><span class="nav-icon">♧</span><span>Notifications</span></a>
+<a href="adminSystemSettings.html" class="nav-item"><span class="nav-icon">⚙</span><span>System Settings</span></a>
+<a href="../landing.html" class="nav-item back-site"><span class="nav-icon">◀</span><span>Back to Site</span></a>
+</nav>
+</aside>
+<main class="main">
+<header class="header">
+<div><h1>Fraud Monitor</h1><p>Platform overview · July 2025</p></div>
+<div class="actions"><button class="btn">Export CSV</button><button class="btn btn-primary">Generate PDF</button></div>
+</header>
+<section class="alert">
+<div class="alert-message"><span class="alert-icon">⚠</span><span>2 suspicious activities need review</span></div>
+<button class="review-btn">Review All</button>
+</section>
+<section class="sellers-card">
+<h2 class="card-title">Security Alerts</h2>
+<div class="seller-list">
+<div class="seller-row"><div class="seller-left"><div class="seller-avatar avatar-1" style="background: linear-gradient(135deg, #7e0a0a, #f26363);">F1</div><div class="seller-details"><h3>Chargeback Pattern</h3><p>2 users flagged across 4 transactions · Risk score: 82</p></div></div><button class="view-btn">Investigate</button></div>
+<div class="seller-row"><div class="seller-left"><div class="seller-avatar avatar-2" style="background: linear-gradient(135deg, #0c860a, #535c5c);">F2</div><div class="seller-details"><h3>Seller Identity Check</h3><p>Incomplete KYC for 1 account · Action required</p></div></div><button class="view-btn">Review</button></div>
+<div class="seller-row"><div class="seller-left"><div class="seller-avatar avatar-1" style="background: linear-gradient(135deg, #710909, #c03131);">F3</div><div class="seller-details"><h3>Unusual Activity</h3><p>2 users flagged across 4 transactions · Risk score: 82</p></div></div><button class="view-btn">Investigate</button></div>
+<div class="seller-row"><div class="seller-left"><div class="seller-avatar avatar-2" style="background: linear-gradient(135deg, #e65858, #535c5c);">F4</div><div class="seller-details"><h3>High-Risk Transaction</h3><p>1 transaction flagged for review · Risk score: 95</p></div></div><button class="view-btn">Review</button></div>
+
+</div>
+</section>
+</main>
+</div>
+</body>
+</html>

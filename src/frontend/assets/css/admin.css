@@ -394,3 +394,865 @@ button{font-family:inherit;cursor:pointer}
 .view-btn:hover{background:#f0f5fb}
 @media(max-width:800px){.sidebar{width:160px}.main{margin-left:160px;width:calc(100% - 160px)}}
 @media(max-width:600px){.sidebar{display:none}.main{margin-left:0;width:100%;padding:16px}.header{flex-direction:column;gap:12px}.actions{width:100%}.btn{flex:1}}
+
+/* ================= LISTINGS PAGE ================= */
+
+.seller-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #f1f3f5;
+}
+
+.seller-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.view-btn {
+    margin-left: auto;
+    height: 28px;
+    min-width: 61px;
+    border: 1px solid #dce3ec;
+    background: #fff;
+    color: #27344a;
+    border-radius: 10px;
+    font-size: 8px;
+    font-weight: 700;
+    padding: 0 12px;
+}
+
+/* ================= AUCTIONS PAGE ================= */
+
+.auction-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.auction-stat {
+    min-height: 146px;
+    padding: 20px 22px;
+    background: #fff;
+    border: 1px solid #e1e7ef;
+    border-radius: 14px;
+    box-shadow: 0 2px 5px rgba(25, 40, 65, .05);
+}
+
+.auction-stat-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.auction-stat-icon.orange {
+    background: #fff5e3;
+    color: #f3a000;
+}
+
+.auction-stat-icon.green {
+    background: #e8f9f4;
+    color: #14b989;
+}
+
+.auction-stat h2 {
+    font-size: 25px;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.auction-stat p {
+    color: #78869c;
+    font-size: 13px;
+}
+
+
+
+.auction-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.auction-card {
+    min-height: 158px;
+    background: #fff;
+    border: 1px solid #e1e7ef;
+    border-radius: 14px;
+    box-shadow: 0 2px 5px rgba(25, 40, 65, .05);
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+
+.auction-product-image {
+    width: 75px;
+    height: 75px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #eef0f2;
+    flex-shrink: 0;
+    margin-bottom: 30px;
+}
+
+.auction-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+
+.auction-info {
+    align-self: flex-start;
+    padding-top: 4px;
+}
+
+.auction-info h3 {
+    font-size: 17px;
+    margin-bottom: 12px;
+    font-weight: 800;
+}
+
+.auction-values {
+    display: flex;
+    gap: 22px;
+}
+
+.auction-value label {
+    display: block;
+    color: #78869c;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.auction-value strong {
+    font-size: 16px;
+}
+
+.auction-value.current strong {
+    color: #ef4549;
+}
+
+
+.auction-actions {
+    margin-left: auto;
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.auction-pill {
+    height: 28px;
+    padding: 0 12px;
+    border-radius: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 11px;
+    font-weight: 700;
+    font-family: inherit;
+
+    border: none;
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.auction-pill:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+.auction-pill:active {
+    transform: translateY(0);
+}
+
+
+.pill-review,
+.pill-pause {
+    background: #a7f0d6;
+    color: #11664e;
+}
+
+.pill-outbid,
+.pill-live {
+    background: #fff0f1;
+    color: #ed454b;
+}
+
+.pill-stop {
+    background: #ed4545;
+    color: #fff;
+}
+
+.rebid-btn {
+    display: block;
+    margin-top: 13px;
+    height: 32px;
+    padding: 0 14px;
+
+    border: 0;
+    border-radius: 16px;
+
+    background: #ef4549;
+    color: #fff;
+
+    font-size: 11px;
+    font-weight: 700;
+    font-family: inherit;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.rebid-btn:hover {
+    background: #d9363e;
+    transform: translateY(-1px);
+}
+
+.rebid-btn:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 800px) {
+
+    .auction-card {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .auction-actions {
+        width: 100%;
+        margin-left: 93px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .auction-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .auction-card {
+        flex-direction: column;
+    }
+
+    .auction-actions {
+        margin-left: 0;
+        align-self: flex-start;
+    }
+
+    .auction-values {
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+}
+
+/*======== analytics page ========*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter, Arial, sans-serif;
+    background: #f7f9fc;
+    color: #111a2d;
+}
+
+.analytics-page {
+    min-height: 100vh;
+    padding: 28px 32px 70px;
+}
+
+.stats{
+    margin-top: 20px;
+}
+/* Header */
+
+.analytics-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.analytics-header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.analytics-header p {
+    color: #71809b;
+    font-size: 17px;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.header-buttons button {
+    height: 48px;
+    padding: 0 22px;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.export-btn {
+    background: #fff;
+    color: #111a2d;
+    border: 1px solid #dce3ed;
+    box-shadow: 0 2px 5px rgba(20,40,70,.06);
+}
+
+.pdf-btn {
+    background: #4d8fe7;
+    color: #fff;
+    border: 1px solid #4d8fe7;
+}
+
+/* Chart */
+
+.chart-card {
+    background: #fff;
+    border: 1px solid #dfe6ef;
+    border-radius: 18px;
+    padding: 28px 28px 20px;
+    box-shadow: 0 2px 5px rgba(25,40,65,.05);
+    margin-bottom: 34px;
+}
+
+.chart-card h2 {
+    font-size: 21px;
+    margin-bottom: 24px;
+}
+
+.chart-area {
+    display: flex;
+    width: 100%;
+    height: 300px;
+}
+
+.y-axis {
+    width: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-right: 10px;
+    padding-bottom: 30px;
+    text-align: right;
+    color: #91a3be;
+    font-size: 14px;
+}
+
+.graph {
+    position: relative;
+    flex: 1;
+    height: 100%;
+    padding-bottom: 30px;
+}
+
+.horizontal-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 1px dashed #e7edf4;
+}
+
+.l1 { top: 0; }
+.l2 { top: 25%; }
+.l3 { top: 50%; }
+.l4 { top: 75%; }
+.l5 { top: 100%; }
+
+.vertical-line {
+    position: absolute;
+    top: 0;
+    bottom: 30px;
+    border-left: 1px dashed #e7edf4;
+}
+
+.v1 { left: 0%; }
+.v2 { left: 16.66%; }
+.v3 { left: 33.33%; }
+.v4 { left: 50%; }
+.v5 { left: 66.66%; }
+.v6 { left: 83.33%; }
+.v7 { left: 100%; }
+
+.chart-svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: calc(100% - 30px);
+    overflow: visible;
+}
+
+.revenue-line {
+    fill: none;
+    stroke: #4d8fe7;
+    stroke-width: 4;
+    stroke-linecap: round;
+}
+
+.commission-line {
+    fill: none;
+    stroke: #12b981;
+    stroke-width: 4;
+    stroke-linecap: round;
+}
+
+.blue-points {
+    fill: #4d8fe7;
+}
+
+.green-points {
+    fill: #12b981;
+}
+
+.months {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    color: #91a3be;
+    font-size: 14px;
+}
+
+/* Statistics */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+.stat-card {
+    background: #fff;
+    border: 1px solid #dfe6ef;
+    border-radius: 18px;
+    min-height: 148px;
+    padding: 23px 24px;
+    box-shadow: 0 2px 5px rgba(25,40,65,.05);
+}
+
+.stat-card p {
+    color: #71809b;
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.stat-card h2 {
+    font-size: 34px;
+    line-height: 1;
+    margin-bottom: 9px;
+    font-weight: 800;
+}
+
+.stat-card span {
+    color: #12b981;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* Responsive */
+
+@media (max-width: 800px) {
+    .analytics-page {
+        padding: 20px 16px 40px;
+    }
+
+    .analytics-header {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .header-buttons {
+        width: 100%;
+    }
+
+    .header-buttons button {
+        flex: 1;
+    }
+}
+
+@media (max-width: 500px) {
+    .analytics-header h1 {
+        font-size: 27px;
+    }
+
+    .analytics-header p {
+        font-size: 14px;
+    }
+
+    .chart-card {
+        padding: 22px 15px 18px;
+    }
+
+    .chart-card h2 {
+        font-size: 17px;
+    }
+
+    .chart-area {
+        height: 240px;
+    }
+
+    .y-axis {
+        width: 52px;
+        font-size: 11px;
+    }
+
+    .stat-card h2 {
+        font-size: 29px;
+    }
+}
+
+
+/* ================= COMMISSION SETTINGS ================= */
+
+.card-commission {
+    background: #ffffff;
+    border: 1px solid #dfe6ef;
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(25, 40, 65, 0.05);
+}
+
+
+/* Header */
+
+.commission-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.commission-header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 800;
+    color: #111a2d;
+}
+
+
+/* Save Button */
+
+.savebtn {
+    background: #ffffff;
+    border: 1px solid #dce3ed;
+    border-radius: 25px;
+    padding: 11px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #111a2d;
+    cursor: pointer;
+
+    box-shadow: 0 2px 5px rgba(20, 40, 70, 0.06);
+}
+
+.savebtn:hover {
+    background: #f5f7fa;
+}
+
+
+/* Commission Grid */
+
+.commission-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+
+/* Individual Box */
+
+.commission-box {
+    background: #f7f9fc;
+    border-radius: 17px;
+    padding: 20px 18px;
+    min-height: 108px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+/* Label */
+
+.commission-box label {
+    color: #637895;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+
+/* Value */
+
+.commission-box strong {
+    color: #111a2d;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+
+/* Responsive */
+
+@media (max-width: 800px) {
+
+    .commission-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .card-commission {
+        padding: 20px;
+    }
+
+    .commission-header h1 {
+        font-size: 21px;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .commission-header {
+        align-items: flex-start;
+        gap: 15px;
+        flex-direction: column;
+    }
+
+    .savebtn {
+        width: 100%;
+    }
+
+}
+
+/* 
+   RECENT SYSTEM MESSAGES
+*/
+
+.messages-card {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #dfe6ef;
+    border-radius: 20px;
+    padding: 14px 12px;
+    box-shadow: 0 2px 5px rgba(25, 40, 65, 0.05);
+}
+
+
+/* Message Row */
+
+.message-row {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    min-height: 92px;
+
+    padding: 12px 18px;
+
+    border-radius: 16px;
+
+    background: #ffffff;
+}
+
+
+/* Unread Messages */
+
+.message-row.unread {
+    background: #eef6ff;
+}
+
+
+/* Icon */
+
+.message-icon {
+    width: 54px;
+    height: 54px;
+
+    flex-shrink: 0;
+
+    border-radius: 17px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+
+    margin-right: 18px;
+}
+
+
+/* Icon Backgrounds */
+
+.message-icon.critical {
+    background: #f4e8f0;
+}
+
+.message-icon.success {
+    background: #dff4f3;
+}
+
+.message-icon.revenue {
+    background: #edf3ff;
+}
+
+.message-icon.listing {
+    background: #fff4e4;
+}
+
+
+/* Message Content */
+
+.message-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.message-content h3 {
+    margin: 0 0 6px;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    color: #111a2d;
+}
+
+.message-content p {
+    margin: 0;
+
+    font-size: 12px;
+    line-height: 1.4;
+
+    color: #637895;
+}
+
+
+/* Time */
+
+.message-time {
+    width: 75px;
+
+    align-self: flex-start;
+
+    padding-top: 9px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    color: #91a3be;
+
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+
+/* Unread Dot */
+
+.message-time i {
+    width: 12px;
+    height: 12px;
+
+    display: block;
+
+    margin-top: 8px;
+
+    border-radius: 50%;
+
+    background: #4d8fe7;
+}
+
+
+/* Responsive */
+
+@media (max-width: 800px) {
+
+    .message-row {
+        min-height: 80px;
+        padding: 10px;
+    }
+
+    .message-icon {
+        width: 45px;
+        height: 45px;
+
+        margin-right: 12px;
+
+        font-size: 20px;
+    }
+
+    .message-content h3 {
+        font-size: 16px;
+    }
+
+    .message-content p {
+        font-size: 14px;
+    }
+
+    .message-time {
+        width: 60px;
+        font-size: 12px;
+    }
+}
+
+
+@media (max-width: 550px) {
+
+    .message-row {
+        align-items: flex-start;
+    }
+
+    .message-content p {
+        font-size: 13px;
+    }
+
+    .message-time {
+        width: auto;
+        margin-left: 8px;
+    }
+
+    .message-time i {
+        width: 9px;
+        height: 9px;
+    }
+
+}

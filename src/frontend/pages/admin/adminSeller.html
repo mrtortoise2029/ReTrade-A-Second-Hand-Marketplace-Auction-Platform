@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReTrade - Sellers</title>
+<link rel="stylesheet" href="../../assets/css/admin.css">
+
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="page">
+<aside class="sidebar">
+<div class="brand"><div class="brand-icon">R</div><span class="brand-name">ReTrade</span><span class="admin-badge">Admin</span></div>
+<div class="profile"><div class="avatar-admin">AU</div><div class="profile-info"><strong>Admin</strong><span>Super Admin</span></div></div>
+<nav class="nav">
+<a href="adminOverview.html" class="nav-item"><span class="nav-icon">⌁</span><span>Overview</span></a>
+<a href="adminSeller.html" class="nav-item active"><span class="nav-icon">♙</span><span>Sellers</span><span class="badge">3</span></a>
+<a href="adminListing.html" class="nav-item"><span class="nav-icon">▱</span><span>Listings</span><span class="badge">12</span></a>
+<a href="adminAuction.html" class="nav-item"><span class="nav-icon">♧</span><span>Auctions</span></a>
+<a href="adminAnalytics.html" class="nav-item"><span class="nav-icon">▥</span><span>Analytics</span></a>
+<a href="adminFraudMonitor.html" class="nav-item"><span class="nav-icon">△</span><span>Fraud Monitor</span><span class="badge">2</span></a>
+<a href="adminWalletCommission.html" class="nav-item"><span class="nav-icon">$</span><span>Wallet &amp; Commission</span></a>
+<a href="adminDeliveries.html" class="nav-item"><span class="nav-icon">▱</span><span>Deliveries</span></a>
+<a href="adminNotifications.html" class="nav-item"><span class="nav-icon">♧</span><span>Notifications</span></a>
+<a href="adminSystemSettings.html" class="nav-item"><span class="nav-icon">⚙</span><span>System Settings</span></a>
+<a href="../landing.html" class="nav-item back-site"><span class="nav-icon">◀</span><span>Back to Site</span></a>
+</nav>
+</aside>
+<main class="main">
+<header class="header">
+<div><h1>Sellers</h1><p>Platform overview · July 2025</p></div>
+<div class="actions"><button class="btn">Export CSV</button><button class="btn btn-primary">Generate PDF</button></div>
+</header>
+<section class="alert">
+<div class="alert-message"><span class="alert-icon">⚠</span><span>3 sellers pending approval</span></div>
+<button class="review-btn" onclick="reviewAll()">Review All</button>
+</section>
+<section class="sellers-card">
+<h2 class="card-title">Pending Seller Applications</h2>
+<div class="seller-list">
+<div class="seller-row"><div class="seller-left"><div class="seller-avatar avatar-1" style="background: linear-gradient(135deg, #6d8494, #d6b59c);">AK</div><div class="seller-details"><h3>Aria Kim</h3><p>aria@email.com · Applied Jul 24 · Docs: 3/3</p></div></div><button class="view-btn" onclick="viewSeller('Aria Kim')">◉ &nbsp;View</button></div>
+<div class="seller-row"><div class="seller-left"><div class="seller-avatar avatar-2" style="background: linear-gradient(135deg, #9c9d98, #535c5c);">DP</div><div class="seller-details"><h3>Dev Patel</h3><p>dev@email.com · Applied Jul 23 · Docs: 3/3</p></div></div><button class="view-btn" onclick="viewSeller('Dev Patel')">◉ &nbsp;View</button></div>
+<div class="seller-row"><div class="seller-left"><div class="seller-avatar avatar-3" style="background: linear-gradient(135deg, #7e2533, #e06b79);">LW</div><div class="seller-details"><h3>Lucy Wang</h3><p>lucy@email.com · Applied Jul 22 · Docs: 2/3</p></div></div><button class="view-btn" onclick="viewSeller('Lucy Wang')">◉ &nbsp;View</button></div>
+</div>
+</section>
+</main>
+</div>
+<script>
+function viewSeller(name){alert("Opening seller application for " + name);}
+function reviewAll(){alert("Opening all pending seller applications.");}
+</script>
+</body>
+</html>

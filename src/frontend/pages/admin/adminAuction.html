@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReTrade - Auctions</title>
+<link rel="stylesheet" href="../../assets/css/admin.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="page">
+<aside class="sidebar">
+<div class="brand"><div class="brand-icon">R</div><span class="brand-name">ReTrade</span><span class="admin-badge">Admin</span></div>
+<div class="profile"><div class="avatar-admin">AU</div><div class="profile-info"><strong>Admin</strong><span>Super Admin</span></div></div>
+<nav class="nav">
+<a href="adminOverview.html" class="nav-item"><span class="nav-icon">⌁</span><span>Overview</span></a>
+<a href="adminSeller.html" class="nav-item"><span class="nav-icon">♙</span><span>Sellers</span><span class="badge">3</span></a>
+<a href="adminListing.html" class="nav-item"><span class="nav-icon">▱</span><span>Listings</span><span class="badge">12</span></a>
+<a href="adminAuction.html" class="nav-item active"><span class="nav-icon">♧</span><span>Auctions</span><span class="badge">12</span></a>
+<a href="adminAnalytics.html" class="nav-item"><span class="nav-icon">▥</span><span>Analytics</span></a>
+<a href="adminFraudMonitor.html" class="nav-item"><span class="nav-icon">△</span><span>Fraud Monitor</span><span class="badge">2</span></a>
+<a href="adminWalletCommission.html" class="nav-item"><span class="nav-icon">$</span><span>Wallet &amp; Commission</span></a>
+<a href="adminDeliveries.html" class="nav-item"><span class="nav-icon">▱</span><span>Deliveries</span></a>
+<a href="adminNotifications.html" class="nav-item"><span class="nav-icon">♧</span><span>Notifications</span></a>
+<a href="adminSystemSettings.html" class="nav-item"><span class="nav-icon">⚙</span><span>System Settings</span></a>
+<a href="../landing.html" class="nav-item back-site"><span class="nav-icon">◀</span><span>Back to Site</span></a>
+</nav>
+</aside>
+<main class="main">
+<header class="header"><div><h1>Auctions</h1><p>Platform overview · July 2025</p></div><div class="actions"><button class="btn">Export CSV</button><button class="btn btn-primary">Generate PDF</button></div></header>
+<section class="auction-stats">
+<div class="auction-stat"><div class="auction-stat-icon orange">♙</div><h2>3</h2><p>Active Bids</p></div>
+<div class="auction-stat"><div class="auction-stat-icon green">♙</div><h2>8</h2><p>Won</p></div>
+</section>
+<section class="auction-list">
+
+    <div class="auction-card">
+        <div class="auction-product-image">
+            <img src="../../assets/images/apple.png" alt="Tissot PR100 Watch">
+        </div>
+
+        <div class="auction-info">
+            <h3>Tissot PR100 Watch</h3>
+
+            <div class="auction-values">
+                <div class="auction-value">
+                    <label>Your Bid</label>
+                    <strong>$1,200</strong>
+                </div>
+
+                <div class="auction-value current">
+                    <label>Current</label>
+                    <strong>$1,240</strong>
+                </div>
+
+                <div class="auction-value">
+                    <label>Ends in</label>
+                    <strong>1h 29m 55s</strong>
+                </div>
+            </div>
+
+            <button class="rebid-btn" onclick="rebid('Tissot PR100 Watch')">
+                Re-bid Now
+            </button>
+        </div>
+
+        <div class="auction-actions">
+            <button class="auction-pill pill-review">Review</button>
+            <button class="auction-pill pill-outbid">Outbid</button>
+        </div>
+    </div>
+
+
+
+    <div class="auction-card">
+        <div class="auction-product-image">
+            <img src="../../assets/images/camera.png" alt="Leica M6 Film Camera">
+        </div>
+
+        <div class="auction-info">
+            <h3>Leica M6 Film Camera</h3>
+
+            <div class="auction-values">
+                <div class="auction-value">
+                    <label>Your Bid</label>
+                    <strong>$1,680</strong>
+                </div>
+
+                <div class="auction-value current">
+                    <label>Current</label>
+                    <strong>$1,680</strong>
+                </div>
+
+                <div class="auction-value">
+                    <label>Ends in</label>
+                    <strong>3h 59m 55s</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="auction-actions">
+            <button class="auction-pill pill-pause" onclick="pauseAuction()">
+                ●&nbsp; Pause
+            </button>
+
+            <button class="auction-pill pill-stop" onclick="stopAuction()">
+                ●&nbsp; Stop
+            </button>
+
+            <button class="auction-pill pill-live" onclick="liveAuction()">
+                ●&nbsp; Live
+            </button>
+        </div>
+    </div>
+
+</section>
+</main>
+</div>
+<script>function rebid(product){alert("Re-bid option selected for " + product);}</script>
+</body>
+</html>

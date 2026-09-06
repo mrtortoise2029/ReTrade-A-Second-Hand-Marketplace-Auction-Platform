@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReTrade - Analytics</title>
+<link rel="stylesheet" href="../../assets/css/admin.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="page">
+<aside class="sidebar">
+<div class="brand"><div class="brand-icon">R</div><span class="brand-name">ReTrade</span><span class="admin-badge">Admin</span></div>
+<div class="profile"><div class="avatar-admin">AU</div><div class="profile-info"><strong>Admin</strong><span>Super Admin</span></div></div>
+<nav class="nav">
+<a href="adminOverview.html" class="nav-item"><span class="nav-icon">⌁</span><span>Overview</span></a>
+<a href="adminSeller.html" class="nav-item"><span class="nav-icon">♙</span><span>Sellers</span><span class="badge">3</span></a>
+<a href="adminListing.html" class="nav-item"><span class="nav-icon">▱</span><span>Listings</span><span class="badge">12</span></a>
+<a href="adminAuction.html" class="nav-item"><span class="nav-icon">♧</span><span>Auctions</span></a>
+<a href="adminAnalytics.html" class="nav-item active"><span class="nav-icon">▥</span><span>Analytics</span></a>
+<a href="adminFraudMonitor.html" class="nav-item"><span class="nav-icon">△</span><span>Fraud Monitor</span><span class="badge">2</span></a>
+<a href="adminWalletCommission.html" class="nav-item"><span class="nav-icon">$</span><span>Wallet &amp; Commission</span></a>
+<a href="adminDeliveries.html" class="nav-item"><span class="nav-icon">▱</span><span>Deliveries</span></a>
+<a href="adminNotifications.html" class="nav-item"><span class="nav-icon">♧</span><span>Notifications</span></a>
+<a href="adminSystemSettings.html" class="nav-item"><span class="nav-icon">⚙</span><span>System Settings</span></a>
+<a href="../landing.html" class="nav-item back-site"><span class="nav-icon">◀</span><span>Back to Site</span></a>
+</nav>
+</aside>
+<main class="main">
+<header class="header">
+<div><h1>Analytics</h1><p>Platform overview · July 2025</p></div>
+<div class="actions"><button class="btn">Export CSV</button><button class="btn btn-primary">Generate PDF</button></div>
+</header>
+
+<section class="card revenue">
+<div class="card-title">Platform Revenue Trends</div>
+<div class="chart">
+<div class="y-labels"><span>100000</span><span>75000</span><span>50000</span><span>25000</span><span>0</span></div>
+<div class="grid-lines"></div>
+<svg class="line-svg" viewBox="0 0 700 125" preserveAspectRatio="none">
+<path d="M0 88 C80 60,150 65,220 70 S360 84,420 58 S560 35,700 28 L700 125 L0 125 Z" fill="url(#area)"/>
+<path d="M0 88 C80 60,150 65,220 70 S360 84,420 58 S560 35,700 28" fill="none" stroke="#4d8fe7" stroke-width="2"/>
+</svg>
+<div class="x-labels"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span></div>
+</div>
+</section>
+
+<section class="stats">
+<div class="card stat"><div class="stat-icon blue">▥</div><span class="growth">▲ 12.4%</span><h2>92.4K</h2><p>Monthly Visitors</p><small>+16K vs last month</small></div>
+<div class="card stat"><div class="stat-icon green">♙</div><span class="growth">▲ 9.3%</span><h2>68%</h2><p>Conversion Rate</p><small>Marketplace efficiency</small></div>
+<div class="card stat"><div class="stat-icon orange">▱</div><span class="growth">▲ 5.5%</span><h2>31.2K</h2><p>Orders</p><small>Avg. 2.4 items/order</small></div>
+<div class="card stat"><div class="stat-icon red">◇</div><h2>1.7s</h2><p>Avg. Load Time</p><small>Fast checkout speed</small></div>
+</section>
+</main>
+</div>
+</body>
+</html>

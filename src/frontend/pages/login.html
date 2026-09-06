@@ -242,15 +242,15 @@
         // Prevent normal form submission
         event.preventDefault();
 
-
+        // Get input values
         const email = document.getElementById("email").value.trim().toLowerCase();
         const password = document.getElementById("password").value;
 
-       
+        // Demo credentials
         const USER_EMAIL = "user@retrade.com";
         const ADMIN_EMAIL = "admin@retrade.com";
 
-  
+        // Check User
         if (email === USER_EMAIL) {
 
 
@@ -258,7 +258,7 @@
             localStorage.setItem("userEmail", email);
 
          
-            window.location.href = "landing.html";
+            window.location.href = "landingwithlogin.html";
 
         }
 
@@ -270,7 +270,7 @@
             localStorage.setItem("userEmail", email);
 
             
-            window.location.href = "adminOverview.html";
+            window.location.href = "admin/adminOverview.html";
 
         }
 
