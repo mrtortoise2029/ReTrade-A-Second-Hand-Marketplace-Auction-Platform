@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ReTrade - Product View</title>
+
+    <link rel="stylesheet" href="../assets/css/productView.css">
+    <script src="../assets/js/productview.js" defer></script>
+</head>
+
+<body>
+
+    <!-- Top -->
+    <div class="breadcrumb">
+        Home &nbsp; › &nbsp; Tissot PR100 Swiss Watch
+    </div>
+
+
+    <main class="product-page">
+
+        <!-- ================= LEFT ================= -->
+
+        <section class="product-left">
+
+            <div class="main-image">
+
+                <span class="live-badge">● Live Auction</span>
+
+                <img
+                    src="../assets/images/tissot-pr100.jpg"
+                    alt="Tissot PR100 Swiss Watch"
+                >
+
+            </div>
+
+
+            <!-- Thumbnails -->
+
+            <div class="thumbnails">
+
+                <img
+                    class="active-thumb"
+                    src="../assets/images/tissot-pr100.jpg"
+                    onclick="changeImage(this.src)"
+                >
+
+                <img
+                    src="../assets/images/apple-watch.jpg"
+                    onclick="changeImage(this.src)"
+                >
+
+                <img
+                    src="../assets/images/perfume.jpg"
+                    onclick="changeImage(this.src)"
+                >
+
+                <img
+                    src="../assets/images/phone.jpg"
+                    onclick="changeImage(this.src)"
+                >
+
+            </div>
+
+
+            <!-- Environmental Impact -->
+
+            <div class="environment">
+
+                <h3>♧ Environmental Impact</h3>
+
+                <h2>4.2kg</h2>
+
+                <p>
+                    CO₂ saved through 1 reused items
+                </p>
+
+                <div class="environment-boxes">
+
+                    <div>
+                        🌳 <strong>0</strong>
+                        <small>Trees equivalent</small>
+                    </div>
+
+                    <div>
+                        ♻️ <strong>1kg</strong>
+                        <small>E-waste reduced</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CENTER ================= -->
+
+        <section class="product-info">
+
+            <div class="tags">
+                <span class="live">● Live</span>
+                <span>Watches</span>
+                <span>Like New</span>
+            </div>
+
+
+            <h1>
+                Tissot PR100 Swiss Automatic Watch —
+                Steel Blue Dial
+            </h1>
+
+            <div class="views">
+                ◉ 1,248 views &nbsp;&nbsp;
+                ♧ 18 watching
+            </div>
+
+
+            <!-- Current Bid -->
+
+            <div class="current-bid">
+
+                <span>Current Bid</span>
+
+                <h2>$1,240</h2>
+
+                <p>
+                    18 bids · Starting at $500
+                </p>
+
+                <div class="timer">
+
+                    <div>
+                        00
+                        <small>M</small>
+                    </div>
+
+                    <div>
+                        00
+                        <small>S</small>
+                    </div>
+
+                </div>
+
+                <p class="warning">
+                    ⚠ Anti-sniping: 2-min extension if bid placed in final 2 minutes
+                </p>
+
+            </div>
+
+
+            <!-- Seller -->
+
+            <div class="seller">
+
+                <div class="seller-top">
+
+                    <div class="seller-avatar">
+                        ML
+                    </div>
+
+                    <div>
+                        <h3>Marcus L. <span>● Gold</span></h3>
+
+                        <div class="stars">
+                            ★★★★★
+                            <small>(312)</small>
+                        </div>
+                    </div>
+
+                    <button>♡ Chat</button>
+
+                </div>
+
+
+                <div class="seller-stats">
+
+                    <div>
+                        <strong>312</strong>
+                        <small>Sales</small>
+                    </div>
+
+                    <div>
+                        <strong>&lt;1h</strong>
+                        <small>Response</small>
+                    </div>
+
+                    <div>
+                        <strong>4.9★</strong>
+                        <small>Rating</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <p class="location">
+                ⌖ New York, NY · Ships nationwide · Estimated 2-4 days
+            </p>
+
+
+            <!-- Specifications -->
+
+            <div class="basic-info">
+
+                <div>
+                    <span>Condition</span>
+                    <strong>Like New</strong>
+                </div>
+
+                <div>
+                    <span>Brand</span>
+                    <strong>Tissot</strong>
+                </div>
+
+                <div>
+                    <span>Year</span>
+                    <strong>2022</strong>
+                </div>
+
+                <div>
+                    <span>Accessories</span>
+                    <strong>Box, Papers</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RIGHT ================= -->
+
+        <aside class="bid-panel">
+
+            <h3>
+                Minimum next bid
+                <strong>$1,260</strong>
+            </h3>
+
+
+            <input
+                type="number"
+                value="1280"
+            >
+
+
+            <button
+                class="place-bid"
+                onclick="placeBid()"
+            >
+                ⚡ Place Bid
+            </button>
+
+
+            <button class="buy-now">
+                Buy Now — $1,450
+            </button>
+
+
+            <div class="bid-actions">
+
+                <button>♡ Save</button>
+
+                <button>♧ Share</button>
+
+            </div>
+
+
+            <div class="protection">
+
+                <p>✓ Buyer Protection Guaranteed</p>
+
+                <p>✓ Escrow Payment</p>
+
+                <p>✓ Free Returns within 3 days</p>
+
+            </div>
+
+
+            <!-- Auto Bid -->
+
+            <div class="auto-bid">
+
+                <h3>Auto-Bid</h3>
+
+                <p>
+                    Set your max — we'll bid automatically
+                    to keep you in the lead.
+                </p>
+
+                <input
+                    type="number"
+                    placeholder="Max bid amount"
+                >
+
+                <button>Activate Auto-Bid</button>
+
+            </div>
+
+        </aside>
+
+    </main>
+
+
+    <!-- ================= DETAILS ================= -->
+
+    <section class="details-section">
+
+        <div class="tabs">
+
+            <button class="active">Details</button>
+            <button>Bids (5)</button>
+            <button>Reviews</button>
+            <button>Q&A</button>
+
+        </div>
+
+
+        <div class="details-grid">
+
+            <div>
+
+                <h3>Description</h3>
+
+                <p>
+                    Gorgeous Tissot PR100 in immaculate condition.
+                    Purchased in 2022, worn only a handful of times
+                    for special occasions. The steel blue dial is
+                    stunning and the automatic movement keeps perfect
+                    time. Comes with original box, papers, and spare
+                    links. Crystal is scratch-free.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>Specifications</h3>
+
+                <div class="spec-row">
+                    <span>Case Diameter</span>
+                    <strong>40mm</strong>
+                </div>
+
+                <div class="spec-row">
+                    <span>Case Material</span>
+                    <strong>Stainless Steel</strong>
+                </div>
+
+                <div class="spec-row">
+                    <span>Movement</span>
+                    <strong>Automatic ETA 2824-2</strong>
+                </div>
+
+                <div class="spec-row">
+                    <span>Water Resistance</span>
+                    <strong>100m</strong>
+                </div>
+
+                <div class="spec-row">
+                    <span>Condition</span>
+                    <strong>Like New — 9.5/10</strong>
+                </div>
+
+                <div class="spec-row">
+                    <span>Year Purchased</span>
+                    <strong>2022</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SIMILAR ITEMS ================= -->
+
+    <section class="similar">
+
+        <h2>Similar Items</h2>
+
+        <div class="similar-products">
+
+            <div class="similar-card">
+
+                <img src="../assets/images/apple-watch.jpg">
+
+                <h3>Rolex Datejust 36mm</h3>
+
+                <strong>$5,200</strong>
+
+            </div>
+
+
+            <div class="similar-card">
+
+                <img src="../assets/images/perfume.jpg">
+
+                <h3>Omega Seamaster</h3>
+
+                <strong>$2,800</strong>
+
+            </div>
+
+
+            <div class="similar-card">
+
+                <img src="../assets/images/watch2.jpg">
+
+                <h3>Seiko Presage</h3>
+
+                <strong>$420</strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</body>
+</html>

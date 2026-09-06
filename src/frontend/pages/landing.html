@@ -417,7 +417,8 @@
             </div>
 
             <a href="#" class="outline-btn">
-                View All Auctions <i class="fa-solid fa-chevron-right"></i>
+                View All Auctions
+                <i class="fa-solid fa-chevron-right"></i>
             </a>
 
         </div>
@@ -425,9 +426,15 @@
 
         <div class="auction-grid">
 
-            <div class="auction-card">
 
-                <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=700">
+            <!-- PRODUCT 1 -->
+            <div class="auction-card"
+                 onclick="openProduct('leica')">
+
+                <img
+                    src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=700"
+                    alt="Vintage Leica M6 Film Camera"
+                >
 
                 <div class="auction-content">
 
@@ -450,9 +457,14 @@
             </div>
 
 
-            <div class="auction-card">
+            <!-- PRODUCT 2 -->
+            <div class="auction-card"
+                 onclick="openProduct('apple-watch')">
 
-                <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=700">
+                <img
+                    src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=700"
+                    alt="Apple Watch Ultra 2 Titanium"
+                >
 
                 <div class="auction-content">
 
@@ -475,9 +487,14 @@
             </div>
 
 
-            <div class="auction-card">
+            <!-- PRODUCT 3 -->
+            <div class="auction-card"
+                 onclick="openProduct('bose')">
 
-                <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=700">
+                <img
+                    src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=700"
+                    alt="Bose QuietComfort 45 Bundle"
+                >
 
                 <div class="auction-content">
 
@@ -890,6 +907,18 @@
     </div>
 
 </footer>
+
+
+<script>
+
+function openProduct(product) {
+
+    window.location.href =
+        "productView.html?product=" + product;
+
+}
+
+</script>
 
 
 </body>
