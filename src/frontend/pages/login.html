@@ -129,7 +129,7 @@
 
 
                 <!-- Login Form -->
-                <form class="login-form">
+                <form class="login-form" onsubmit="handleLogin(event)">
 
     
                    
@@ -218,16 +218,71 @@
 
 
     <script>
-        function togglePassword() {
-            const password = document.getElementById("password");
 
-            if (password.type === "password") {
-                password.type = "text";
-            } else {
-                password.type = "password";
-            }
+    // ==============================
+    // Password Show / Hide
+    // ==============================
+    function togglePassword() {
+
+        const password = document.getElementById("password");
+
+        if (password.type === "password") {
+            password.type = "text";
+        } else {
+            password.type = "password";
         }
-    </script>
+    }
+
+
+    // ==============================
+    // Login Handler
+    // ==============================
+    function handleLogin(event) {
+
+        // Prevent normal form submission
+        event.preventDefault();
+
+
+        const email = document.getElementById("email").value.trim().toLowerCase();
+        const password = document.getElementById("password").value;
+
+       
+        const USER_EMAIL = "user@retrade.com";
+        const ADMIN_EMAIL = "admin@retrade.com";
+
+  
+        if (email === USER_EMAIL) {
+
+
+            localStorage.setItem("userRole", "user");
+            localStorage.setItem("userEmail", email);
+
+         
+            window.location.href = "landing.html";
+
+        }
+
+     
+        else if (email === ADMIN_EMAIL) {
+
+           
+            localStorage.setItem("userRole", "admin");
+            localStorage.setItem("userEmail", email);
+
+            
+            window.location.href = "adminOverview.html";
+
+        }
+
+        
+        else {
+
+            alert("Invalid email address. Please use a registered account.");
+
+        }
+    }
+
+</script>
 
 </body>
 </html>
