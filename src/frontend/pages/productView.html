@@ -193,8 +193,6 @@
 
     <main class="product-page">
 
-        <!-- ================= LEFT ================= -->
-
         <section class="product-left">
 
             <div class="main-image">
@@ -208,8 +206,6 @@
 
             </div>
 
-
-            <!-- Thumbnails -->
 
             <div class="thumbnails">
 
@@ -236,8 +232,6 @@
 
             </div>
 
-
-            <!-- Environmental Impact -->
 
             <div class="environment">
 
@@ -290,8 +284,6 @@
             </div>
 
 
-            <!-- Current Bid -->
-
             <div class="current-bid">
 
                 <span>Current Bid</span>
@@ -322,8 +314,6 @@
 
             </div>
 
-
-            <!-- Seller -->
 
             <div class="seller">
 
@@ -374,8 +364,6 @@
             </p>
 
 
-            <!-- Specifications -->
-
             <div class="basic-info">
 
                 <div>
@@ -402,8 +390,6 @@
 
         </section>
 
-
-        <!-- ================= RIGHT ================= -->
 
         <aside class="bid-panel">
 
@@ -452,8 +438,6 @@
             </div>
 
 
-            <!-- Auto Bid -->
-
             <div class="auto-bid">
 
                 <h3>Auto-Bid</h3>
@@ -476,8 +460,6 @@
 
     </main>
 
-
-    <!-- ================= DETAILS ================= -->
 
     <section class="details-section">
 
@@ -550,8 +532,6 @@
     </section>
 
 
-    <!-- ================= SIMILAR ITEMS ================= -->
-
     <section class="similar">
 
         <h2>Similar Items</h2>
@@ -596,10 +576,6 @@
 
 
     <script>
-        
-    </script>
-
-    <script>
 
     function goToPayment() {
         const params = new URLSearchParams(window.location.search);
@@ -619,10 +595,6 @@
     }
 
     document.addEventListener("DOMContentLoaded", function () {
-
-    /* ===============================
-       PROFILE DROPDOWN
-    =============================== */
 
     const profileTrigger = document.getElementById("profileTrigger");
     const profileDropdown = document.getElementById("profileDropdown");
@@ -654,10 +626,6 @@
     }
 
 
-    /* ===============================
-       SEARCH FUNCTIONALITY
-    =============================== */
-
     const searchInputs = document.querySelectorAll(".nav-search input");
 
     searchInputs.forEach(function (input) {
@@ -670,7 +638,6 @@
 
                 if (!query) return;
 
-                // Redirect to marketplace with search query
                 window.location.href =
                     "marketplace.html?search=" +
                     encodeURIComponent(query);
@@ -681,10 +648,6 @@
 
     });
 
-
-    /* ===============================
-       SEARCH SHORTCUT CMD + S
-    =============================== */
 
     document.addEventListener("keydown", function (event) {
 

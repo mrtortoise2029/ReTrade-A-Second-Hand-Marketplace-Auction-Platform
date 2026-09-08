@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReTrade - Deliveries</title>
+<link rel="stylesheet" href="../../assets/css/admin.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+    .available-category,
+.add-new-category {
+    background: #ffffff;
+    border: 1px solid #e8edf3;
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    padding-left: 20px;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 20px;
+}
+
+.category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.category-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 18px;
+    border: 1px solid #edf0f4;
+    border-radius: 12px;
+    background: #ffffff;
+    transition: all 0.25s ease;
+}
+
+.category-row:hover {
+    background: #f8fafc;
+    border-color: #dce3ea;
+    transform: translateY(-2px);
+}
+
+.category-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.category-avatar {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.avatar-1 {
+    background: #e8f0fe;
+    color: #2563eb;
+}
+
+.avatar-2 {
+    background: #fce7f3;
+    color: #db2777;
+}
+
+.avatar-3 {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.avatar-4 {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.category-details h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.category-details p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #8a94a6;
+}
+
+.view-btn {
+    padding: 9px 18px;
+    border: 1px solid #dce3ea;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #475569;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    padding-bottom: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+
+.view-btn:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+    
+}
+
+.category-form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.category-form input {
+    flex: 1;
+    height: 46px;
+    padding: 0 15px;
+    border: 1px solid #dce3ea;
+    border-radius: 9px;
+    outline: none;
+    font-size: 14px;
+    transition: 0.25s ease;
+}
+
+.category-form input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.btn {
+    padding: 10px 18px;
+    border: 1px solid #dce3ea;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #475569;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    border: none;
+    background: #2563eb;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+}
+
+@media (max-width: 600px) {
+    .category-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .category-form .btn {
+        width: 100%;
+    }
+
+    .category-row {
+        padding: 14px;
+    }
+
+    .available-category,
+    .add-new-category {
+        padding: 18px;
+    }
+}
+</style>
+</head>
+<body>
+<div class="page">
+<aside class="sidebar">
+<div class="brand"><div class="brand-icon">R</div><span class="brand-name">ReTrade</span><span class="admin-badge">Admin</span></div>
+<div class="profile"><div class="avatar-admin">AU</div><div class="profile-info"><strong>Admin</strong><span>Super Admin</span></div></div>
+<nav class="nav">
+<a href="adminOverview.html" class="nav-item"><span class="nav-icon">⌁</span><span>Overview</span></a>
+<a href="adminSeller.html" class="nav-item"><span class="nav-icon">♙</span><span>Sellers</span><span class="badge">3</span></a>
+<a href="adminListing.html" class="nav-item"><span class="nav-icon">▱</span><span>Listings</span><span class="badge">12</span></a>
+<a href="adminAuction.html" class="nav-item"><span class="nav-icon">♧</span><span>Auctions</span></a>
+<a href="adminAnalytics.html" class="nav-item"><span class="nav-icon">▥</span><span>Analytics</span></a>
+<a href="adminFraudMonitor.html" class="nav-item"><span class="nav-icon">△</span><span>Fraud Monitor</span><span class="badge">2</span></a>
+<a href="adminWalletCommission.html" class="nav-item"><span class="nav-icon">$</span><span>Wallet &amp; Commission</span></a>
+<a href="adminDeliveries.html" class="nav-item"><span class="nav-icon">▱</span><span>Deliveries</span></a>
+<a href="adminNotifications.html" class="nav-item"><span class="nav-icon">♧</span><span>Notifications</span></a>
+<a href="adminSystemSettings.html" class="nav-item"><span class="nav-icon">⚙</span><span>System Settings</span></a>
+<a href="adminCategoryManage.html" class="nav-item active"><span class="nav-icon">▱</span><span>Manage Categories</span></a>
+<a href="../landing.html" class="nav-item back-site"><span class="nav-icon">◀</span><span>Back to Site</span></a>
+</nav>
+</aside>
+<main class="main">
+    <header class="header">
+        <div><h1>Manage Categories</h1><p>Platform overview · July 2025</p></div>
+        <div class="actions"><button class="btn">Export CSV</button><button class="btn btn-primary">Generate PDF</button></div> 
+    </header>
+    <section class="available-category">
+        <h2 class="card-title">Available Categories</h2>
+        <div class="category-list">
+            <div class="category-row">
+                <div class="category-left">
+                    <div class="category-avatar avatar-1">E</div>
+                    <div class="category-details">
+                        <h3>Electronics</h3>
+                        <p>12 listings</p>
+                    </div>
+                </div>
+                <button class="view-btn">Edit</button>
+            </div>
+            <div class="category-row">
+                <div class="category-left">
+                    <div class="category-avatar avatar-2">F</div>
+                    <div class="category-details">
+                        <h3>Fashion</h3>
+                        <p>8 listings</p>
+                    </div>
+                </div>
+                <button class="view-btn">Edit</button>
+            </div>
+            <div class="category-row">
+                <div class="category-left">
+                    <div class="category-avatar avatar-3">H</div>
+                    <div class="category-details">
+                        <h3>Home &amp; Garden</h3>
+                        <p>5 listings</p>
+                    </div>
+                </div>
+                <button class="view-btn">Edit</button>
+                </div>
+            <div class="category-row">
+                <div class="category-left">
+                    <div class="category-avatar avatar-4">B</div>
+                    <div class="category-details">
+                        <h3>Books</h3>
+                        <p>3 listings</p>
+                    </div>
+                </div>
+                <button class="view-btn">Edit</button>    
+        </div>
+    </section>
+    <section class="add-new-category">
+        <h2 class="card-title">Add New Category</h2>
+        <form class="category-form">
+            <input type="text" placeholder="Category Name" required>
+            <button type="submit" class="btn btn-primary">Add Category</button>
+        </form>
+    </section>
+</main>
+
+</div>
+
+
+</body>
+</html>
