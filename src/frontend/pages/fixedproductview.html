@@ -20,7 +20,7 @@
 
 <body>
 
-    <nav class="logged-navbar">
+    <nav class="logged-navbar" id="loggedNavbar">
 
         <div class="nav-left">
 
@@ -308,7 +308,7 @@
 
                     </div>
 
-                    <button onclick="openChat()">♡ Chat</button>
+                    <button class="chat-btn" data-require-login="chat" onclick="openChat()">♡ Chat</button>
 
                 </div>
 
@@ -398,12 +398,12 @@
             </div>
 
 
-            <button class="add-cart">
+            <button class="add-cart" data-require-login="add to cart" onclick="addToCart()">
                 🛒 Add to Cart
             </button>
 
 
-            <button class="buy-now" onclick="goToPayment()">
+            <button class="buy-now" data-require-login="buy now" onclick="goToPayment()">
                 ⚡ Buy Now
             </button>
 
@@ -562,6 +562,25 @@
 
     <script>
 
+        function isUserLoggedIn() {
+            const role = localStorage.getItem('userRole');
+            return role === 'user' || role === 'admin';
+        }
+
+        function requireLogin(actionName) {
+            if (!isUserLoggedIn()) {
+                alert('Please log in first to ' + actionName + '.');
+                window.location.href = 'login.html';
+                return false;
+            }
+            return true;
+        }
+
+        function addToCart() {
+            if (!requireLogin('add to cart')) return;
+            alert('Item added to cart successfully.');
+        }
+
         function decreaseQuantity() {
             const input = document.getElementById("quantity");
 
@@ -580,6 +599,7 @@
         }
 
         function goToPayment() {
+            if (!requireLogin('buy now')) return;
             const params = new URLSearchParams(window.location.search);
             const productId = params.get('id') || 'tissot-pr100';
             const source = params.get('source') || 'landing';
@@ -590,6 +610,7 @@
         }
 
         function openChat() {
+            if (!requireLogin('chat')) return;
             const params = new URLSearchParams(window.location.search);
             const productId = params.get('id') || 'tissot-pr100';
             const source = params.get('source') || 'landing';
@@ -597,7 +618,36 @@
             window.location.href = 'chat.html?id=' + encodeURIComponent(productId) + '&source=' + encodeURIComponent(source) + '&page=' + encodeURIComponent(productPage);
         }
 
+        function bindLoginGuards() {
+            const loginRequiredButtons = document.querySelectorAll('[data-require-login]');
+
+            loginRequiredButtons.forEach(function (button) {
+                button.addEventListener('click', function (event) {
+                    const actionName = button.getAttribute('data-require-login') || 'this action';
+                    const role = localStorage.getItem('userRole');
+
+                    if (role !== 'user' && role !== 'admin') {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        alert('Please log in first to ' + actionName + '.');
+                        window.location.href = 'login.html';
+                    }
+                });
+            });
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
+            const params = new URLSearchParams(window.location.search);
+            const source = params.get("source");
+            const isLoggedIn = source === "landingwithlogin" || params.get("loggedIn") === "true";
+            const loggedNavbar = document.getElementById("loggedNavbar");
+
+            if (!isLoggedIn && loggedNavbar) {
+                loggedNavbar.style.display = "none";
+            }
+
+            bindLoginGuards();
+
             const profileTrigger = document.getElementById("profileTrigger");
             const profileDropdown = document.getElementById("profileDropdown");
 
