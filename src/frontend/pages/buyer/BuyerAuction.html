@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReTrade — My Auctions</title>
+<style>
+  :root{
+    --bg:#f4f5f7;
+    --card:#ffffff;
+    --border:#eceef1;
+    --text:#16181d;
+    --muted:#8a8f98;
+    --blue:#5b6df8;
+    --blue-dark:#3a46d1;
+    --green:#1fbf75;
+    --green-dark:#0f9e5f;
+    --amber:#f0a93b;
+    --pink:#f15b8c;
+    --red:#e5484d;
+    --radius:14px;
+    --shadow:0 1px 2px rgba(20,20,43,.04), 0 8px 24px rgba(20,20,43,.05);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    display:flex;
+    min-height:100vh;
+  }
+  a{text-decoration:none;color:inherit;}
+  button{font-family:inherit;cursor:pointer;}
+
+  /* ===== Sidebar ===== */
+  .sidebar{
+    width:230px;
+    background:var(--card);
+    border-right:1px solid var(--border);
+    display:flex;
+    flex-direction:column;
+    padding:20px 14px;
+    flex-shrink:0;
+  }
+  .brand{
+    display:flex;align-items:center;gap:10px;
+    padding:4px 8px 20px;
+    font-weight:700;font-size:16px;
+  }
+  .brand .logo{
+    width:28px;height:28px;border-radius:8px;
+    background:var(--blue);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:800;font-size:14px;
+  }
+  .user-card{
+    display:flex;align-items:center;gap:10px;
+    padding:8px;border-radius:12px;
+    margin-bottom:18px;
+  }
+  .avatar{
+    width:36px;height:36px;border-radius:50%;
+    background:linear-gradient(135deg,#f6a5c0,#f15b8c);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:700;font-size:14px;
+  }
+  .user-card .name{font-size:14px;font-weight:600;}
+  .user-card .role{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px;}
+  .role .dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;}
+
+  nav.main-nav{display:flex;flex-direction:column;gap:2px;flex:1;}
+  .nav-item{
+    display:flex;align-items:center;gap:10px;
+    padding:10px 12px;border-radius:10px;
+    font-size:13.5px;color:#4c525c;font-weight:500;
+    position:relative;
+    transition:background .15s, color .15s;
+  }
+  .nav-item .ic{width:18px;text-align:center;font-size:15px;}
+  .nav-item:hover{background:#f2f3f6;}
+  .nav-item.active{background:#eef0ff;color:var(--blue-dark);font-weight:600;}
+  .badge{
+    margin-left:auto;background:var(--pink);color:#fff;
+    font-size:10px;font-weight:700;border-radius:10px;
+    padding:1px 6px;
+  }
+  .nav-bottom{display:flex;flex-direction:column;gap:2px;margin-top:10px;border-top:1px solid var(--border);padding-top:10px;}
+
+  /* ===== Main ===== */
+  .main{
+    flex:1;
+    width:100%;
+    min-width:0;
+    padding:26px 34px;
+}
+  .topbar{
+    display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px;
+  }
+  .topbar h1{margin:0;font-size:22px;}
+  .topbar p{margin:4px 0 0;color:var(--muted);font-size:13.5px;}
+  .top-right{display:flex;align-items:center;gap:14px;}
+  .icon-btn{
+    width:38px;height:38px;border-radius:50%;
+    background:var(--card);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;font-size:15px;
+  }
+  .icon-btn .dot{
+    position:absolute;top:6px;right:7px;width:7px;height:7px;
+    border-radius:50%;background:var(--pink);border:1.5px solid #fff;
+  }
+  .avatar-top{
+    width:38px;height:38px;border-radius:50%;
+    background:linear-gradient(135deg,#f6a5c0,#f15b8c);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:700;font-size:14px;
+  }
+
+  /* ===== Stat cards ===== */
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:20px;}
+  .stat-card{
+    background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:20px;display:flex;flex-direction:column;gap:12px;
+    transition:transform .15s, box-shadow .15s;cursor:default;
+  }
+  .stat-card:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(20,20,43,.08),0 14px 30px rgba(20,20,43,.08);}
+  .stat-ic{
+    width:36px;height:36px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;font-size:17px;
+  }
+  .stat-ic.amber{background:#fdf2e0;color:#c9860f;}
+  .stat-ic.green{background:#e6f9ef;color:var(--green-dark);}
+  .stat-value{font-size:24px;font-weight:700;}
+  .stat-label{font-size:12.5px;color:var(--muted);margin-top:-6px;}
+
+  /* ===== Auction rows ===== */
+  .auction-list{display:flex;flex-direction:column;gap:12px;margin-bottom:26px;}
+  .auction-card{
+    background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:18px 20px;display:flex;align-items:center;gap:16px;
+    transition:transform .12s, box-shadow .12s;
+  }
+  .auction-card:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(20,20,43,.08);}
+  .a-thumb{
+    width:56px;height:56px;border-radius:12px;object-fit:cover;flex-shrink:0;background:#eee;
+  }
+  .a-info{flex:1;min-width:0;}
+  .a-title{font-size:14.5px;font-weight:700;margin-bottom:8px;}
+  .a-meta{display:flex;gap:34px;}
+  .a-meta div{font-size:11px;color:var(--muted);}
+  .a-meta div b{
+    display:block;font-size:14px;font-weight:700;color:var(--text);margin-top:2px;
+  }
+  .a-meta .current b{color:var(--pink);}
+  .a-meta .ends b{color:var(--text);font-variant-numeric:tabular-nums;}
+  .a-right{display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex-shrink:0;}
+  .status-pill{font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:8px;}
+  .status-outbid{background:#fdecec;color:var(--red);}
+  .status-live{background:#fdecf1;color:var(--pink);display:flex;align-items:center;gap:5px;}
+  .status-live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pulse 1.2s infinite;}
+  .status-won{background:#e6f9ef;color:var(--green-dark);}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+  .rebid-btn{
+    background:var(--red);color:#fff;border:none;padding:8px 16px;
+    border-radius:9px;font-size:12px;font-weight:700;transition:filter .12s;
+  }
+  .rebid-btn:hover{filter:brightness(.93);}
+  .bid-btn{
+    background:var(--blue);color:#fff;border:none;padding:8px 16px;
+    border-radius:9px;font-size:12px;font-weight:700;transition:filter .12s;
+  }
+  .bid-btn:hover{filter:brightness(.93);}
+
+  /* ===== Modal ===== */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(15,16,20,.45);
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;pointer-events:none;transition:opacity .18s;z-index:60;
+  }
+  .modal-overlay.show{opacity:1;pointer-events:auto;}
+  .modal{
+    background:#fff;border-radius:16px;padding:24px;width:320px;
+    transform:scale(.95);transition:transform .18s;
+  }
+  .modal-overlay.show .modal{transform:scale(1);}
+  .modal h3{margin:0 0 4px;font-size:17px;}
+  .modal p.sub{margin:0 0 16px;color:var(--muted);font-size:12.5px;}
+  .modal label{font-size:12px;color:var(--muted);font-weight:600;}
+  .modal input{
+    width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:9px;
+    font-size:15px;margin:6px 0 16px;
+  }
+  .modal-actions{display:flex;gap:10px;}
+  .modal-actions button{
+    flex:1;padding:11px;border-radius:9px;border:none;font-size:13.5px;font-weight:600;
+  }
+  .btn-cancel{background:#f2f3f6;color:#4c525c;}
+  .btn-confirm{background:var(--red);color:#fff;}
+  .btn-confirm:hover{background:#c73a3f;}
+
+  /* ===== Quick nav footer ===== */
+  .quicknav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
+  .quicknav a{
+    display:flex;align-items:center;gap:6px;
+    background:var(--card);border:1px solid var(--border);
+    padding:8px 16px;border-radius:20px;font-size:12.5px;font-weight:600;color:#4c525c;
+    transition:background .15s;
+  }
+  .quicknav a:hover{background:#f2f3f6;}
+  .quicknav a.primary{background:var(--blue);color:#fff;border-color:var(--blue);}
+  .quicknav a.primary:hover{background:var(--blue-dark);}
+
+  /* ===== Toast ===== */
+  #toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:#16181d;color:#fff;padding:12px 20px;border-radius:10px;
+    font-size:13px;opacity:0;transition:opacity .25s, transform .25s;pointer-events:none;
+    box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:50;
+  }
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  @media (max-width: 900px){
+    .sidebar{display:none;}
+    .stats{grid-template-columns:1fr;}
+    .auction-card{flex-wrap:wrap;}
+    .a-meta{gap:20px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Sidebar ===== -->
+<aside class="sidebar">
+  <div class="brand"><div class="logo">R</div> ReTrade</div>
+  <div class="user-card">
+    <div class="avatar">SC</div>
+    <div>
+      <div class="name">Sarah Chen</div>
+      <div class="role"><span class="dot"></span> Buyer</div>
+    </div>
+  </div>
+  <nav class="main-nav">
+    <a class="nav-item" data-page="Overview"><span class="ic">📊</span> Overview</a>
+    <a class="nav-item" data-page="Orders"><span class="ic">📦</span> Orders</a>
+    <a class="nav-item" data-page="Wishlist"><span class="ic">🤍</span> Wishlist</a>
+    <a class="nav-item active" data-page="Auctions"><span class="ic">🔨</span> Auctions</a>
+    <a class="nav-item" data-page="Messages"><span class="ic">💬</span> Messages</a>
+    <a class="nav-item" data-page="Notifications"><span class="ic">🔔</span> Notifications <span class="badge">2</span></a>
+  </nav>
+  <div class="nav-bottom">
+    <a class="nav-item" data-page="Settings"><span class="ic">⚙️</span> Settings</a>
+  </div>
+</aside>
+
+<!-- ===== Main ===== -->
+<main class="main">
+  <div class="topbar">
+    <div>
+      <h1>My Auctions</h1>
+      <p>Welcome back, Sarah!</p>
+    </div>
+    <div class="top-right">
+      <button class="icon-btn" id="bellBtn">🔔<span class="dot"></span></button>
+      <div class="avatar-top">SC</div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-ic amber">🏷️</div>
+      <div><div class="stat-value" id="activeBidsCount">3</div><div class="stat-label">Active Bids</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-ic green">🏆</div>
+      <div><div class="stat-value">8</div><div class="stat-label">Won</div></div>
+    </div>
+  </div>
+
+  <!-- Auctions -->
+  <div class="auction-list" id="auctionList">
+
+    <div class="auction-card" data-name="Tissot PR100 Watch" data-current="1240">
+      <img class="a-thumb" src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=120&h=120&fit=crop" alt="">
+      <div class="a-info">
+        <div class="a-title">Tissot PR100 Watch</div>
+        <div class="a-meta">
+          <div>Your Bid<b>$1,200</b></div>
+          <div class="current">Current<b>$1,240</b></div>
+          <div class="ends">Ends in<b id="timer1">1h 29m 55s</b></div>
+        </div>
+      </div>
+      <div class="a-right">
+        <div class="status-pill status-outbid">Outbid</div>
+        <button class="rebid-btn" data-action="rebid">Re-bid Now</button>
+      </div>
+    </div>
+
+    <div class="auction-card" data-name="Leica M6 Film Camera" data-current="1680">
+      <img class="a-thumb" src="https://images.unsplash.com/photo-1495707902641-75cac588d2e9?w=120&h=120&fit=crop" alt="">
+      <div class="a-info">
+        <div class="a-title">Leica M6 Film Camera</div>
+        <div class="a-meta">
+          <div>Your Bid<b>$1,680</b></div>
+          <div class="current">Current<b>$1,680</b></div>
+          <div class="ends">Ends in<b id="timer2">3h 59m 55s</b></div>
+        </div>
+      </div>
+      <div class="a-right">
+        <div class="status-pill status-live">Live</div>
+        <button class="bid-btn" data-action="bid">Raise Bid</button>
+      </div>
+    </div>
+
+    <div class="auction-card" data-name="Herman Miller Aeron Chair" data-current="640">
+      <img class="a-thumb" src="https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=120&h=120&fit=crop" alt="">
+      <div class="a-info">
+        <div class="a-title">Herman Miller Aeron Chair</div>
+        <div class="a-meta">
+          <div>Your Bid<b>$640</b></div>
+          <div class="current">Current<b>$640</b></div>
+          <div class="ends">Ends in<b id="timer3">6h 12m 40s</b></div>
+        </div>
+      </div>
+      <div class="a-right">
+        <div class="status-pill status-live">Live</div>
+        <button class="bid-btn" data-action="bid">Raise Bid</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Quick nav footer -->
+  <div class="quicknav">
+    <a data-page="Home">🏠 Home</a>
+    <a data-page="Product">📦 Product</a>
+    <a data-page="Auction">🔨 Auction</a>
+    <a class="primary" data-page="Dashboard">📊 Dashboard</a>
+  </div>
+</main>
+
+<div id="toast"></div>
+
+<!-- Bid modal -->
+<div class="modal-overlay" id="bidModal">
+  <div class="modal">
+    <h3 id="modalTitle">Place a Bid</h3>
+    <p class="sub" id="modalSub">Current bid: $0</p>
+    <label>Your bid (USD)</label>
+    <input type="number" id="bidAmount" placeholder="0.00">
+    <div class="modal-actions">
+      <button class="btn-cancel" id="cancelBid">Cancel</button>
+      <button class="btn-confirm" id="confirmBid">Place Bid</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---------- Toast ----------
+  const toastEl = document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 2200);
+  }
+
+  // ---------- Sidebar nav ----------
+  document.querySelectorAll('.nav-item').forEach(item=>{
+    item.addEventListener('click', ()=>{
+      document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+      item.classList.add('active');
+      showToast('Navigated to ' + item.dataset.page);
+    });
+  });
+  document.getElementById('bellBtn').addEventListener('click', ()=> showToast('2 new notifications'));
+
+  // ---------- Bid modal ----------
+  const modal = document.getElementById('bidModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalSub = document.getElementById('modalSub');
+  const bidInput = document.getElementById('bidAmount');
+  const confirmBtn = document.getElementById('confirmBid');
+  let activeCard = null;
+
+  function openModal(card, isRebid){
+    activeCard = card;
+    const name = card.dataset.name;
+    const current = parseFloat(card.dataset.current);
+    modalTitle.textContent = isRebid ? 'Re-bid: ' + name : 'Raise Bid: ' + name;
+    modalSub.textContent = 'Current bid: $' + current.toLocaleString();
+    bidInput.value = '';
+    bidInput.min = current + 1;
+    bidInput.placeholder = (current + 20).toFixed(2);
+    modal.classList.add('show');
+  }
+  function closeModal(){ modal.classList.remove('show'); activeCard = null; }
+
+  document.getElementById('auctionList').addEventListener('click', e=>{
+    const btn = e.target.closest('[data-action]');
+    if(!btn) return;
+    const card = btn.closest('.auction-card');
+    if(btn.dataset.action === 'rebid') openModal(card, true);
+    if(btn.dataset.action === 'bid') openModal(card, false);
+  });
+
+  document.getElementById('cancelBid').addEventListener('click', closeModal);
+  modal.addEventListener('click', e=>{ if(e.target === modal) closeModal(); });
+
+  confirmBtn.addEventListener('click', ()=>{
+    if(!activeCard) return;
+    const current = parseFloat(activeCard.dataset.current);
+    const val = parseFloat(bidInput.value);
+    if(!val || val <= current){
+      showToast('Bid must be higher than $' + current.toLocaleString());
+      return;
+    }
+    // update card
+    activeCard.dataset.current = val;
+    const meta = activeCard.querySelectorAll('.a-meta div b');
+    meta[0].textContent = '$' + val.toLocaleString();
+    meta[1].textContent = '$' + val.toLocaleString();
+    const pill = activeCard.querySelector('.status-pill');
+    pill.className = 'status-pill status-live';
+    pill.textContent = 'Live';
+    const btnWrap = activeCard.querySelector('.a-right');
+    const oldBtn = activeCard.querySelector('.rebid-btn, .bid-btn');
+    oldBtn.outerHTML = '<button class="bid-btn" data-action="bid">Raise Bid</button>';
+    showToast('Bid of $' + val.toLocaleString() + ' placed on ' + activeCard.dataset.name);
+    closeModal();
+  });
+
+  // ---------- Countdown timers ----------
+  function startTimer(id, seconds){
+    const el = document.getElementById(id);
+    let t = seconds;
+    setInterval(()=>{
+      if(t <= 0 || !el.isConnected) return;
+      t--;
+      const h = Math.floor(t/3600);
+      const m = Math.floor((t%3600)/60);
+      const s = t%60;
+      el.textContent = `${h}h ${m}m ${s}s`;
+    }, 1000);
+  }
+  startTimer('timer1', 1*3600 + 29*60 + 55);
+  startTimer('timer2', 3*3600 + 59*60 + 55);
+  startTimer('timer3', 6*3600 + 12*60 + 40);
+
+  // ---------- Quick nav ----------
+  document.querySelectorAll('.quicknav a').forEach(a=>{
+    a.addEventListener('click', ()=> showToast('Navigating to ' + a.dataset.page));
+  });
+</script>
+</body>
+</html>
