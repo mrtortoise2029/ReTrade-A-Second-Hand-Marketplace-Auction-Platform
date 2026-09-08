@@ -1,0 +1,489 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReTrade - Seller Overview</title>
+<style>
+  :root{
+    --bg:#f4f5f7;
+    --card:#ffffff;
+    --border:#eceef1;
+    --text:#16181d;
+    --muted:#8a8f98;
+    --green:#1fbf75;
+    --green-dark:#0f9e5f;
+    --blue:#4a5cf5;
+    --purple:#8b5cf6;
+    --amber:#f0a93b;
+    --red:#e5484d;
+    --pink:#f15b8c;
+    --radius:14px;
+    --shadow:0 1px 2px rgba(20,20,43,.04), 0 8px 24px rgba(20,20,43,.05);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    display:flex;
+    min-height:100vh;
+  }
+  a{text-decoration:none;color:inherit;}
+  button{font-family:inherit;cursor:pointer;}
+
+  /* ===== Sidebar ===== */
+  .sidebar{
+    width:230px;background:var(--card);border-right:1px solid var(--border);
+    display:flex;flex-direction:column;padding:20px 14px;flex-shrink:0;
+  }
+  .brand{display:flex;align-items:center;gap:10px;padding:4px 8px 16px;font-weight:700;font-size:16px;}
+  .brand .logo{
+    width:28px;height:28px;border-radius:8px;background:var(--green);
+    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;
+  }
+  .seller-chip{
+    margin-left:auto;background:#e6f9ef;color:var(--green-dark);
+    font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;
+  }
+  .user-card{
+    display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;
+    margin-bottom:14px;background:#f7f8fa;
+  }
+  .avatar{
+    width:36px;height:36px;border-radius:50%;
+    background:linear-gradient(135deg,#f0b25b,#e0834a);
+    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;
+    flex-shrink:0;position:relative;
+  }
+  .avatar .dot{
+    position:absolute;bottom:-1px;right:-1px;width:9px;height:9px;border-radius:50%;
+    background:var(--green);border:2px solid #fff;
+  }
+  .user-card .name{font-size:13.5px;font-weight:700;}
+  .tier-badge{
+    display:inline-flex;align-items:center;gap:3px;margin-top:3px;
+    background:linear-gradient(135deg,#f7c948,#e2a325);color:#fff;
+    font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;
+  }
+
+  .create-btn{
+    background:var(--green);color:#fff;border:none;padding:11px;border-radius:10px;
+    font-size:13px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:6px;
+    transition:background .15s;
+  }
+  .create-btn:hover{background:var(--green-dark);}
+
+  nav.main-nav{display:flex;flex-direction:column;gap:2px;}
+  .nav-item{
+    display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;
+    font-size:13.5px;color:#4c525c;font-weight:500;position:relative;transition:background .15s, color .15s;
+  }
+  .nav-item .ic{width:18px;text-align:center;font-size:15px;}
+  .nav-item:hover{background:#f2f3f6;}
+  .nav-item.active{background:#e6f9ef;color:var(--green-dark);font-weight:600;}
+  .badge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:700;border-radius:10px;padding:1px 6px;}
+
+  .trust-box{
+    margin:16px 0 4px;background:#fff8e8;border:1px solid #fbe6ae;border-radius:12px;padding:12px;
+  }
+  .trust-label{font-size:11.5px;font-weight:700;color:#a8720f;display:flex;align-items:center;gap:5px;margin-bottom:8px;}
+  .trust-bar-wrap{display:flex;align-items:center;gap:8px;}
+  .trust-bar{flex:1;height:6px;border-radius:4px;background:#fbe6ae;overflow:hidden;}
+  .trust-bar-fill{height:100%;background:linear-gradient(90deg,#f0a93b,#f7c948);border-radius:4px;width:84%;}
+  .trust-num{font-size:11.5px;font-weight:700;color:#a8720f;}
+
+  .nav-bottom{margin-top:14px;padding-top:10px;border-top:1px solid var(--border);}
+
+  /* ===== Main ===== */
+  .main{flex:1;padding:26px 34px;max-width:none;min-width:0;}
+  .topbar{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px;}
+  .topbar h1{margin:0;font-size:22px;}
+  .topbar p{margin:4px 0 0;color:var(--muted);font-size:13.5px;}
+  .top-right{display:flex;align-items:center;gap:10px;}
+  .btn-outline{
+    background:#fff;border:1px solid var(--border);color:#4c525c;padding:9px 16px;
+    border-radius:10px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;
+    transition:background .15s;
+  }
+  .btn-outline:hover{background:#f4f5f7;}
+  .btn-primary{
+    background:var(--green);color:#fff;border:none;padding:9px 16px;border-radius:10px;
+    font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;transition:background .15s;
+  }
+  .btn-primary:hover{background:var(--green-dark);}
+
+  /* ===== Stat cards ===== */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px;}
+  .stat-card{
+    background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:16px 18px;transition:transform .15s, box-shadow .15s;
+  }
+  .stat-card:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(20,20,43,.08),0 14px 30px rgba(20,20,43,.08);}
+  .stat-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+  .stat-ic{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;}
+  .stat-ic.green{background:#e6f9ef;color:var(--green-dark);}
+  .stat-ic.blue{background:#eef0ff;color:var(--blue);}
+  .stat-ic.amber{background:#fdf2e0;color:#c9860f;}
+  .stat-ic.pink{background:#fdecf1;color:var(--pink);}
+  .stat-trend{font-size:11px;font-weight:700;color:var(--green-dark);background:#e6f9ef;padding:2px 6px;border-radius:8px;}
+  .stat-value{font-size:22px;font-weight:700;}
+  .stat-label{font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .stat-sub{font-size:11px;color:var(--muted);margin-top:1px;}
+
+  /* ===== Wallet ===== */
+  .wallet-card{
+    border-radius:var(--radius);margin-bottom:16px;
+    background:linear-gradient(120deg,#4a5cf5,#7b5bf5 55%, #9a5bf0);
+    color:#fff;padding:20px;position:relative;overflow:hidden;
+  }
+  .wallet-top{display:flex;justify-content:space-between;align-items:flex-start;}
+  .wallet-label{font-size:11.5px;opacity:.85;letter-spacing:.03em;font-weight:700;}
+  .wallet-amount{font-size:30px;font-weight:700;margin-top:6px;}
+  .wallet-card-icon{
+    width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.18);
+    display:flex;align-items:center;justify-content:center;font-size:15px;
+  }
+  .wallet-mid{display:flex;gap:26px;margin:16px 0 14px;font-size:12px;opacity:.9;}
+  .wallet-mid b{display:block;font-size:14px;font-weight:700;opacity:1;margin-top:2px;}
+  .wallet-bottom{display:flex;justify-content:space-between;align-items:center;}
+  .wallet-bottom .label{font-size:12px;opacity:.85;}
+  .withdraw-btn{
+    background:rgba(255,255,255,.22);color:#fff;border:none;padding:9px 18px;border-radius:9px;
+    font-size:13px;font-weight:600;transition:background .15s;
+  }
+  .withdraw-btn:hover{background:rgba(255,255,255,.35);}
+
+  /* ===== Chart ===== */
+  .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;}
+  .card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+  .card-head h3{margin:0;font-size:15px;}
+  #chartTooltip{
+    position:absolute;background:#16181d;color:#fff;font-size:11.5px;padding:5px 9px;border-radius:6px;
+    pointer-events:none;opacity:0;transform:translate(-50%,-120%);transition:opacity .1s;white-space:nowrap;
+  }
+  .chart-wrap{position:relative;}
+
+  /* ===== AI warning ===== */
+  .ai-warning{
+    background:#fff8e8;border:1px solid #fbe6ae;border-radius:var(--radius);
+    padding:14px 18px;margin-bottom:16px;display:flex;gap:12px;align-items:flex-start;
+    cursor:pointer;transition:background .15s;
+  }
+  .ai-warning:hover{background:#fef2d6;}
+  .ai-warning .ic{font-size:18px;}
+  .ai-warning .title{font-size:13px;font-weight:700;color:#a8720f;margin-bottom:2px;}
+  .ai-warning .desc{font-size:12px;color:#a8720f;opacity:.9;line-height:1.4;}
+  .ai-warning.dismissed{display:none;}
+
+  /* ===== Bottom stats ===== */
+  .stats2{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px;}
+  .stat-card2{
+    background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .stat-card2:hover{transform:translateY(-2px);}
+  .stat-card2 .label{font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:5px;margin-bottom:6px;}
+  .stat-card2 .value{font-size:19px;font-weight:700;}
+
+  /* ===== Modal ===== */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(15,16,20,.45);display:flex;align-items:center;justify-content:center;
+    opacity:0;pointer-events:none;transition:opacity .18s;z-index:60;
+  }
+  .modal-overlay.show{opacity:1;pointer-events:auto;}
+  .modal{background:#fff;border-radius:16px;padding:24px;width:340px;transform:scale(.95);transition:transform .18s;}
+  .modal-overlay.show .modal{transform:scale(1);}
+  .modal h3{margin:0 0 4px;font-size:17px;}
+  .modal p.sub{margin:0 0 16px;color:var(--muted);font-size:12.5px;}
+  .modal label{font-size:12px;color:var(--muted);font-weight:600;}
+  .modal input{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:9px;font-size:15px;margin:6px 0 16px;}
+  .modal-actions{display:flex;gap:10px;}
+  .modal-actions button{flex:1;padding:11px;border-radius:9px;border:none;font-size:13.5px;font-weight:600;}
+  .btn-cancel{background:#f2f3f6;color:#4c525c;}
+  .btn-confirm{background:var(--green);color:#fff;}
+  .btn-confirm:hover{background:var(--green-dark);}
+
+  #toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:#16181d;color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;
+    opacity:0;transition:opacity .25s, transform .25s;pointer-events:none;
+    box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:50;
+  }
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  @media (max-width: 900px){
+    .sidebar{display:none;}
+    .stats,.stats2{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Sidebar ===== -->
+<aside class="sidebar">
+  <div class="brand"><div class="logo">R</div> ReTrade <span class="seller-chip">Seller</span></div>
+
+  <div class="user-card">
+    <div class="avatar">JO<span class="dot"></span></div>
+    <div>
+      <div class="name">James Okere</div>
+      <div class="tier-badge">&#128081; Gold</div>
+    </div>
+  </div>
+
+  <a class="create-btn" id="createListingBtn" href="SellerListing.html?create=1">+ Create Listing</a>
+
+  <nav class="main-nav">
+    <a href="SellerOverview.html" class="nav-item active" data-page="Overview"><span class="ic">&#128202;</span> Overview</a>
+    <a href="SellerListing.html" class="nav-item" data-page="Listings"><span class="ic">&#128203;</span> Listings</a>
+    <a href="SellerAuctions.html" class="nav-item" data-page="Auctions"><span class="ic">&#128296;</span> Auctions</a>
+    <a href="SellerOrders.html" class="nav-item" data-page="Orders"><span class="ic">&#128230;</span> Orders</a>
+    <a href="SellerAnalytics.html" class="nav-item" data-page="Analytics"><span class="ic">&#128200;</span> Analytics</a>
+    <a href="SellerWallet.html" class="nav-item" data-page="Wallet"><span class="ic">&#128176;</span> Wallet</a>
+    <a href="SellerMessages.html" class="nav-item" data-page="Messages"><span class="ic">&#128172;</span> Messages</a>
+    <a href="SellerNotifications.html" class="nav-item" data-page="Notifications"><span class="ic">&#128276;</span> Notifications <span class="badge">2</span></a>
+  </nav>
+
+  <div class="trust-box">
+    <div class="trust-label">&#11088; Trust Score</div>
+    <div class="trust-bar-wrap">
+      <div class="trust-bar"><div class="trust-bar-fill"></div></div>
+      <div class="trust-num">84</div>
+    </div>
+  </div>
+
+  <div class="nav-bottom">
+    <a href="../landingwithlogin.html" class="nav-item" data-page="Back to Site"><span class="ic">&#127968;</span> Back to Site</a>
+  </div>
+</aside>
+
+<!-- ===== Main ===== -->
+<main class="main">
+  <div class="topbar">
+    <div>
+      <h1>Overview</h1>
+      <p>Seller Dashboard (Jul 2026)</p>
+    </div>
+    <div class="top-right">
+      <button class="btn-outline" id="exportBtn">&#11015; Export PDF</button>
+      <a class="btn-primary" id="newListingBtn" href="SellerListing.html">+ New Listing</a>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-top"><div class="stat-ic green">&#128176;</div><div class="stat-trend">&#9650; 18.6%</div></div>
+      <div class="stat-value">$11,110</div>
+      <div class="stat-label">Total Revenue</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top"><div class="stat-ic blue">&#128203;</div><div class="stat-trend">&#9650; 2</div></div>
+      <div class="stat-value">12</div>
+      <div class="stat-label">Active Listings</div>
+      <div class="stat-sub">3 in auction</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top"><div class="stat-ic amber">&#11088;</div><div class="stat-trend">&#9650; 0.3</div></div>
+      <div class="stat-value">4.9&#9733;</div>
+      <div class="stat-label">Avg Rating</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top"><div class="stat-ic pink">&#128176;</div></div>
+      <div class="stat-value">$834</div>
+      <div class="stat-label">Commission Paid</div>
+      <div class="stat-sub">This month</div>
+    </div>
+  </div>
+
+  <!-- Wallet -->
+  <div class="wallet-card">
+    <div class="wallet-top">
+      <div>
+        <div class="wallet-label">WALLET BALANCE</div>
+        <div class="wallet-amount">$8,420</div>
+      </div>
+      <div class="wallet-card-icon">&#128179;</div>
+    </div>
+    <div class="wallet-mid">
+      <div>Pending<b>$1,280</b></div>
+      <div>In Escrow<b>$0</b></div>
+    </div>
+    <div class="wallet-bottom">
+      <div class="label">Seller Wallet</div>
+      <button class="withdraw-btn" id="withdrawBtn">Withdraw</button>
+    </div>
+  </div>
+
+  <!-- Chart -->
+  <div class="card">
+    <div class="card-head"><h3>Monthly Revenue</h3></div>
+    <div class="chart-wrap">
+      <svg id="revChart" viewBox="0 0 700 220" width="100%" height="220" style="overflow:visible"></svg>
+      <div id="chartTooltip"></div>
+    </div>
+  </div>
+
+  <!-- AI Warning -->
+  <div class="ai-warning" id="aiWarning">
+    <div class="ic">&#9888;&#65039;</div>
+    <div style="flex:1;">
+      <div class="title">AI Listing Warning</div>
+      <div class="desc">Listing "Canon EOS R6" has a suspiciously low price compared to similar items. Consider reviewing or updating the price to avoid rejection.</div>
+    </div>
+    <button class="btn-outline" id="dismissWarning" style="padding:6px 12px;font-size:11.5px;">Dismiss</button>
+  </div>
+
+  <!-- Bottom stats -->
+  <div class="stats2">
+    <div class="stat-card2">
+      <div class="label">&#128065; Profile Views</div>
+      <div class="value">8.4K</div>
+    </div>
+    <div class="stat-card2">
+      <div class="label">&#129293; Favorites</div>
+      <div class="value">371</div>
+    </div>
+    <div class="stat-card2">
+      <div class="label">&#128200; Conversion Rate</div>
+      <div class="value">3.8%</div>
+    </div>
+    <div class="stat-card2">
+      <div class="label">&#128296; Auction Win Rate</div>
+      <div class="value">72%</div>
+    </div>
+  </div>
+</main>
+
+<div id="toast"></div>
+
+<!-- Withdraw Modal -->
+<div class="modal-overlay" id="withdrawModal">
+  <div class="modal">
+    <h3>Withdraw Funds</h3>
+    <p class="sub">Available balance: $8,420.00</p>
+    <label>Amount (USD)</label>
+    <input type="number" id="withdrawAmount" placeholder="0.00" max="8420" min="1">
+    <div class="modal-actions">
+      <button class="btn-cancel" id="cancelWithdraw">Cancel</button>
+      <button class="btn-confirm" id="confirmWithdraw">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---------- Toast ----------
+  const toastEl = document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 2200);
+  }
+
+  // ---------- Sidebar nav ----------
+  document.querySelectorAll('.nav-item').forEach(item=>{
+    item.addEventListener('click', ()=>{
+      document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+      item.classList.add('active');
+      showToast('Navigated to ' + item.dataset.page);
+    });
+  });
+
+  document.getElementById('exportBtn').addEventListener('click', ()=> showToast('Exporting overview as PDF...'));
+
+  // ---------- AI warning ----------
+  document.getElementById('aiWarning').addEventListener('click', e=>{
+    if(e.target.id === 'dismissWarning') return;
+    showToast('Opening listing: Canon EOS R6');
+  });
+  document.getElementById('dismissWarning').addEventListener('click', e=>{
+    e.stopPropagation();
+    document.getElementById('aiWarning').classList.add('dismissed');
+    showToast('Warning dismissed');
+  });
+
+  // ---------- Withdraw modal ----------
+  const modal = document.getElementById('withdrawModal');
+  document.getElementById('withdrawBtn').addEventListener('click', ()=> modal.classList.add('show'));
+  document.getElementById('cancelWithdraw').addEventListener('click', ()=> modal.classList.remove('show'));
+  modal.addEventListener('click', e=>{ if(e.target === modal) modal.classList.remove('show'); });
+  document.getElementById('confirmWithdraw').addEventListener('click', ()=>{
+    const val = parseFloat(document.getElementById('withdrawAmount').value);
+    if(!val || val <= 0){ showToast('Enter a valid amount'); return; }
+    if(val > 8420){ showToast('Amount exceeds available balance'); return; }
+    modal.classList.remove('show');
+    showToast('Withdrawal of $' + val.toFixed(2) + ' requested');
+    document.getElementById('withdrawAmount').value = '';
+  });
+
+  // ---------- Monthly revenue chart ----------
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul'];
+  const values = [1350, 1500, 1420, 1300, 1850, 2150, 2050, 2250];
+  // trim to 7 to match months length (approx from screenshot shape: gentle rise, dip, then rise, plateau, slight rise)
+  const vals = [1350, 1480, 1430, 1300, 1750, 2100, 2250];
+  const svg = document.getElementById('revChart');
+  const W = 700, H = 220, padL = 44, padR = 10, padT = 15, padB = 28;
+  const maxV = 2500;
+  const stepX = (W - padL - padR) / (months.length - 1);
+  const yFor = v => padT + (1 - v/maxV) * (H - padT - padB);
+  const xFor = i => padL + i*stepX;
+
+  let path = 'M ' + xFor(0) + ' ' + yFor(vals[0]);
+  vals.forEach((v,i)=>{ if(i>0) path += ' L ' + xFor(i) + ' ' + yFor(v); });
+  let areaPath = path + ` L ${xFor(vals.length-1)} ${H-padB} L ${xFor(0)} ${H-padB} Z`;
+
+  let svgHTML = `
+    <defs>
+      <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1fbf75" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#1fbf75" stop-opacity="0"/>
+      </linearGradient>
+    </defs>`;
+
+  [0,625,1250,1875,2500].forEach(v=>{
+    const y = yFor(v);
+    svgHTML += `<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="#eceef1" stroke-width="1"/>`;
+    svgHTML += `<text x="${padL-10}" y="${y+4}" font-size="10" fill="#8a8f98" text-anchor="end">$${v}</text>`;
+  });
+
+  svgHTML += `<path d="${areaPath}" fill="url(#areaGrad)"/>`;
+  svgHTML += `<path d="${path}" fill="none" stroke="#1fbf75" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+
+  months.forEach((m,i)=>{
+    svgHTML += `<text x="${xFor(i)}" y="${H-6}" font-size="10.5" fill="#8a8f98" text-anchor="middle">${m}</text>`;
+    svgHTML += `<circle class="pt" data-i="${i}" cx="${xFor(i)}" cy="${yFor(vals[i])}" r="5" fill="#fff" stroke="#1fbf75" stroke-width="2.5" style="cursor:pointer"/>`;
+  });
+
+  svg.innerHTML = svgHTML;
+
+  const tooltip = document.getElementById('chartTooltip');
+  svg.querySelectorAll('.pt').forEach(pt=>{
+    pt.addEventListener('mouseenter', ()=>{
+      const i = pt.dataset.i;
+      const rect = svg.getBoundingClientRect();
+      const cx = parseFloat(pt.getAttribute('cx')) / W * rect.width;
+      const cy = parseFloat(pt.getAttribute('cy')) / H * rect.height;
+      tooltip.textContent = months[i] + ': $' + vals[i].toLocaleString();
+      tooltip.style.left = cx + 'px';
+      tooltip.style.top = cy + 'px';
+      tooltip.style.opacity = '1';
+      pt.setAttribute('r', 7);
+    });
+    pt.addEventListener('mouseleave', ()=>{
+      tooltip.style.opacity = '0';
+      pt.setAttribute('r', 5);
+    });
+  });
+
+  // ---------- Bottom stat cards ----------
+  document.querySelectorAll('.stat-card2').forEach(card=>{
+    card.addEventListener('click', ()=> showToast(card.querySelector('.label').textContent.trim() + ': ' + card.querySelector('.value').textContent));
+  });
+</script>
+</body>
+</html>
+
