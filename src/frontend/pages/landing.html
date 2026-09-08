@@ -283,7 +283,7 @@
 
             <!-- Product 1 -->
 
-            <div class="product-card">
+            <div class="product-card" onclick="openFixedProduct('tissot-pr100')">
 
                 <div class="product-image">
                     <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600">
@@ -311,7 +311,7 @@
 
             <!-- Product 2 -->
 
-            <div class="product-card">
+            <div class="product-card" onclick="openFixedProduct('sony-wh-1000xm5')">
 
                 <div class="product-image">
                     <img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=600">
@@ -339,7 +339,7 @@
 
             <!-- Product 3 -->
 
-            <div class="product-card">
+            <div class="product-card" onclick="openFixedProduct('macbook-pro-m2')">
 
                 <div class="product-image">
                     <img src="https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=600">
@@ -367,7 +367,7 @@
 
             <!-- Product 4 -->
 
-            <div class="product-card">
+            <div class="product-card" onclick="openFixedProduct('nike-air-jordan')">
 
                 <div class="product-image">
                     <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600">
@@ -916,6 +916,19 @@ function openProduct(product) {
     window.location.href =
         "productView.html?id=" + encodeURIComponent(product) + "&source=" + source;
 }
+function openFixedProduct(product) {
+    const source = "landing";
+    window.location.href =
+        "fixedproductview.html?id=" + encodeURIComponent(product) + "&source=" + source;
+}
+function bindProductCards() {
+        document.querySelectorAll(".product-card, .auction-card").forEach(function (card) {
+            card.addEventListener("click", function () {
+                const product = card.dataset.product || "featured-product";
+                openProduct(product);
+            });
+        });
+    }
 
 </script>
 

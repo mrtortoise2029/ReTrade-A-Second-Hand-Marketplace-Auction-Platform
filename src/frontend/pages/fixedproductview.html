@@ -7,6 +7,10 @@
 
     <title>ReTrade - Product View</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/fixedProductView.css">
     <link rel="stylesheet" href="../assets/css/style.css">
 
@@ -15,12 +19,11 @@
 
 <body>
 
-    <!-- NAVBAR -->
     <nav class="logged-navbar">
 
         <div class="nav-left">
 
-            <div class="logo">
+             <div class="logo">
                 <div class="logo-icon">R</div>
                 <span>ReTrade</span>
             </div>
@@ -29,7 +32,7 @@
 
             <div class="main-nav">
 
-                <a href="landingwithlogin.html" class="nav-item">
+                <a href="home.html" class="nav-item active">
                     <i class="fa-solid fa-house"></i>
                     <span>Home</span>
                 </a>
@@ -49,11 +52,15 @@
         </div>
 
 
+
         <div class="nav-search">
 
             <i class="fa-solid fa-magnifying-glass"></i>
 
-            <input type="text" placeholder="Search anything...">
+            <input
+                type="text"
+                placeholder="Search anything..."
+            >
 
             <span class="search-shortcut">⌘ S</span>
 
@@ -64,10 +71,10 @@
 
             <a href="sell.html" class="sell-item-btn">
                 <i class="fa-solid fa-plus"></i>
-                <span>+ Sell</span>
+                <span>Sell</span>
             </a>
 
-            <button class="action-btn">
+            <button class="action-btn" title="Saved Items">
                 <i class="fa-regular fa-heart"></i>
             </button>
 
@@ -78,7 +85,7 @@
 
             <div class="profile-dropdown">
 
-                <button class="profile-trigger">
+                <button class="profile-trigger" id="profileTrigger">
 
                     <div class="profile-avatar">FA</div>
 
@@ -94,6 +101,73 @@
                     <i class="fa-solid fa-chevron-down"></i>
 
                 </button>
+
+                <div class="dropdown-content" id="profileDropdown">
+
+                    <div class="dropdown-header">
+
+                        <div class="dropdown-avatar">
+                            FA
+                        </div>
+
+                        <div>
+                            <h4>Fahiz Ahmed</h4>
+                            <p>Verified Member</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="dropdown-line"></div>
+
+                    <span class="dropdown-label">
+                        ACCOUNT
+                    </span>
+
+                    <a href="dashboard.html">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        Dashboard
+                    </a>
+
+                    <a href="profile.html">
+                        <i class="fa-regular fa-user"></i>
+                        My Profile
+                    </a>
+
+                    <div class="dropdown-line"></div>
+
+                    <span class="dropdown-label">
+                        MARKETPLACE
+                    </span>
+
+                    <a href="my-listings.html">
+                        <i class="fa-solid fa-box"></i>
+                        My Listings
+                    </a>
+
+                    <a href="orders.html">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        My Orders
+                    </a>
+
+                    <a href="my-bids.html">
+                        <i class="fa-solid fa-gavel"></i>
+                        My Bids
+                    </a>
+
+                    <div class="dropdown-line"></div>
+
+                    <a href="settings.html">
+                        <i class="fa-solid fa-gear"></i>
+                        Settings
+                    </a>
+
+                    <a href="landing.html" class="logout">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        Log Out
+                    </a>
+
+                </div>
 
             </div>
 
@@ -522,6 +596,36 @@
                 input.value++;
             }
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const profileTrigger = document.getElementById("profileTrigger");
+            const profileDropdown = document.getElementById("profileDropdown");
+
+            if (profileTrigger && profileDropdown) {
+                profileTrigger.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                    profileDropdown.classList.toggle("show");
+                });
+
+                document.addEventListener("click", function (event) {
+                    if (!profileTrigger.contains(event.target) && !profileDropdown.contains(event.target)) {
+                        profileDropdown.classList.remove("show");
+                    }
+                });
+            }
+
+            const searchInputs = document.querySelectorAll(".nav-search input");
+
+            searchInputs.forEach(function (input) {
+                input.addEventListener("keydown", function (event) {
+                    if (event.key === "Enter") {
+                        const query = input.value.trim();
+                        if (!query) return;
+                        window.location.href = "marketplace.html?search=" + encodeURIComponent(query);
+                    }
+                });
+            });
+        });
 
     </script>
 

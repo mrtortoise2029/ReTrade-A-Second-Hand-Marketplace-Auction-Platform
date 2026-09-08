@@ -2404,3 +2404,11 @@ body {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
 }
+
+.dropdown-content {
+    display: none;
+}
+
+.dropdown-content.show {
+    display: block;
+}
