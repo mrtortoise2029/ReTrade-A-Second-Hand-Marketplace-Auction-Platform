@@ -75,9 +75,9 @@
                 <span>Sell</span>
             </a>
 
-            <button class="action-btn" title="Saved Items">
-                <i class="fa-regular fa-heart"></i>
-            </button>
+            <a href="cart.html" class="action-btn" title="Cart" aria-label="View cart" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none;">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </a>
 
             <button class="action-btn notification">
                 <i class="fa-regular fa-bell"></i>
@@ -578,7 +578,35 @@
 
         function addToCart() {
             if (!requireLogin('add to cart')) return;
-            alert('Item added to cart successfully.');
+
+            const params = new URLSearchParams(window.location.search);
+            const productId = params.get('id') || 'tissot-pr100';
+            const productName = document.querySelector('h1')?.textContent?.trim() || 'Tissot PR100 Swiss Automatic Watch';
+            const price = Number((document.querySelector('.fixed-price h2')?.textContent || '$1,240').replace(/[^0-9.]/g, '')) || 1240;
+            const quantity = Math.max(1, parseInt(document.getElementById('quantity')?.value || '1', 10));
+            const image = document.querySelector('.main-image img')?.src || 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=1200&q=80';
+
+            const cart = JSON.parse(localStorage.getItem('retradeCart') || '[]');
+            const existing = cart.find(item => item.id === productId);
+
+            if (existing) {
+                existing.quantity += quantity;
+            } else {
+                cart.push({
+                    id: productId,
+                    title: productName,
+                    price,
+                    quantity,
+                    image,
+                    category: 'Watches',
+                    seller: 'Marcus L.',
+                    condition: 'Like New',
+                    shipping: 12
+                });
+            }
+
+            localStorage.setItem('retradeCart', JSON.stringify(cart));
+            window.location.href = 'cart.html';
         }
 
         function decreaseQuantity() {

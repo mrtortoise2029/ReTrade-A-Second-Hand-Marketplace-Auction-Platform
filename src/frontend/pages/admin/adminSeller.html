@@ -48,9 +48,113 @@
 </section>
 </main>
 </div>
+
+<div id="sellerModal" class="modal-overlay hidden" aria-modal="true" role="dialog">
+    <div class="modal-panel">
+        <div class="modal-header">
+            <h3>Seller Application Review</h3>
+            <button class="close-modal" type="button" onclick="closeSellerModal()">Close</button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-hero">
+                <div id="sellerModalAvatar" class="avatar-lg">AK</div>
+                <div>
+                    <h4 id="sellerModalName">Aria Kim</h4>
+                    <p id="sellerModalEmail">aria@email.com</p>
+                </div>
+            </div>
+
+            <div class="detail-grid">
+                <div class="detail-box"><span>Applied</span><strong id="sellerApplied">Jul 24, 2025</strong></div>
+                <div class="detail-box"><span>Status</span><strong id="sellerStatus">Pending Review</strong></div>
+                <div class="detail-box"><span>Business Type</span><strong id="sellerBusiness">Electronics Seller</strong></div>
+                <div class="detail-box"><span>Documents</span><strong id="sellerDocs">3 / 3 Verified</strong></div>
+                <div class="detail-box"><span>Location</span><strong id="sellerLocation">Dhaka, Bangladesh</strong></div>
+                <div class="detail-box"><span>Verification</span><strong id="sellerVerification">Identity Verified</strong></div>
+            </div>
+
+            <div class="summary-box">
+                <h5>Application Summary</h5>
+                <p id="sellerSummary">This seller has submitted all required verification documents, including NID, business registration, and bank account information. The account looks structurally complete and is suitable for manual review.</p>
+            </div>
+
+            <div class="modal-actions">
+                <button class="secondary-btn" type="button" onclick="closeSellerModal()">Review Later</button>
+                <button class="reject-btn" type="button" onclick="rejectSeller()">Reject</button>
+                <button class="approve-btn" type="button" onclick="approveSeller()">Approve</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-function viewSeller(name){alert("Opening seller application for " + name);}
-function reviewAll(){alert("Opening all pending seller applications.");}
+const sellerData = {
+    'Aria Kim': {
+        initials: 'AK',
+        email: 'aria@email.com',
+        applied: 'Jul 24, 2025',
+        business: 'Electronics Seller',
+        docs: '3 / 3 Verified',
+        location: 'Dhaka, Bangladesh',
+        verification: 'Identity Verified',
+        summary: 'This seller has submitted all required verification documents, including NID, business registration, and bank account information. The account looks structurally complete and is suitable for manual review.'
+    },
+    'Dev Patel': {
+        initials: 'DP',
+        email: 'dev@email.com',
+        applied: 'Jul 23, 2025',
+        business: 'Home Goods Seller',
+        docs: '3 / 3 Verified',
+        location: 'Chattogram, Bangladesh',
+        verification: 'KYC Approved',
+        summary: 'The seller profile is complete, the warehouse records are consistent, and the documentation appears valid. This applicant is ready for approval unless a compliance exception is found.'
+    },
+    'Lucy Wang': {
+        initials: 'LW',
+        email: 'lucy@email.com',
+        applied: 'Jul 22, 2025',
+        business: 'Beauty Seller',
+        docs: '2 / 3 Verified',
+        location: 'Sylhet, Bangladesh',
+        verification: 'Identity Pending',
+        summary: 'One verification document is still missing. The seller has completed the business profile and most checks, but the final identity confirmation is still pending admin review.'
+    }
+};
+
+function viewSeller(name){
+    const data = sellerData[name] || sellerData['Aria Kim'];
+    document.getElementById('sellerModalAvatar').textContent = data.initials;
+    document.getElementById('sellerModalName').textContent = name;
+    document.getElementById('sellerModalEmail').textContent = data.email;
+    document.getElementById('sellerApplied').textContent = data.applied;
+    document.getElementById('sellerStatus').textContent = 'Pending Review';
+    document.getElementById('sellerBusiness').textContent = data.business;
+    document.getElementById('sellerDocs').textContent = data.docs;
+    document.getElementById('sellerLocation').textContent = data.location;
+    document.getElementById('sellerVerification').textContent = data.verification;
+    document.getElementById('sellerSummary').textContent = data.summary;
+    document.getElementById('sellerModal').classList.remove('hidden');
+}
+
+function closeSellerModal(){
+    document.getElementById('sellerModal').classList.add('hidden');
+}
+
+function approveSeller(){
+    const name = document.getElementById('sellerModalName').textContent;
+    document.getElementById('sellerStatus').textContent = 'Approved';
+    alert(name + ' has been approved successfully.');
+    closeSellerModal();
+}
+
+function rejectSeller(){
+    const name = document.getElementById('sellerModalName').textContent;
+    document.getElementById('sellerStatus').textContent = 'Rejected';
+    alert(name + ' has been rejected for review.');
+    closeSellerModal();
+}
+
+function reviewAll(){alert('Opening all pending seller applications.');}
 </script>
 </body>
 </html>

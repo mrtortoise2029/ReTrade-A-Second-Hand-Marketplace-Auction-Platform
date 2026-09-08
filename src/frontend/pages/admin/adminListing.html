@@ -99,9 +99,114 @@
 
 </main>
 </div>
+
+<div id="listingModal" class="modal-overlay hidden" aria-modal="true" role="dialog">
+    <div class="modal-panel">
+        <div class="modal-header">
+            <h3>Listing Application Review</h3>
+            <button class="close-modal" type="button" onclick="closeListingModal()">Close</button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-hero">
+                <div id="listingModalAvatar" class="avatar-lg" style="background: linear-gradient(135deg,#f59e0b,#fb7185);">AW</div>
+                <div>
+                    <h4 id="listingModalName">Apple Watch</h4>
+                    <p id="listingModalSeller">Apple Gadgets BD</p>
+                </div>
+            </div>
+
+            <div class="detail-grid">
+                <div class="detail-box"><span>Category</span><strong id="listingCategory">Electronics</strong></div>
+                <div class="detail-box"><span>Price</span><strong id="listingPrice">৳ 24,500</strong></div>
+                <div class="detail-box"><span>Condition</span><strong id="listingCondition">Like New</strong></div>
+                <div class="detail-box"><span>Submitted</span><strong id="listingDate">Jul 24, 2025</strong></div>
+                <div class="detail-box"><span>Seller Docs</span><strong id="listingDocs">3 / 3 Verified</strong></div>
+                <div class="detail-box"><span>Status</span><strong id="listingStatus">Pending Review</strong></div>
+            </div>
+
+            <div class="summary-box">
+                <h5>Listing Summary</h5>
+                <p id="listingSummary">The product has complete image uploads, a valid seller profile, and matching product information. This item appears aligned with marketplace standards and is ready for compliance review.</p>
+            </div>
+
+            <div class="modal-actions">
+                <button class="secondary-btn" type="button" onclick="closeListingModal()">Review Later</button>
+                <button class="reject-btn" type="button" onclick="rejectListing()">Reject</button>
+                <button class="approve-btn" type="button" onclick="approveListing()">Approve</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-function viewListing(name){alert("Opening listing application for " + name);}
-function reviewAll(){alert("Opening all pending listing applications.");}
+const listingData = {
+    'Apple Watch': {
+        initials: 'AW',
+        seller: 'Apple Gadgets BD',
+        category: 'Electronics',
+        price: '৳ 24,500',
+        condition: 'Like New',
+        date: 'Jul 24, 2025',
+        docs: '3 / 3 Verified',
+        summary: 'The product has complete image uploads, a valid seller profile, and matching product information. This item appears aligned with marketplace standards and is ready for compliance review.'
+    },
+    'Macbook Pro': {
+        initials: 'MP',
+        seller: 'BD Mac Care',
+        category: 'Computers',
+        price: '৳ 78,000',
+        condition: 'Excellent',
+        date: 'Jul 23, 2025',
+        docs: '3 / 3 Verified',
+        summary: 'The listing includes a complete device description, serial verification, and seller identity confirmation. This listing meets the standard approval criteria.'
+    },
+    'Aloe Vera Gel': {
+        initials: 'AG',
+        seller: 'Cosmeticx Zone',
+        category: 'Beauty',
+        price: '৳ 680',
+        condition: 'New',
+        date: 'Jul 22, 2025',
+        docs: '2 / 3 Verified',
+        summary: 'Product details are mostly complete, but one document requirement is still incomplete. The listing is otherwise valid and needs final verification before approval.'
+    }
+};
+
+function viewListing(name){
+    const data = listingData[name] || listingData['Apple Watch'];
+    document.getElementById('listingModalAvatar').textContent = data.initials;
+    document.getElementById('listingModalAvatar').style.background = 'linear-gradient(135deg,#f59e0b,#fb7185)';
+    document.getElementById('listingModalName').textContent = name;
+    document.getElementById('listingModalSeller').textContent = data.seller;
+    document.getElementById('listingCategory').textContent = data.category;
+    document.getElementById('listingPrice').textContent = data.price;
+    document.getElementById('listingCondition').textContent = data.condition;
+    document.getElementById('listingDate').textContent = data.date;
+    document.getElementById('listingDocs').textContent = data.docs;
+    document.getElementById('listingStatus').textContent = 'Pending Review';
+    document.getElementById('listingSummary').textContent = data.summary;
+    document.getElementById('listingModal').classList.remove('hidden');
+}
+
+function closeListingModal(){
+    document.getElementById('listingModal').classList.add('hidden');
+}
+
+function approveListing(){
+    const name = document.getElementById('listingModalName').textContent;
+    document.getElementById('listingStatus').textContent = 'Approved';
+    alert(name + ' has been approved and will go live.');
+    closeListingModal();
+}
+
+function rejectListing(){
+    const name = document.getElementById('listingModalName').textContent;
+    document.getElementById('listingStatus').textContent = 'Rejected';
+    alert(name + ' has been rejected and sent back for correction.');
+    closeListingModal();
+}
+
+function reviewAll(){alert('Opening all pending listing applications.');}
 </script>
 </body>
 </html>
