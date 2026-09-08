@@ -14,6 +14,28 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="../assets/css/style.css">
 
+<style>
+    .product-card,
+    .auction-card,
+    .mini-product,
+    .category-card,
+    .step-card,
+    .testimonial-card,
+    .faq-item {
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .product-card:hover,
+    .auction-card:hover,
+    .mini-product:hover,
+    .category-card:hover,
+    .step-card:hover,
+    .testimonial-card:hover,
+    .faq-item:hover {
+        transform: translateY(-2px);
+    }
+</style>
 
 </head>
 
@@ -433,7 +455,7 @@
 
             <!-- Product 1 -->
 
-            <div class="product-card">
+            <div class="product-card" data-product="tissot-pr100" onclick="openProduct('tissot-pr100')">
 
                 <div class="product-image">
                     <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600">
@@ -461,7 +483,7 @@
 
             <!-- Product 2 -->
 
-            <div class="product-card">
+            <div class="product-card" data-product="sony-wh-1000xm5" onclick="openProduct('sony-wh-1000xm5')">
 
                 <div class="product-image">
                     <img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=600">
@@ -489,7 +511,7 @@
 
             <!-- Product 3 -->
 
-            <div class="product-card">
+            <div class="product-card" data-product="macbook-pro-m2" onclick="openProduct('macbook-pro-m2')">
 
                 <div class="product-image">
                     <img src="https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=600">
@@ -517,7 +539,7 @@
 
             <!-- Product 4 -->
 
-            <div class="product-card">
+            <div class="product-card" data-product="jordan-1" onclick="openProduct('jordan-1')">
 
                 <div class="product-image">
                     <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600">
@@ -575,7 +597,7 @@
 
         <div class="auction-grid">
 
-            <div class="auction-card">
+            <div class="auction-card" data-product="leica" onclick="openProduct('leica')">
 
                 <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=700">
 
@@ -600,7 +622,7 @@
             </div>
 
 
-            <div class="auction-card">
+            <div class="auction-card" data-product="apple-watch" onclick="openProduct('apple-watch')">
 
                 <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=700">
 
@@ -625,7 +647,7 @@
             </div>
 
 
-            <div class="auction-card">
+            <div class="auction-card" data-product="bose" onclick="openProduct('bose')">
 
                 <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=700">
 
@@ -977,9 +999,9 @@
 
             <div class="footer-brand">
 
-                <div class="logo footer-logo">
+                <div class="logo footer-logo"> <a href="landingwithlogin.html">
                     <div class="logo-icon">R</div>
-                    <span>ReTrade</span>
+                    <span>ReTrade</span></a>
                 </div>
 
                 <p>
@@ -1042,21 +1064,68 @@
 </footer>
 
 <script>
-    const profileTrigger = document.getElementById("profileTrigger");
-    const profileDropdown = document.getElementById("profileDropdown");
+    function openProduct(product) {
+        const source = "landingwithlogin";
+        window.location.href = "productView.html?id=" + encodeURIComponent(product) + "&source=" + source;
+    }
 
-    profileTrigger.addEventListener("click", function (event) {
-        event.stopPropagation();
+    function bindProductCards() {
+        document.querySelectorAll(".product-card, .auction-card").forEach(function (card) {
+            card.addEventListener("click", function () {
+                const product = card.dataset.product || "featured-product";
+                openProduct(product);
+            });
+        });
+    }
 
-        profileDropdown.classList.toggle("show");
-    });
+    function bindSearch() {
+        const searchInputs = document.querySelectorAll('.nav-search input, .search-box input');
 
-    document.addEventListener("click", function (event) {
+        searchInputs.forEach(function (input) {
+            input.addEventListener('keydown', function (event) {
+                if (event.key !== 'Enter') return;
 
-        if (!profileTrigger.contains(event.target) &&
-            !profileDropdown.contains(event.target)) {
+                const query = input.value.trim().toLowerCase();
+                if (!query) return;
 
-            profileDropdown.classList.remove("show");
+                const targetCards = [...document.querySelectorAll('.product-card, .auction-card')].filter(function (card) {
+                    const text = (card.textContent || '').toLowerCase();
+                    return text.includes(query);
+                });
+
+                if (targetCards.length) {
+                    document.getElementById('products').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    targetCards[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    targetCards[0].style.outline = '2px solid #2563eb';
+                    targetCards[0].style.outlineOffset = '4px';
+                    setTimeout(function () {
+                        targetCards[0].style.outline = '';
+                        targetCards[0].style.outlineOffset = '';
+                    }, 1800);
+                }
+            });
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        bindProductCards();
+        bindSearch();
+
+        const profileTrigger = document.getElementById("profileTrigger");
+        const profileDropdown = document.getElementById("profileDropdown");
+
+        if (profileTrigger && profileDropdown) {
+            profileTrigger.addEventListener("click", function (event) {
+                event.stopPropagation();
+                profileDropdown.classList.toggle("show");
+            });
+
+            document.addEventListener("click", function (event) {
+                if (!profileTrigger.contains(event.target) &&
+                    !profileDropdown.contains(event.target)) {
+                    profileDropdown.classList.remove("show");
+                }
+            });
         }
     });
 </script>

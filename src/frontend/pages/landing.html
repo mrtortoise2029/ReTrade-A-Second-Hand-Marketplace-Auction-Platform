@@ -912,10 +912,9 @@
 <script>
 
 function openProduct(product) {
-
+    const source = "landing";
     window.location.href =
-        "productView.html?product=" + product;
-
+        "productView.html?id=" + encodeURIComponent(product) + "&source=" + source;
 }
 
 </script>

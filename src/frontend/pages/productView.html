@@ -7,15 +7,187 @@
     <title>ReTrade - Product View</title>
 
     <link rel="stylesheet" href="../assets/css/productView.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <script src="../assets/js/productview.js" defer></script>
 </head>
 
 <body>
 
-    <!-- Top -->
-    <div class="breadcrumb">
-        Home &nbsp; › &nbsp; Tissot PR100 Swiss Watch
+   <nav class="logged-navbar">
+
+    <div class="nav-left">
+
+         <div class="logo">
+            <div class="logo-icon">R</div>
+            <span>ReTrade</span>
+        </div>
+
+        <div class="nav-divider"></div>
+
+        <div class="main-nav">
+
+            <a href="landingwithlogin.html" class="nav-item">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
+
+            <a href="marketplace.html" class="nav-item">
+                <i class="fa-solid fa-store"></i>
+                <span>Marketplace</span>
+            </a>
+
+            <a href="auction.html" class="nav-item">
+                <i class="fa-solid fa-gavel"></i>
+                <span>Auctions</span>
+            </a>
+
+        </div>
+
     </div>
+
+
+
+    <div class="nav-search">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+            type="text"
+            placeholder="Search anything..."
+        >
+
+        <span class="search-shortcut">⌘ S</span>
+
+    </div>
+
+
+    <div class="nav-right">
+
+  
+        <a href="sell.html" class="sell-item-btn">
+            <i class="fa-solid fa-plus"></i>
+            <span>+ Sell</span>
+        </a>
+
+
+        <button class="action-btn" title="Saved Items">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+
+        <button class="action-btn notification">
+
+            <i class="fa-regular fa-bell"></i>
+
+            <span class="notification-badge">3</span>
+
+        </button>
+
+
+        <div class="profile-dropdown">
+
+            <button class="profile-trigger" id="profileTrigger">
+
+                <div class="profile-avatar">
+                    FA
+                </div>
+
+                <div class="profile-text">
+                    <span class="profile-name">
+                        Fahiz Ahmed
+                    </span>
+
+                    <span class="profile-status">
+                        <span></span>
+                        Online
+                    </span>
+                </div>
+
+                <i class="fa-solid fa-chevron-down"></i>
+
+            </button>
+
+
+            <div class="dropdown-content" id="profileDropdown">
+
+                <!-- User Info -->
+                <div class="dropdown-header">
+
+                    <div class="dropdown-avatar">
+                        FA
+                    </div>
+
+                    <div>
+                        <h4>Fahiz Ahmed</h4>
+                        <p>Verified Member</p>
+                    </div>
+
+                </div>
+
+
+                <div class="dropdown-line"></div>
+
+
+                <!-- Account -->
+                <span class="dropdown-label">
+                    ACCOUNT
+                </span>
+
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    Dashboard
+                </a>
+
+                <a href="profile.html">
+                    <i class="fa-regular fa-user"></i>
+                    My Profile
+                </a>
+
+
+                <div class="dropdown-line"></div>
+
+
+                <!-- Marketplace -->
+                <span class="dropdown-label">
+                    MARKETPLACE
+                </span>
+
+                <a href="my-listings.html">
+                    <i class="fa-solid fa-box"></i>
+                    My Listings
+                </a>
+
+                <a href="orders.html">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    My Orders
+                </a>
+
+                <a href="my-bids.html">
+                    <i class="fa-solid fa-gavel"></i>
+                    My Bids
+                </a>
+
+
+                <div class="dropdown-line"></div>
+
+
+                <a href="settings.html">
+                    <i class="fa-solid fa-gear"></i>
+                    Settings
+                </a>
+
+                <a href="landing.html" class="logout">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Log Out
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
 
 
     <main class="product-page">
@@ -29,7 +201,7 @@
                 <span class="live-badge">● Live Auction</span>
 
                 <img
-                    src="../assets/images/tissot-pr100.jpg"
+                    src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=1200&q=80"
                     alt="Tissot PR100 Swiss Watch"
                 >
 
@@ -42,22 +214,22 @@
 
                 <img
                     class="active-thumb"
-                    src="../assets/images/tissot-pr100.jpg"
+                    src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&q=80"
                     onclick="changeImage(this.src)"
                 >
 
                 <img
-                    src="../assets/images/apple-watch.jpg"
+                    src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&q=80"
                     onclick="changeImage(this.src)"
                 >
 
                 <img
-                    src="../assets/images/perfume.jpg"
+                    src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&q=80"
                     onclick="changeImage(this.src)"
                 >
 
                 <img
-                    src="../assets/images/phone.jpg"
+                    src="https://images.unsplash.com/photo-1511497584788-876760111969?w=600&q=80"
                     onclick="changeImage(this.src)"
                 >
 
@@ -95,7 +267,7 @@
         </section>
 
 
-        <!-- ================= CENTER ================= -->
+     
 
         <section class="product-info">
 
@@ -387,7 +559,7 @@
 
             <div class="similar-card">
 
-                <img src="../assets/images/apple-watch.jpg">
+                <img src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?w=600&q=80">
 
                 <h3>Rolex Datejust 36mm</h3>
 
@@ -398,7 +570,7 @@
 
             <div class="similar-card">
 
-                <img src="../assets/images/perfume.jpg">
+                <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&q=80">
 
                 <h3>Omega Seamaster</h3>
 
@@ -409,7 +581,7 @@
 
             <div class="similar-card">
 
-                <img src="../assets/images/watch2.jpg">
+                <img src="https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=600&q=80">
 
                 <h3>Seiko Presage</h3>
 

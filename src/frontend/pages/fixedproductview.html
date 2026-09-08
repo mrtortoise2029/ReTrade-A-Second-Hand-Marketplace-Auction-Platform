@@ -1,70 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>ReTrade - Product View</title>
 
-    <link rel="stylesheet" href="../assets/css/productView.css">
+    <link rel="stylesheet" href="../assets/css/fixedProductView.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+
     <script src="../assets/js/productview.js" defer></script>
 </head>
 
 <body>
 
-    <!-- Top -->
-    <div class="breadcrumb">
-        Home &nbsp; › &nbsp; Tissot PR100 Swiss Watch
-    </div>
+    <!-- NAVBAR -->
+    <nav class="logged-navbar">
 
+        <div class="nav-left">
+
+            <div class="logo">
+                <div class="logo-icon">R</div>
+                <span>ReTrade</span>
+            </div>
+
+            <div class="nav-divider"></div>
+
+            <div class="main-nav">
+
+                <a href="landingwithlogin.html" class="nav-item">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Home</span>
+                </a>
+
+                <a href="marketplace.html" class="nav-item">
+                    <i class="fa-solid fa-store"></i>
+                    <span>Marketplace</span>
+                </a>
+
+                <a href="auction.html" class="nav-item">
+                    <i class="fa-solid fa-gavel"></i>
+                    <span>Auctions</span>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="nav-search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input type="text" placeholder="Search anything...">
+
+            <span class="search-shortcut">⌘ S</span>
+
+        </div>
+
+
+        <div class="nav-right">
+
+            <a href="sell.html" class="sell-item-btn">
+                <i class="fa-solid fa-plus"></i>
+                <span>+ Sell</span>
+            </a>
+
+            <button class="action-btn">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+
+            <button class="action-btn notification">
+                <i class="fa-regular fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </button>
+
+            <div class="profile-dropdown">
+
+                <button class="profile-trigger">
+
+                    <div class="profile-avatar">FA</div>
+
+                    <div class="profile-text">
+                        <span class="profile-name">Fahiz Ahmed</span>
+
+                        <span class="profile-status">
+                            <span></span>
+                            Online
+                        </span>
+                    </div>
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN PRODUCT AREA -->
 
     <main class="product-page">
 
-        <!-- ================= LEFT ================= -->
+
+        <!-- LEFT SIDE -->
 
         <section class="product-left">
 
             <div class="main-image">
 
-                <span class="live-badge">● Live Auction</span>
+                <span class="fixed-badge">
+                    ● Fixed Price
+                </span>
 
                 <img
-                    src="../assets/images/tissot-pr100.jpg"
-                    alt="Tissot PR100 Swiss Watch"
-                >
+                    src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=1200&q=80"
+                    alt="Tissot PR100 Swiss Watch">
 
             </div>
 
-
-            <!-- Thumbnails -->
 
             <div class="thumbnails">
 
                 <img
                     class="active-thumb"
-                    src="../assets/images/tissot-pr100.jpg"
-                    onclick="changeImage(this.src)"
-                >
+                    src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&q=80"
+                    onclick="changeImage(this.src)">
 
                 <img
-                    src="../assets/images/apple-watch.jpg"
-                    onclick="changeImage(this.src)"
-                >
+                    src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&q=80"
+                    onclick="changeImage(this.src)">
 
                 <img
-                    src="../assets/images/perfume.jpg"
-                    onclick="changeImage(this.src)"
-                >
+                    src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&q=80"
+                    onclick="changeImage(this.src)">
 
                 <img
-                    src="../assets/images/phone.jpg"
-                    onclick="changeImage(this.src)"
-                >
+                    src="https://images.unsplash.com/photo-1511497584788-876760111969?w=600&q=80"
+                    onclick="changeImage(this.src)">
 
             </div>
 
 
-            <!-- Environmental Impact -->
+            <!-- ENVIRONMENT -->
 
             <div class="environment">
 
@@ -72,9 +154,8 @@
 
                 <h2>4.2kg</h2>
 
-                <p>
-                    CO₂ saved through 1 reused items
-                </p>
+                <p>CO₂ saved through 1 reused item</p>
+
 
                 <div class="environment-boxes">
 
@@ -95,14 +176,19 @@
         </section>
 
 
-        <!-- ================= CENTER ================= -->
+
+        <!-- CENTER PRODUCT INFO -->
 
         <section class="product-info">
 
             <div class="tags">
-                <span class="live">● Live</span>
+
+                <span class="fixed">● Fixed Price</span>
+
                 <span>Watches</span>
+
                 <span>Like New</span>
+
             </div>
 
 
@@ -111,46 +197,32 @@
                 Steel Blue Dial
             </h1>
 
+
             <div class="views">
                 ◉ 1,248 views &nbsp;&nbsp;
-                ♧ 18 watching
+                ♡ 18 saved
             </div>
 
 
-            <!-- Current Bid -->
+            <!-- FIXED PRICE -->
 
-            <div class="current-bid">
+            <div class="fixed-price">
 
-                <span>Current Bid</span>
+                <span>Fixed Price</span>
 
                 <h2>$1,240</h2>
 
-                <p>
-                    18 bids · Starting at $500
-                </p>
+                <p>Buy instantly — no bidding required</p>
 
-                <div class="timer">
-
-                    <div>
-                        00
-                        <small>M</small>
-                    </div>
-
-                    <div>
-                        00
-                        <small>S</small>
-                    </div>
-
+                <div class="stock-info">
+                    ✓ In Stock
+                    <small>Only 3 available</small>
                 </div>
-
-                <p class="warning">
-                    ⚠ Anti-sniping: 2-min extension if bid placed in final 2 minutes
-                </p>
 
             </div>
 
 
-            <!-- Seller -->
+            <!-- SELLER -->
 
             <div class="seller">
 
@@ -161,12 +233,17 @@
                     </div>
 
                     <div>
-                        <h3>Marcus L. <span>● Gold</span></h3>
+
+                        <h3>
+                            Marcus L.
+                            <span>● Gold</span>
+                        </h3>
 
                         <div class="stars">
                             ★★★★★
                             <small>(312)</small>
                         </div>
+
                     </div>
 
                     <button>♡ Chat</button>
@@ -201,8 +278,6 @@
             </p>
 
 
-            <!-- Specifications -->
-
             <div class="basic-info">
 
                 <div>
@@ -230,36 +305,50 @@
         </section>
 
 
-        <!-- ================= RIGHT ================= -->
 
-        <aside class="bid-panel">
+        <!-- RIGHT PURCHASE PANEL -->
+
+        <aside class="purchase-panel">
 
             <h3>
-                Minimum next bid
-                <strong>$1,260</strong>
+                Item Price
+                <strong>$1,240</strong>
             </h3>
 
 
-            <input
-                type="number"
-                value="1280"
-            >
+            <div class="quantity-section">
+
+                <label>Quantity</label>
+
+                <div class="quantity-control">
+
+                    <button onclick="decreaseQuantity()">−</button>
+
+                    <input
+                        type="number"
+                        id="quantity"
+                        value="1"
+                        min="1"
+                        max="3">
+
+                    <button onclick="increaseQuantity()">+</button>
+
+                </div>
+
+            </div>
 
 
-            <button
-                class="place-bid"
-                onclick="placeBid()"
-            >
-                ⚡ Place Bid
+            <button class="add-cart">
+                🛒 Add to Cart
             </button>
 
 
             <button class="buy-now">
-                Buy Now — $1,450
+                ⚡ Buy Now
             </button>
 
 
-            <div class="bid-actions">
+            <div class="purchase-actions">
 
                 <button>♡ Save</button>
 
@@ -272,30 +361,20 @@
 
                 <p>✓ Buyer Protection Guaranteed</p>
 
-                <p>✓ Escrow Payment</p>
+                <p>✓ Secure Payment</p>
 
                 <p>✓ Free Returns within 3 days</p>
 
             </div>
 
 
-            <!-- Auto Bid -->
+            <div class="delivery">
 
-            <div class="auto-bid">
+                <h3>Delivery Information</h3>
 
-                <h3>Auto-Bid</h3>
+                <p>🚚 Estimated delivery: 2–4 days</p>
 
-                <p>
-                    Set your max — we'll bid automatically
-                    to keep you in the lead.
-                </p>
-
-                <input
-                    type="number"
-                    placeholder="Max bid amount"
-                >
-
-                <button>Activate Auto-Bid</button>
+                <p>📦 Safe & secure packaging</p>
 
             </div>
 
@@ -304,15 +383,17 @@
     </main>
 
 
-    <!-- ================= DETAILS ================= -->
+
+    <!-- DETAILS -->
 
     <section class="details-section">
 
         <div class="tabs">
 
             <button class="active">Details</button>
-            <button>Bids (5)</button>
+
             <button>Reviews</button>
+
             <button>Q&A</button>
 
         </div>
@@ -377,7 +458,8 @@
     </section>
 
 
-    <!-- ================= SIMILAR ITEMS ================= -->
+
+    <!-- SIMILAR ITEMS -->
 
     <section class="similar">
 
@@ -387,7 +469,7 @@
 
             <div class="similar-card">
 
-                <img src="../assets/images/apple-watch.jpg">
+                <img src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?w=600&q=80">
 
                 <h3>Rolex Datejust 36mm</h3>
 
@@ -398,7 +480,7 @@
 
             <div class="similar-card">
 
-                <img src="../assets/images/perfume.jpg">
+                <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&q=80">
 
                 <h3>Omega Seamaster</h3>
 
@@ -409,7 +491,7 @@
 
             <div class="similar-card">
 
-                <img src="../assets/images/watch2.jpg">
+                <img src="https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=600&q=80">
 
                 <h3>Seiko Presage</h3>
 
@@ -422,5 +504,27 @@
     </section>
 
 
+    <script>
+
+        function decreaseQuantity() {
+            const input = document.getElementById("quantity");
+
+            if (input.value > 1) {
+                input.value--;
+            }
+        }
+
+
+        function increaseQuantity() {
+            const input = document.getElementById("quantity");
+
+            if (input.value < 3) {
+                input.value++;
+            }
+        }
+
+    </script>
+
 </body>
+
 </html>
