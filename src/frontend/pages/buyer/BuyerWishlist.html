@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReTrade — Wishlist</title>
+<style>
+  :root{
+    --bg:#f4f5f7;
+    --card:#ffffff;
+    --border:#eceef1;
+    --text:#16181d;
+    --muted:#8a8f98;
+    --blue:#5b6df8;
+    --blue-dark:#3a46d1;
+    --green:#1fbf75;
+    --green-dark:#0f9e5f;
+    --amber:#f0a93b;
+    --pink:#f15b8c;
+    --radius:14px;
+    --shadow:0 1px 2px rgba(20,20,43,.04), 0 8px 24px rgba(20,20,43,.05);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    display:flex;
+    min-height:100vh;
+  }
+  a{text-decoration:none;color:inherit;}
+  button{font-family:inherit;cursor:pointer;}
+
+  /* ===== Sidebar ===== */
+  .sidebar{
+    width:230px;
+    background:var(--card);
+    border-right:1px solid var(--border);
+    display:flex;
+    flex-direction:column;
+    padding:20px 14px;
+    flex-shrink:0;
+  }
+  .brand{
+    display:flex;align-items:center;gap:10px;
+    padding:4px 8px 20px;
+    font-weight:700;font-size:16px;
+  }
+  .brand .logo{
+    width:28px;height:28px;border-radius:8px;
+    background:var(--blue);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:800;font-size:14px;
+  }
+  .user-card{
+    display:flex;align-items:center;gap:10px;
+    padding:8px;border-radius:12px;
+    margin-bottom:18px;
+  }
+  .avatar{
+    width:36px;height:36px;border-radius:50%;
+    background:linear-gradient(135deg,#f6a5c0,#f15b8c);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:700;font-size:14px;
+  }
+  .user-card .name{font-size:14px;font-weight:600;}
+  .user-card .role{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px;}
+  .role .dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;}
+
+  nav.main-nav{display:flex;flex-direction:column;gap:2px;flex:1;}
+  .nav-item{
+    display:flex;align-items:center;gap:10px;
+    padding:10px 12px;border-radius:10px;
+    font-size:13.5px;color:#4c525c;font-weight:500;
+    position:relative;
+    transition:background .15s, color .15s;
+  }
+  .nav-item .ic{width:18px;text-align:center;font-size:15px;}
+  .nav-item:hover{background:#f2f3f6;}
+  .nav-item.active{background:#eef0ff;color:var(--blue-dark);font-weight:600;}
+  .badge{
+    margin-left:auto;background:var(--pink);color:#fff;
+    font-size:10px;font-weight:700;border-radius:10px;
+    padding:1px 6px;
+  }
+  .nav-bottom{display:flex;flex-direction:column;gap:2px;margin-top:10px;border-top:1px solid var(--border);padding-top:10px;}
+
+  /* ===== Main ===== */
+  .main{
+    flex:1;
+    width:100%;
+    min-width:0;
+    padding:26px 34px;
+}
+  .topbar{
+    display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px;
+  }
+  .topbar h1{margin:0;font-size:22px;}
+  .topbar p{margin:4px 0 0;color:var(--muted);font-size:13.5px;}
+  .top-right{display:flex;align-items:center;gap:14px;}
+  .icon-btn{
+    width:38px;height:38px;border-radius:50%;
+    background:var(--card);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;font-size:15px;
+  }
+  .icon-btn .dot{
+    position:absolute;top:6px;right:7px;width:7px;height:7px;
+    border-radius:50%;background:var(--pink);border:1.5px solid #fff;
+  }
+  .avatar-top{
+    width:38px;height:38px;border-radius:50%;
+    background:linear-gradient(135deg,#f6a5c0,#f15b8c);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:700;font-size:14px;
+  }
+
+  /* ===== Grid ===== */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:26px;}
+  .card{
+    background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+    overflow:hidden;transition:transform .15s, box-shadow .15s;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(20,20,43,.1);}
+  .card.removing{opacity:0;transform:scale(.92) translateY(6px);pointer-events:none;}
+  .img{
+    height:190px;position:relative;background-size:cover;background-position:center;cursor:pointer;
+  }
+  .tag{
+    position:absolute;top:12px;left:12px;background:rgba(255,255,255,.92);
+    font-size:11px;font-weight:700;padding:4px 10px;border-radius:9px;
+  }
+  .tag.live{
+    left:auto;right:12px;background:var(--pink);color:#fff;
+    display:flex;align-items:center;gap:4px;
+  }
+  .tag.live::before{content:'';width:6px;height:6px;border-radius:50%;background:#fff;animation:pulse 1.2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+  .heart-btn{
+    position:absolute;bottom:12px;right:12px;width:32px;height:32px;border-radius:50%;
+    background:rgba(255,255,255,.95);border:none;display:flex;align-items:center;justify-content:center;
+    font-size:15px;color:var(--pink);transition:transform .12s;
+  }
+  .heart-btn:hover{transform:scale(1.1);}
+  .body{padding:15px 16px 17px;}
+  .name{font-size:14.5px;font-weight:700;margin-bottom:5px;}
+  .bid-label{font-size:11px;color:var(--muted);}
+  .price-row{display:flex;align-items:baseline;gap:7px;margin:2px 0 9px;font-size:15px;}
+  .price{font-weight:700;}
+  .orig{color:var(--muted);text-decoration:line-through;font-size:12.5px;}
+  .bid-val{color:var(--pink);font-weight:700;font-size:16px;}
+  .timer{font-size:11.5px;color:var(--muted);margin:-5px 0 9px;}
+  .foot{display:flex;justify-content:space-between;align-items:center;}
+  .seller{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);}
+  .sav{
+    width:19px;height:19px;border-radius:50%;color:#fff;font-size:9.5px;
+    display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;
+  }
+  .stars{color:var(--amber);font-size:12px;}
+  .card-actions{display:flex;gap:8px;margin-top:12px;}
+  .btn{
+    flex:1;padding:8px 0;border-radius:9px;font-size:12px;font-weight:700;border:none;
+    display:flex;align-items:center;justify-content:center;gap:5px;
+    transition:filter .12s;
+  }
+  .btn:hover{filter:brightness(.95);}
+  .btn-buy{background:var(--blue);color:#fff;}
+  .btn-bid{background:var(--pink);color:#fff;}
+  .btn-remove{background:#f4f5f7;color:#8a8f98;flex:0 0 38px;font-size:14px;}
+
+  .empty-state{
+    display:none;flex-direction:column;align-items:center;justify-content:center;
+    padding:70px 20px;text-align:center;color:var(--muted);
+  }
+  .empty-state.show{display:flex;}
+  .empty-state .ic{font-size:38px;margin-bottom:10px;}
+  .empty-state h3{margin:0 0 4px;color:var(--text);font-size:16px;}
+  .empty-state p{margin:0;font-size:13px;}
+
+  /* ===== Quick nav footer ===== */
+  .quicknav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
+  .quicknav a{
+    display:flex;align-items:center;gap:6px;
+    background:var(--card);border:1px solid var(--border);
+    padding:8px 16px;border-radius:20px;font-size:12.5px;font-weight:600;color:#4c525c;
+    transition:background .15s;
+  }
+  .quicknav a:hover{background:#f2f3f6;}
+  .quicknav a.primary{background:var(--blue);color:#fff;border-color:var(--blue);}
+  .quicknav a.primary:hover{background:var(--blue-dark);}
+
+  /* ===== Toast ===== */
+  #toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:#16181d;color:#fff;padding:12px 20px;border-radius:10px;
+    font-size:13px;opacity:0;transition:opacity .25s, transform .25s;pointer-events:none;
+    box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:50;
+  }
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  @media (max-width: 900px){
+    .sidebar{display:none;}
+    .grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Sidebar ===== -->
+<aside class="sidebar">
+  <div class="brand"><div class="logo">R</div> ReTrade</div>
+  <div class="user-card">
+    <div class="avatar">SC</div>
+    <div>
+      <div class="name">Sarah Chen</div>
+      <div class="role"><span class="dot"></span> Buyer</div>
+    </div>
+  </div>
+  <nav class="main-nav">
+    <a class="nav-item" data-page="Overview"><span class="ic">📊</span> Overview</a>
+    <a class="nav-item" data-page="Orders"><span class="ic">📦</span> Orders</a>
+    <a class="nav-item active" data-page="Wishlist"><span class="ic">🤍</span> Wishlist</a>
+    <a class="nav-item" data-page="Auctions"><span class="ic">🔨</span> Auctions</a>
+    <a class="nav-item" data-page="Messages"><span class="ic">💬</span> Messages</a>
+    <a class="nav-item" data-page="Notifications"><span class="ic">🔔</span> Notifications <span class="badge">2</span></a>
+  </nav>
+  <div class="nav-bottom">
+    <a class="nav-item" data-page="Settings"><span class="ic">⚙️</span> Settings</a>
+    <a class="nav-item" data-page="Back to Site"><span class="ic">🏠</span> Back to Site</a>
+  </div>
+</aside>
+
+<!-- ===== Main ===== -->
+<main class="main">
+  <div class="topbar">
+    <div>
+      <h1>Wishlist</h1>
+      <p>Welcome back, Sarah!</p>
+    </div>
+    <div class="top-right">
+      <button class="icon-btn" id="bellBtn">🔔<span class="dot"></span></button>
+      <div class="avatar-top">SC</div>
+    </div>
+  </div>
+
+  <div class="grid" id="wishGrid">
+
+    <div class="card" data-name="MacBook Pro M2 16&quot;">
+      <div class="img" style="background-image:url('https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=300&fit=crop')">
+        <div class="tag">Good</div>
+        <button class="heart-btn" data-action="heart">❤</button>
+      </div>
+      <div class="body">
+        <div class="name">MacBook Pro M2 16"</div>
+        <div class="price-row"><span class="price">$1,590</span><span class="orig">$2,499</span></div>
+        <div class="foot">
+          <div class="seller"><span class="sav" style="background:#e05b3d;">TK</span> Tom K.</div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-buy" data-action="buy">Buy Now</button>
+          <button class="btn btn-remove" data-action="remove" title="Remove from wishlist">✕</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-name="Tissot PR100 Watch">
+      <div class="img" style="background-image:url('https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=400&h=300&fit=crop')">
+        <div class="tag">Like New</div>
+        <div class="tag live">Live Auction</div>
+        <button class="heart-btn" data-action="heart">❤</button>
+      </div>
+      <div class="body">
+        <div class="name">Tissot PR100 Watch</div>
+        <div class="bid-label">Current Bid</div>
+        <div class="price-row"><span class="bid-val">$1,240</span></div>
+        <div class="timer" id="auctionTimer">1h 19m 46s</div>
+        <div class="foot">
+          <div class="seller"><span class="sav" style="background:#6b5bf5;">ML</span> Marcus L.</div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-bid" data-action="bid">Place Bid</button>
+          <button class="btn btn-remove" data-action="remove" title="Remove from wishlist">✕</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-name="Dyson V15 Detect Vacuum">
+      <div class="img" style="background-image:url('https://images.unsplash.com/photo-1585421514738-01798e348b17?w=400&h=300&fit=crop')">
+        <div class="tag">Like New</div>
+        <button class="heart-btn" data-action="heart">❤</button>
+      </div>
+      <div class="body">
+        <div class="name">Dyson V15 Detect Vacuum</div>
+        <div class="price-row"><span class="price">$320</span><span class="orig">$650</span></div>
+        <div class="foot">
+          <div class="seller"><span class="sav" style="background:#2e9e5b;">AR</span> Anna R.</div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-buy" data-action="buy">Buy Now</button>
+          <button class="btn btn-remove" data-action="remove" title="Remove from wishlist">✕</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="empty-state" id="emptyState">
+    <div class="ic">🤍</div>
+    <h3>Your wishlist is empty</h3>
+    <p>Items you save will show up here.</p>
+  </div>
+
+  <!-- Quick nav footer -->
+  <div class="quicknav">
+    <a data-page="Home">🏠 Home</a>
+    <a data-page="Product">📦 Product</a>
+    <a data-page="Auction">🔨 Auction</a>
+    <a class="primary" data-page="Dashboard">📊 Dashboard</a>
+  </div>
+</main>
+
+<div id="toast"></div>
+
+<script>
+  // ---------- Toast helper ----------
+  const toastEl = document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 2200);
+  }
+
+  // ---------- Sidebar navigation ----------
+  document.querySelectorAll('.nav-item').forEach(item=>{
+    item.addEventListener('click', ()=>{
+      document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+      item.classList.add('active');
+      showToast('Navigated to ' + item.dataset.page);
+    });
+  });
+  document.getElementById('bellBtn').addEventListener('click', ()=> showToast('2 new notifications'));
+
+  // ---------- Card image click ----------
+  document.querySelectorAll('.img').forEach(img=>{
+    img.addEventListener('click', ()=>{
+      const name = img.closest('.card').dataset.name;
+      showToast('Viewing: ' + name);
+    });
+  });
+
+  // ---------- Card action buttons ----------
+  const grid = document.getElementById('wishGrid');
+  const emptyState = document.getElementById('emptyState');
+
+  function checkEmpty(){
+    const remaining = grid.querySelectorAll('.card').length;
+    emptyState.classList.toggle('show', remaining === 0);
+  }
+
+  grid.addEventListener('click', e=>{
+    const btn = e.target.closest('[data-action]');
+    if(!btn) return;
+    e.stopPropagation();
+    const card = btn.closest('.card');
+    const name = card.dataset.name;
+    const action = btn.dataset.action;
+
+    if(action === 'heart'){
+      btn.style.color = btn.style.color === 'rgb(138, 143, 152)' ? '' : '#8a8f98';
+      showToast(btn.style.color ? 'Removed from favorites' : 'Added to favorites');
+    } else if(action === 'buy'){
+      showToast('Proceeding to checkout: ' + name);
+    } else if(action === 'bid'){
+      showToast('Opening bid dialog: ' + name);
+    } else if(action === 'remove'){
+      card.classList.add('removing');
+      showToast('Removed ' + name + ' from wishlist');
+      setTimeout(()=>{ card.remove(); checkEmpty(); }, 250);
+    }
+  });
+
+  // ---------- Live auction countdown ----------
+  let secondsLeft = 1*3600 + 19*60 + 46;
+  const timerEl = document.getElementById('auctionTimer');
+  setInterval(()=>{
+    if(secondsLeft <= 0 || !timerEl.isConnected) return;
+    secondsLeft--;
+    const h = Math.floor(secondsLeft/3600);
+    const m = Math.floor((secondsLeft%3600)/60);
+    const s = secondsLeft%60;
+    timerEl.textContent = `${h}h ${m}m ${s}s`;
+  }, 1000);
+
+  // ---------- Quick nav ----------
+  document.querySelectorAll('.quicknav a').forEach(a=>{
+    a.addEventListener('click', ()=> showToast('Navigating to ' + a.dataset.page));
+  });
+</script>
+</body>
+</html>
