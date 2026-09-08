@@ -320,7 +320,7 @@
 
                     </div>
 
-                    <button>♡ Chat</button>
+                    <button onclick="openChat()">♡ Chat</button>
 
                 </div>
 
@@ -417,7 +417,7 @@
             </button>
 
 
-            <button class="buy-now">
+            <button class="buy-now" onclick="goToPayment()">
                 ⚡ Buy Now
             </button>
 
@@ -595,6 +595,24 @@
             if (input.value < 3) {
                 input.value++;
             }
+        }
+
+        function goToPayment() {
+            const params = new URLSearchParams(window.location.search);
+            const productId = params.get('id') || 'tissot-pr100';
+            const source = params.get('source') || 'landing';
+            const productPage = 'fixedproductview.html';
+            const qtyInput = document.getElementById('quantity');
+            const quantity = qtyInput ? Math.max(1, parseInt(qtyInput.value || '1', 10)) : 1;
+            window.location.href = 'payment.html?id=' + encodeURIComponent(productId) + '&source=' + encodeURIComponent(source) + '&page=' + encodeURIComponent(productPage) + '&qty=' + encodeURIComponent(quantity);
+        }
+
+        function openChat() {
+            const params = new URLSearchParams(window.location.search);
+            const productId = params.get('id') || 'tissot-pr100';
+            const source = params.get('source') || 'landing';
+            const productPage = 'fixedproductview.html';
+            window.location.href = 'chat.html?id=' + encodeURIComponent(productId) + '&source=' + encodeURIComponent(source) + '&page=' + encodeURIComponent(productPage);
         }
 
         document.addEventListener("DOMContentLoaded", function () {

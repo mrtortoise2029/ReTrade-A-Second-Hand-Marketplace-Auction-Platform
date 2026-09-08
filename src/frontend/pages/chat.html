@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReTrade - Chat</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <style>
+        body {
+            background: #f8fafc;
+        }
+
+        .chat-page {
+            max-width: 1180px;
+            margin: 32px auto 60px;
+            padding: 0 20px;
+        }
+
+        .chat-shell {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            min-height: 720px;
+        }
+
+        .chat-sidebar {
+            border-right: 1px solid #e2e8f0;
+            background: #f8fafc;
+            padding: 18px 16px;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .chat-header h2 {
+            margin: 0;
+            font-size: 22px;
+            color: #0f172a;
+        }
+
+        .chat-header .back-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            color: #475569;
+            cursor: pointer;
+        }
+
+        .chat-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 10px;
+            border-radius: 12px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+        }
+
+        .chat-item.active {
+            border-color: #bfdbfe;
+            background: #eff6ff;
+        }
+
+        .chat-avatar {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .chat-user {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .chat-user h4 {
+            margin: 0;
+            font-size: 13px;
+            color: #0f172a;
+        }
+
+        .chat-user p {
+            margin: 3px 0 0;
+            font-size: 11px;
+            color: #64748b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-panel {
+            display: flex;
+            flex-direction: column;
+            background: white;
+        }
+
+        .chat-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 22px;
+            border-bottom: 1px solid #e2e8f0;
+            background: #fff;
+        }
+
+        .seller-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .seller-profile .chat-avatar {
+            width: 40px;
+            height: 40px;
+            font-size: 11px;
+        }
+
+        .seller-profile h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .seller-profile p {
+            margin: 3px 0 0;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 11px;
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        .status-pill span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            display: inline-block;
+        }
+
+        .product-chip {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 16px 22px 0;
+        }
+
+        .product-chip img {
+            width: 52px;
+            height: 52px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .product-chip strong {
+            display: block;
+            font-size: 13px;
+            color: #0f172a;
+        }
+
+        .product-chip span {
+            display: block;
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 2px;
+        }
+
+        .messages {
+            flex: 1;
+            padding: 20px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            overflow: auto;
+        }
+
+        .message {
+            max-width: 70%;
+            padding: 12px 14px;
+            border-radius: 14px;
+            color: #0f172a;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .message.incoming {
+            align-self: flex-start;
+            background: #edf2ff;
+            border: 1px solid #dbeafe;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.outgoing {
+            align-self: flex-end;
+            background: #2563eb;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .composer {
+            display: flex;
+            gap: 10px;
+            padding: 16px 22px 22px;
+            border-top: 1px solid #e2e8f0;
+            background: white;
+        }
+
+        .composer input {
+            flex: 1;
+            border: 1px solid #dfe7f1;
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .composer input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
+        }
+
+        .composer button {
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        @media (max-width: 900px) {
+            .chat-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-sidebar {
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="logged-navbar">
+    <div class="nav-left">
+        <div class="logo" style="display:flex; align-items:center; gap:10px; font-size:22px; font-weight:800;">
+            <div class="logo-icon">R</div>
+            <span>ReTrade</span>
+        </div>
+
+        <div class="nav-divider"></div>
+
+        <div class="main-nav">
+            <a href="landingwithlogin.html" class="nav-item active">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
+            <a href="marketplace.html" class="nav-item">
+                <i class="fa-solid fa-store"></i>
+                <span>Marketplace</span>
+            </a>
+            <a href="auction.html" class="nav-item">
+                <i class="fa-solid fa-gavel"></i>
+                <span>Auctions</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="nav-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search anything...">
+        <span class="search-shortcut">⌘ S</span>
+    </div>
+
+    <div class="nav-right">
+        <a href="sell.html" class="sell-item-btn">
+            <i class="fa-solid fa-plus"></i>
+            <span>Sell</span>
+        </a>
+
+        <button class="action-btn" title="Saved Items">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+
+        <button class="action-btn notification">
+            <i class="fa-regular fa-bell"></i>
+            <span class="notification-badge">3</span>
+        </button>
+
+        <div class="profile-dropdown">
+            <button class="profile-trigger" id="profileTrigger">
+                <div class="profile-avatar">FA</div>
+                <div class="profile-text">
+                    <span class="profile-name">Fahiz Ahmed</span>
+                    <span class="profile-status"><span></span>Online</span>
+                </div>
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+
+            <div class="dropdown-content" id="profileDropdown">
+                <div class="dropdown-header">
+                    <div class="dropdown-avatar">FA</div>
+                    <div>
+                        <h4>Fahiz Ahmed</h4>
+                        <p>Verified Member</p>
+                    </div>
+                </div>
+
+                <div class="dropdown-line"></div>
+
+                <span class="dropdown-label">ACCOUNT</span>
+                <a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i>Dashboard</a>
+                <a href="profile.html"><i class="fa-regular fa-user"></i>My Profile</a>
+
+                <div class="dropdown-line"></div>
+
+                <span class="dropdown-label">MARKETPLACE</span>
+                <a href="my-listings.html"><i class="fa-solid fa-box"></i>My Listings</a>
+                <a href="orders.html"><i class="fa-solid fa-bag-shopping"></i>My Orders</a>
+                <a href="my-bids.html"><i class="fa-solid fa-gavel"></i>My Bids</a>
+
+                <div class="dropdown-line"></div>
+
+                <a href="settings.html"><i class="fa-solid fa-gear"></i>Settings</a>
+                <a href="landing.html" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>Log Out</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="chat-page">
+    <div class="chat-shell">
+        <aside class="chat-sidebar">
+            <div class="chat-header">
+                <h2>Messages</h2>
+                <button class="back-btn" id="backToProductBtn" title="Back to product">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+            </div>
+
+            <div class="chat-list">
+                <div class="chat-item active">
+                    <div class="chat-avatar">ML</div>
+                    <div class="chat-user">
+                        <h4>Marcus L.</h4>
+                        <p>Is the watch still available?</p>
+                    </div>
+                </div>
+
+                <div class="chat-item">
+                    <div class="chat-avatar">PS</div>
+                    <div class="chat-user">
+                        <h4>Priya S.</h4>
+                        <p>Can we arrange delivery?</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <section class="chat-panel">
+            <div class="chat-topbar">
+                <div class="seller-profile">
+                    <div class="chat-avatar">ML</div>
+                    <div>
+                        <h3>Marcus L.</h3>
+                        <p>Seller · Responds within 1 hour</p>
+                    </div>
+                </div>
+
+                <div class="status-pill"><span></span>Online</div>
+            </div>
+
+            <div class="product-chip">
+                <img id="chatProductImage" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600" alt="Product">
+                <div>
+                    <strong id="chatProductName">Premium Swiss Watch — Tissot PR100</strong>
+                    <span id="chatProductPrice">৳38,000</span>
+                </div>
+            </div>
+
+            <div class="messages" id="messages">
+                <div class="message incoming">Hi! Yes, the item is still available. Are you interested in the box and paperwork?</div>
+                <div class="message outgoing">Yes, I want to know if shipping is available in Dhaka.</div>
+                <div class="message incoming">Yes, we can arrange delivery, and it will be packed securely.</div>
+            </div>
+
+            <div class="composer">
+                <input id="messageInput" type="text" placeholder="Type a message...">
+                <button id="sendButton">Send</button>
+            </div>
+        </section>
+    </div>
+</main>
+
+<script>
+    const productCatalog = {
+        'tissot-pr100': {
+            id: 'tissot-pr100',
+            name: 'Premium Swiss Watch — Tissot PR100',
+            image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200&q=80',
+            price: 38000
+        },
+        'sony-wh-1000xm5': {
+            id: 'sony-wh-1000xm5',
+            name: 'Sony WH-1000XM5 Noise Canceling Headphones',
+            image: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=1200&q=80',
+            price: 19500
+        },
+        'macbook-pro-m2': {
+            id: 'macbook-pro-m2',
+            name: 'MacBook Pro M2 16" — Space Gray',
+            image: 'https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=1200&q=80',
+            price: 165000
+        },
+        'jordan-1': {
+            id: 'jordan-1',
+            name: 'Nike Air Jordan 1 Retro High OG',
+            image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1200&q=80',
+            price: 24000
+        },
+        'leica': {
+            id: 'leica',
+            name: 'Vintage Leica M6 Film Camera',
+            image: 'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=1200&q=80',
+            price: 124000
+        },
+        'apple-watch': {
+            id: 'apple-watch',
+            name: 'Apple Watch Ultra 2 Titanium',
+            image: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=1200&q=80',
+            price: 68000
+        },
+        'bose': {
+            id: 'bose',
+            name: 'Bose QuietComfort 45 Bundle',
+            image: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=1200&q=80',
+            price: 19500
+        }
+    };
+
+    function formatCurrency(value) {
+        return '৳' + Number(value).toLocaleString('en-BD');
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const productId = (params.get('id') || '').toLowerCase();
+    const source = params.get('source') || 'landing';
+    const productPage = params.get('page') || 'landingwithlogin.html';
+
+    function loadProductForChat() {
+        const product = productCatalog[productId] || productCatalog['tissot-pr100'];
+        document.getElementById('chatProductImage').src = product.image;
+        document.getElementById('chatProductName').textContent = product.name;
+        document.getElementById('chatProductPrice').textContent = formatCurrency(product.price);
+    }
+
+    function backToProduct() {
+        const targetPage = productPage || (source === 'landingwithlogin' ? 'landingwithlogin.html' : 'landing.html');
+        window.location.href = targetPage + (productId ? '?id=' + encodeURIComponent(productId) + '&source=' + encodeURIComponent(source) : '');
+    }
+
+    function sendMessage() {
+        const input = document.getElementById('messageInput');
+        const value = input.value.trim();
+        if (!value) return;
+
+        const messages = document.getElementById('messages');
+        const outgoing = document.createElement('div');
+        outgoing.className = 'message outgoing';
+        outgoing.textContent = value;
+        messages.appendChild(outgoing);
+
+        input.value = '';
+        messages.scrollTop = messages.scrollHeight;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        loadProductForChat();
+
+        document.getElementById('sendButton').addEventListener('click', sendMessage);
+        document.getElementById('messageInput').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        document.getElementById('backToProductBtn').addEventListener('click', backToProduct);
+
+        const profileTrigger = document.getElementById('profileTrigger');
+        const profileDropdown = document.getElementById('profileDropdown');
+
+        if (profileTrigger && profileDropdown) {
+            profileTrigger.addEventListener('click', function (event) {
+                event.stopPropagation();
+                profileDropdown.classList.toggle('show');
+            });
+
+            document.addEventListener('click', function (event) {
+                if (!profileTrigger.contains(event.target) && !profileDropdown.contains(event.target)) {
+                    profileDropdown.classList.remove('show');
+                }
+            });
+        }
+
+        const searchInputs = document.querySelectorAll('.nav-search input');
+        searchInputs.forEach(function (input) {
+            input.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    const query = input.value.trim();
+                    if (!query) return;
+                    window.location.href = 'marketplace.html?search=' + encodeURIComponent(query);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

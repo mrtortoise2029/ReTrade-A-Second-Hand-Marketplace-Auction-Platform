@@ -342,7 +342,7 @@
                         </div>
                     </div>
 
-                    <button>♡ Chat</button>
+                    <button onclick="openChat()">♡ Chat</button>
 
                 </div>
 
@@ -427,7 +427,7 @@
             </button>
 
 
-            <button class="buy-now">
+            <button class="buy-now" onclick="goToPayment()">
                 Buy Now — $1,450
             </button>
 
@@ -601,7 +601,24 @@
 
     <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+    function goToPayment() {
+        const params = new URLSearchParams(window.location.search);
+        const productId = params.get('id') || 'tissot-pr100';
+        const source = params.get('source') || 'landing';
+        const productPage = 'productView.html';
+        const quantity = 1;
+        window.location.href = 'payment.html?id=' + encodeURIComponent(productId) + '&source=' + encodeURIComponent(source) + '&page=' + encodeURIComponent(productPage) + '&qty=' + encodeURIComponent(quantity);
+    }
+
+    function openChat() {
+        const params = new URLSearchParams(window.location.search);
+        const productId = params.get('id') || 'tissot-pr100';
+        const source = params.get('source') || 'landing';
+        const productPage = 'productView.html';
+        window.location.href = 'chat.html?id=' + encodeURIComponent(productId) + '&source=' + encodeURIComponent(source) + '&page=' + encodeURIComponent(productPage);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
 
     /* ===============================
        PROFILE DROPDOWN
