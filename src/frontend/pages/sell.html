@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReTrade | Sell Your Item</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --card-soft: #f8f9fc;
+      --border: #e7ebf3;
+      --text: #141b2d;
+      --muted: #6d7787;
+      --primary: #5b6df8;
+      --primary-dark: #3d4ed6;
+      --success: #1fbf75;
+      --warning: #f5b14d;
+      --danger: #eb5d5d;
+      --shadow: 0 10px 28px rgba(17, 24, 39, 0.08);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: linear-gradient(180deg, #f8f9fd 0%, #eef2ff 100%);
+      color: var(--text);
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button, input, select, textarea { font: inherit; }
+
+    .page-shell {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 24px 18px 40px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 24px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(231, 235, 243, 0.9);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 20px;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #6d7cff, #3d4ed6);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      box-shadow: 0 10px 20px rgba(91, 109, 248, 0.25);
+    }
+
+    .crumbs {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .crumbs .current {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1.5fr 0.9fr;
+      gap: 24px;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .form-panel {
+      padding: 28px;
+    }
+
+    .heading-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 36px);
+      letter-spacing: -0.04em;
+    }
+
+    .subtext {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    .status-chip {
+      background: #edf3ff;
+      color: var(--primary-dark);
+      border: 1px solid #dfe6ff;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 10px 0 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--card-soft);
+      padding: 12px 14px;
+      color: var(--text);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: rgba(91, 109, 248, 0.6);
+      box-shadow: 0 0 0 4px rgba(91, 109, 248, 0.12);
+      background: white;
+    }
+
+    .helper {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .actions {
+      margin-top: 24px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 13px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #f0f3f8;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      box-shadow: 0 10px 20px rgba(91, 109, 248, 0.2);
+    }
+
+    .preview-panel {
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      height: fit-content;
+      position: sticky;
+      top: 20px;
+    }
+
+    .preview-title {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .preview-card {
+      background: linear-gradient(180deg, #f8f9ff, #ffffff);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .preview-image {
+      height: 220px;
+      background: linear-gradient(135deg, rgba(93,109,248,.16), rgba(86,196,175,.18)),
+        url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80') center/cover no-repeat;
+      position: relative;
+    }
+
+    .preview-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(231,235,243,0.9);
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
+    .preview-body {
+      padding: 16px;
+    }
+
+    .preview-name {
+      font-size: 20px;
+      font-weight: 800;
+      margin: 0 0 10px;
+      letter-spacing: -0.03em;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: end;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .old-price {
+      color: var(--muted);
+      font-size: 14px;
+      text-decoration: line-through;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .meta-pill {
+      background: #eef2ff;
+      color: var(--primary-dark);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 7px 10px;
+    }
+
+    .mini-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .mini-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: var(--card-soft);
+      border: 1px solid var(--border);
+    }
+
+    .mini-icon {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #e9edff, #dff8ee);
+      display: grid;
+      place-items: center;
+      color: var(--primary-dark);
+      font-weight: 800;
+    }
+
+    .mini-copy strong {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 3px;
+    }
+
+    .mini-copy span {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .toast {
+      position: fixed;
+      right: 26px;
+      bottom: 26px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: rgba(20, 27, 45, 0.95);
+      color: white;
+      box-shadow: 0 16px 28px rgba(17,24,39,0.25);
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: 0.25s ease;
+      z-index: 200;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 980px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-panel {
+        position: static;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .heading-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">R</div>
+        <span>ReTrade</span>
+      </div>
+
+      <div class="crumbs">
+        <a href="landingwithlogin.html">Home</a>
+        <span>›</span>
+        <span class="current">Sell an item</span>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="panel form-panel">
+        <div class="heading-row">
+          <div>
+            <h1>List a new product</h1>
+            <div class="subtext">Create a listing in under a minute and submit it for review.</div>
+          </div>
+          <div class="status-chip">Ready to publish</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <form id="sellForm">
+          <div class="form-grid">
+            <div class="field full">
+              <label for="title">Product title</label>
+              <input id="title" name="title" type="text" placeholder="e.g. Apple MacBook Pro 14-inch M2" required>
+            </div>
+
+            <div class="field">
+              <label for="category">Category</label>
+              <select id="category" name="category" required>
+                <option value="">Select category</option>
+                <option>Electronics</option>
+                <option>Fashion</option>
+                <option>Home & Living</option>
+                <option>Mobiles</option>
+                <option>Accessories</option>
+                <option>Fitness</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="condition">Condition</label>
+              <select id="condition" name="condition" required>
+                <option value="">Select condition</option>
+                <option>Brand New</option>
+                <option>Like New</option>
+                <option>Excellent</option>
+                <option>Good</option>
+                <option>Fair</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="listingType">Listing type</label>
+              <select id="listingType" name="listingType" required>
+                <option value="fixed">Fixed Price</option>
+                <option value="auction">Auction</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="price">Selling price</label>
+              <input id="price" name="price" type="number" min="1" step="0.01" placeholder="599" required>
+            </div>
+
+            <div class="field">
+              <label for="originalPrice">Original price</label>
+              <input id="originalPrice" name="originalPrice" type="number" min="1" step="0.01" placeholder="799">
+            </div>
+
+            <div class="field full">
+              <label for="images">Image URL</label>
+              <input id="images" name="images" type="url" placeholder="https://images.unsplash.com/..." required>
+            </div>
+
+            <div class="field full">
+              <label for="description">Description</label>
+              <textarea id="description" name="description" placeholder="Describe the item, condition details, included accessories, and anything buyers should know." required></textarea>
+            </div>
+
+            <div class="field">
+              <label for="location">Location</label>
+              <input id="location" name="location" type="text" placeholder="Dhaka, Bangladesh" required>
+            </div>
+
+            <div class="field">
+              <label for="shipping">Shipping fee</label>
+              <input id="shipping" name="shipping" type="number" min="0" step="0.01" value="0" required>
+            </div>
+
+            <div class="field full">
+              <label for="tags">Keywords</label>
+              <input id="tags" name="tags" type="text" placeholder="wireless, apple, office, premium" required>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="button" class="btn btn-secondary" id="resetBtn">Reset</button>
+            <button type="submit" class="btn btn-primary">Publish listing</button>
+          </div>
+        </form>
+      </section>
+
+      <aside class="panel preview-panel">
+        <div class="preview-title"><i class="fa-solid fa-eye"></i> Live listing preview</div>
+
+        <div class="preview-card">
+          <div class="preview-image">
+            <div class="preview-badge" id="previewBadge">Fixed Price</div>
+          </div>
+
+          <div class="preview-body">
+            <h2 class="preview-name" id="previewTitle">MacBook Pro 14-inch</h2>
+            <div class="price-row">
+              <span class="price" id="previewPrice">$599</span>
+              <span class="old-price" id="previewOldPrice">$799</span>
+            </div>
+
+            <div class="meta-row">
+              <span class="meta-pill" id="previewCondition">Like New</span>
+              <span class="meta-pill" id="previewCategory">Electronics</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mini-list">
+          <div class="mini-item">
+            <div class="mini-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="mini-copy">
+              <strong>Verified seller flow</strong>
+              <span>Listings need admin review before go-live</span>
+            </div>
+          </div>
+
+          <div class="mini-item">
+            <div class="mini-icon"><i class="fa-solid fa-truck-fast"></i></div>
+            <div class="mini-copy">
+              <strong>Secure delivery</strong>
+              <span>Protected payment and buyer verification</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <script>
+    const form = document.getElementById('sellForm');
+    const toast = document.getElementById('toast');
+    const listKey = 'retrade_listed_products';
+
+    const sampleProducts = [
+      {
+        id: 'sample-1',
+        title: 'Sony WH-1000XM5',
+        category: 'Electronics',
+        condition: 'Excellent',
+        listingType: 'fixed',
+        price: 195,
+        originalPrice: 279,
+        image: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=900&q=80',
+        status: 'Pending approval',
+        seller: 'Fahiz Ahmed'
+      },
+      {
+        id: 'sample-2',
+        title: 'Nike Air Jordan 1 OG',
+        category: 'Fashion',
+        condition: 'Like New',
+        listingType: 'fixed',
+        price: 240,
+        originalPrice: 320,
+        image: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=900&q=80',
+        status: 'Approved',
+        seller: 'Fahiz Ahmed'
+      }
+    ];
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    function readStoredProducts() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(listKey) || '[]');
+        return Array.isArray(saved) && saved.length ? saved : sampleProducts;
+      } catch {
+        return sampleProducts;
+      }
+    }
+
+    function updatePreview() {
+      const title = document.getElementById('title').value || 'MacBook Pro 14-inch';
+      const category = document.getElementById('category').value || 'Electronics';
+      const condition = document.getElementById('condition').value || 'Like New';
+      const listingType = document.getElementById('listingType').value || 'fixed';
+      const price = document.getElementById('price').value || '599';
+      const originalPrice = document.getElementById('originalPrice').value || '799';
+      const image = document.getElementById('images').value || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80';
+
+      document.getElementById('previewTitle').textContent = title;
+      document.getElementById('previewPrice').textContent = '$' + Number(price || 0).toLocaleString();
+      document.getElementById('previewOldPrice').textContent = Number(originalPrice) > 0 ? '$' + Number(originalPrice).toLocaleString() : '';
+      document.getElementById('previewCondition').textContent = condition;
+      document.getElementById('previewCategory').textContent = category;
+      document.getElementById('previewBadge').textContent = listingType === 'auction' ? 'Auction' : 'Fixed Price';
+      document.querySelector('.preview-image').style.background = `linear-gradient(135deg, rgba(93,109,248,.16), rgba(86,196,175,.18)), url('${image}') center/cover no-repeat`;
+    }
+
+    ['title', 'category', 'condition', 'listingType', 'price', 'originalPrice', 'images'].forEach((id) => {
+      const field = document.getElementById(id);
+      field.addEventListener('input', updatePreview);
+      field.addEventListener('change', updatePreview);
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      form.reset();
+      document.getElementById('shipping').value = 0;
+      updatePreview();
+      showToast('Form reset');
+    });
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const title = document.getElementById('title').value.trim();
+      const category = document.getElementById('category').value;
+      const condition = document.getElementById('condition').value;
+      const listingType = document.getElementById('listingType').value;
+      const price = Number(document.getElementById('price').value || 0);
+      const originalPrice = Number(document.getElementById('originalPrice').value || 0);
+      const image = document.getElementById('images').value.trim();
+      const description = document.getElementById('description').value.trim();
+      const location = document.getElementById('location').value.trim();
+      const shipping = Number(document.getElementById('shipping').value || 0);
+      const tags = document.getElementById('tags').value.trim();
+
+      if (!title || !category || !condition || !image || !description || !location || !tags) {
+        showToast('Please complete all required fields');
+        return;
+      }
+
+      const storedProducts = readStoredProducts();
+      const product = {
+        id: 'listing-' + Date.now(),
+        title,
+        category,
+        condition,
+        listingType,
+        price,
+        originalPrice: originalPrice || price,
+        image,
+        description,
+        location,
+        shipping,
+        tags,
+        status: 'Pending approval',
+        seller: 'Fahiz Ahmed',
+        createdAt: new Date().toISOString()
+      };
+
+      const updatedProducts = [product, ...storedProducts].slice(0, 12);
+      localStorage.setItem(listKey, JSON.stringify(updatedProducts));
+      form.reset();
+      document.getElementById('shipping').value = 0;
+      updatePreview();
+      showToast('Listing submitted for approval');
+
+      setTimeout(() => {
+        window.location.href = 'landingwithlogin.html';
+      }, 1200);
+    });
+
+    updatePreview();
+  </script>
+</body>
+</html>

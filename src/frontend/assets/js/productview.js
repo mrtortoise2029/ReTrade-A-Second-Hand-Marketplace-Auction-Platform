@@ -469,6 +469,13 @@ function changeImage(imageSrc) {
 
 // Place bid
 function placeBid() {
+    const role = localStorage.getItem('userRole');
+    if (role !== 'user' && role !== 'admin') {
+        alert('Please log in first to place a bid.');
+        window.location.href = 'login.html';
+        return;
+    }
+
     const bidAmount = document.querySelector('.bid-panel input[type="number"]').value;
     const minBid = parseInt(document.querySelector('.bid-panel h3 strong').textContent.replace(/[$,]/g, ''));
     
