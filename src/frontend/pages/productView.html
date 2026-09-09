@@ -466,68 +466,102 @@
 
         <div class="tabs">
 
-            <button class="active">Details</button>
-            <button>Bids (5)</button>
-            <button>Reviews</button>
-            <button>Q&A</button>
+            <button class="active" data-tab="details-panel">Details</button>
+            <button data-tab="bids-panel">Bids (5)</button>
+            <button data-tab="reviews-panel">Reviews</button>
+            <button data-tab="qna-panel">Q&amp;A</button>
 
         </div>
 
 
-        <div class="details-grid">
+        <div class="tab-panel active" id="details-panel">
+            <div class="details-grid">
 
-            <div>
+                <div>
 
-                <h3>Description</h3>
+                    <h3>Description</h3>
 
-                <p>
-                    Gorgeous Tissot PR100 in immaculate condition.
-                    Purchased in 2022, worn only a handful of times
-                    for special occasions. The steel blue dial is
-                    stunning and the automatic movement keeps perfect
-                    time. Comes with original box, papers, and spare
-                    links. Crystal is scratch-free.
-                </p>
+                    <p>
+                        Gorgeous Tissot PR100 in immaculate condition.
+                        Purchased in 2022, worn only a handful of times
+                        for special occasions. The steel blue dial is
+                        stunning and the automatic movement keeps perfect
+                        time. Comes with original box, papers, and spare
+                        links. Crystal is scratch-free.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3>Specifications</h3>
+
+                    <div class="spec-row">
+                        <span>Case Diameter</span>
+                        <strong>40mm</strong>
+                    </div>
+
+                    <div class="spec-row">
+                        <span>Case Material</span>
+                        <strong>Stainless Steel</strong>
+                    </div>
+
+                    <div class="spec-row">
+                        <span>Movement</span>
+                        <strong>Automatic ETA 2824-2</strong>
+                    </div>
+
+                    <div class="spec-row">
+                        <span>Water Resistance</span>
+                        <strong>100m</strong>
+                    </div>
+
+                    <div class="spec-row">
+                        <span>Condition</span>
+                        <strong>Like New — 9.5/10</strong>
+                    </div>
+
+                    <div class="spec-row">
+                        <span>Year Purchased</span>
+                        <strong>2022</strong>
+                    </div>
+
+                </div>
 
             </div>
+        </div>
 
-
-            <div>
-
-                <h3>Specifications</h3>
-
-                <div class="spec-row">
-                    <span>Case Diameter</span>
-                    <strong>40mm</strong>
-                </div>
-
-                <div class="spec-row">
-                    <span>Case Material</span>
-                    <strong>Stainless Steel</strong>
-                </div>
-
-                <div class="spec-row">
-                    <span>Movement</span>
-                    <strong>Automatic ETA 2824-2</strong>
-                </div>
-
-                <div class="spec-row">
-                    <span>Water Resistance</span>
-                    <strong>100m</strong>
-                </div>
-
-                <div class="spec-row">
-                    <span>Condition</span>
-                    <strong>Like New — 9.5/10</strong>
-                </div>
-
-                <div class="spec-row">
-                    <span>Year Purchased</span>
-                    <strong>2022</strong>
-                </div>
-
+        <div class="tab-panel" id="bids-panel">
+            <h3>Bid history</h3>
+            <div class="bid-history">
+                <div class="bid-row"><div><span class="bid-user">Ava Mitchell</span><span class="bid-time">Today, 10:42 AM</span></div><span class="bid-amount">$1,240</span></div>
+                <div class="bid-row"><div><span class="bid-user">Noah Williams</span><span class="bid-time">Today, 10:36 AM</span></div><span class="bid-amount">$1,220</span></div>
+                <div class="bid-row"><div><span class="bid-user">Olivia Chen</span><span class="bid-time">Today, 10:18 AM</span></div><span class="bid-amount">$1,180</span></div>
+                <div class="bid-row"><div><span class="bid-user">Ethan Brown</span><span class="bid-time">Yesterday, 8:05 PM</span></div><span class="bid-amount">$1,100</span></div>
+                <div class="bid-row"><div><span class="bid-user">Mia Davis</span><span class="bid-time">Yesterday, 6:44 PM</span></div><span class="bid-amount">$1,020</span></div>
             </div>
+        </div>
 
+        <div class="tab-panel" id="reviews-panel">
+            <h3>Reviews from buyers</h3>
+            <div class="review-list">
+                <article class="review-card"><span class="review-author">Daniel Brooks</span><span class="review-date">Purchased 2 weeks ago</span><div class="review-rating">★★★★★</div><p>Beautiful watch and exactly as described. The packaging was careful and delivery was fast.</p></article>
+                <article class="review-card"><span class="review-author">Sophia Patel</span><span class="review-date">Purchased 1 month ago</span><div class="review-rating">★★★★★</div><p>The steel blue dial looks even better in person. Seller answered my questions quickly.</p></article>
+                <article class="review-card"><span class="review-author">Liam Carter</span><span class="review-date">Purchased 2 months ago</span><div class="review-rating">★★★★☆</div><p>Great condition and authentic papers included. There was a small delivery delay, but the item arrived safely.</p></article>
+            </div>
+        </div>
+
+        <div class="tab-panel" id="qna-panel">
+            <h3>Questions and answers</h3>
+            <form class="comment-form" id="commentForm">
+                <textarea id="commentInput" placeholder="Ask a question or leave a comment about this product..." required></textarea>
+                <button type="submit">Post comment</button>
+            </form>
+            <div class="comment-list" id="commentList">
+                <article class="comment-card"><span class="comment-author">Emma Wilson</span><span class="comment-date">Yesterday, 4:20 PM</span><p>Does the original box and warranty card come with the watch?</p></article>
+                <article class="comment-card"><span class="comment-author">Marcus L.</span><span class="comment-date">Yesterday, 5:02 PM</span><p>Yes, the original box, papers, and spare links are included.</p></article>
+            </div>
         </div>
 
     </section>
@@ -629,6 +663,79 @@
         });
     }
 
+    function escapeHtml(value) {
+        return value.replace(/[&<>'"]/g, function (character) {
+            return {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                "'": '&#39;',
+                '"': '&quot;'
+            }[character];
+        });
+    }
+
+    function commentStorageKey() {
+        const productId = new URLSearchParams(window.location.search).get('id') || 'tissot-pr100';
+        return 'retrade_product_comments_' + productId;
+    }
+
+    function renderComments() {
+        const commentList = document.getElementById('commentList');
+        const savedComments = JSON.parse(localStorage.getItem(commentStorageKey()) || '[]');
+
+        commentList.querySelectorAll('[data-saved-comment]').forEach(function (comment) {
+            comment.remove();
+        });
+
+        savedComments.forEach(function (comment) {
+            const article = document.createElement('article');
+            article.className = 'comment-card';
+            article.dataset.savedComment = 'true';
+            article.innerHTML = '<span class="comment-author">' + escapeHtml(comment.author) + '</span>' +
+                '<span class="comment-date">' + escapeHtml(comment.date) + '</span>' +
+                '<p>' + escapeHtml(comment.text) + '</p>';
+            commentList.prepend(article);
+        });
+    }
+
+    function bindProductTabs() {
+        const tabButtons = document.querySelectorAll('.tabs button[data-tab]');
+        const tabPanels = document.querySelectorAll('.tab-panel');
+
+        tabButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                tabButtons.forEach(function (tab) { tab.classList.remove('active'); });
+                tabPanels.forEach(function (panel) { panel.classList.remove('active'); });
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+    }
+
+    function bindCommentForm() {
+        const commentForm = document.getElementById('commentForm');
+        const commentInput = document.getElementById('commentInput');
+
+        commentForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const text = commentInput.value.trim();
+            if (!text) return;
+
+            const comment = {
+                author: localStorage.getItem('userName') || 'You',
+                date: new Date().toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' }),
+                text: text
+            };
+            const comments = JSON.parse(localStorage.getItem(commentStorageKey()) || '[]');
+            comments.push(comment);
+            localStorage.setItem(commentStorageKey(), JSON.stringify(comments));
+
+            commentInput.value = '';
+            renderComments();
+        });
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
 
     const params = new URLSearchParams(window.location.search);
@@ -641,6 +748,9 @@
     }
 
     bindLoginGuards();
+    bindProductTabs();
+    bindCommentForm();
+    renderComments();
 
     const profileTrigger = document.getElementById("profileTrigger");
     const profileDropdown = document.getElementById("profileDropdown");

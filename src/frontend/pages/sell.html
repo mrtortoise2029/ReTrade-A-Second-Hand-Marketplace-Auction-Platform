@@ -193,6 +193,57 @@
       color: var(--muted);
     }
 
+    .dropzone {
+      border: 1.5px dashed #a9b6ea;
+      border-radius: 12px;
+      background: #f8f9ff;
+      padding: 22px 14px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .dropzone:hover,
+    .dropzone.dragover {
+      background: #eef2ff;
+      border-color: var(--primary);
+    }
+
+    .dropzone strong {
+      display: block;
+      color: var(--primary-dark);
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .file-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .file-preview img,
+    .file-preview-item {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .file-preview img {
+      width: 64px;
+      height: 64px;
+      object-fit: cover;
+    }
+
+    .file-preview-item {
+      padding: 8px 10px;
+      background: var(--card-soft);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
     .actions {
       margin-top: 24px;
       display: flex;
@@ -485,8 +536,23 @@
             </div>
 
             <div class="field full">
-              <label for="images">Image URL</label>
-              <input id="images" name="images" type="url" placeholder="https://images.unsplash.com/..." required>
+              <label for="images">Imagge</label>
+              <div class="dropzone" id="imageDropzone">
+                <strong>Drag and drop product pictures here</strong>
+                <span>or click to choose files · PNG, JPG, or WEBP</span>
+                <input id="images" name="images" type="file" accept="image/png,image/jpeg,image/webp" multiple hidden required>
+              </div>
+              <div class="file-preview" id="imagePreview" aria-live="polite"></div>
+            </div>
+
+            <div class="field full">
+              <label for="documents">Documents and warranty</label>
+              <div class="dropzone" id="documentDropzone">
+                <strong>Drag and drop documents or warranty files here</strong>
+                <span>or click to choose files · PDF, DOC, DOCX, PNG, or JPG</span>
+                <input id="documents" name="documents" type="file" accept=".pdf,.doc,.docx,image/png,image/jpeg" multiple hidden>
+              </div>
+              <div class="file-preview" id="documentPreview" aria-live="polite"></div>
             </div>
 
             <div class="field full">
@@ -565,6 +631,12 @@
   <script>
     const form = document.getElementById('sellForm');
     const toast = document.getElementById('toast');
+    const imageInput = document.getElementById('images');
+    const imageDropzone = document.getElementById('imageDropzone');
+    const imagePreview = document.getElementById('imagePreview');
+    const documentInput = document.getElementById('documents');
+    const documentDropzone = document.getElementById('documentDropzone');
+    const documentPreview = document.getElementById('documentPreview');
     const listKey = 'retrade_listed_products';
 
     const sampleProducts = [
@@ -610,6 +682,57 @@
       }
     }
 
+    function setInputFiles(input, files) {
+      const transfer = new DataTransfer();
+      files.forEach((file) => transfer.items.add(file));
+      input.files = transfer.files;
+      input.dispatchEvent(new Event('change'));
+    }
+
+    function renderImagePreview() {
+      imagePreview.innerHTML = '';
+      Array.from(imageInput.files).slice(0, 5).forEach((file) => {
+        const image = document.createElement('img');
+        image.src = URL.createObjectURL(file);
+        image.alt = file.name;
+        imagePreview.appendChild(image);
+      });
+    }
+
+    function renderDocumentPreview() {
+      documentPreview.innerHTML = '';
+      Array.from(documentInput.files).forEach((file) => {
+        const item = document.createElement('span');
+        item.className = 'file-preview-item';
+        item.textContent = file.name;
+        documentPreview.appendChild(item);
+      });
+    }
+
+    function setupDropzone(dropzone, input, renderPreview) {
+      dropzone.addEventListener('click', () => input.click());
+      input.addEventListener('change', renderPreview);
+      dropzone.addEventListener('dragover', (event) => {
+        event.preventDefault();
+        dropzone.classList.add('dragover');
+      });
+      dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+      dropzone.addEventListener('drop', (event) => {
+        event.preventDefault();
+        dropzone.classList.remove('dragover');
+        setInputFiles(input, Array.from(event.dataTransfer.files));
+      });
+    }
+
+    function fileToDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => resolve(reader.result));
+        reader.addEventListener('error', reject);
+        reader.readAsDataURL(file);
+      });
+    }
+
     function updatePreview() {
       const title = document.getElementById('title').value || 'MacBook Pro 14-inch';
       const category = document.getElementById('category').value || 'Electronics';
@@ -617,7 +740,7 @@
       const listingType = document.getElementById('listingType').value || 'fixed';
       const price = document.getElementById('price').value || '599';
       const originalPrice = document.getElementById('originalPrice').value || '799';
-      const image = document.getElementById('images').value || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80';
+      const image = imageInput.files[0] ? URL.createObjectURL(imageInput.files[0]) : 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80';
 
       document.getElementById('previewTitle').textContent = title;
       document.getElementById('previewPrice').textContent = '$' + Number(price || 0).toLocaleString();
@@ -625,23 +748,31 @@
       document.getElementById('previewCondition').textContent = condition;
       document.getElementById('previewCategory').textContent = category;
       document.getElementById('previewBadge').textContent = listingType === 'auction' ? 'Auction' : 'Fixed Price';
-      document.querySelector('.preview-image').style.background = `linear-gradient(135deg, rgba(93,109,248,.16), rgba(86,196,175,.18)), url('${image}') center/cover no-repeat`;
+      document.querySelector('.preview-image').style.background = `linear-gradient(135deg, rgba(93,109,248,.16), rgba(86,196,175,.18)), url("${image}") center/cover no-repeat`;
     }
 
-    ['title', 'category', 'condition', 'listingType', 'price', 'originalPrice', 'images'].forEach((id) => {
+    ['title', 'category', 'condition', 'listingType', 'price', 'originalPrice'].forEach((id) => {
       const field = document.getElementById(id);
       field.addEventListener('input', updatePreview);
       field.addEventListener('change', updatePreview);
     });
 
+    setupDropzone(imageDropzone, imageInput, () => {
+      renderImagePreview();
+      updatePreview();
+    });
+    setupDropzone(documentDropzone, documentInput, renderDocumentPreview);
+
     document.getElementById('resetBtn').addEventListener('click', () => {
       form.reset();
       document.getElementById('shipping').value = 0;
+      imagePreview.innerHTML = '';
+      documentPreview.innerHTML = '';
       updatePreview();
       showToast('Form reset');
     });
 
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
 
       const title = document.getElementById('title').value.trim();
@@ -650,16 +781,19 @@
       const listingType = document.getElementById('listingType').value;
       const price = Number(document.getElementById('price').value || 0);
       const originalPrice = Number(document.getElementById('originalPrice').value || 0);
-      const image = document.getElementById('images').value.trim();
+      const imageFiles = Array.from(imageInput.files);
+      const documentFiles = Array.from(documentInput.files);
       const description = document.getElementById('description').value.trim();
       const location = document.getElementById('location').value.trim();
       const shipping = Number(document.getElementById('shipping').value || 0);
       const tags = document.getElementById('tags').value.trim();
 
-      if (!title || !category || !condition || !image || !description || !location || !tags) {
+      if (!title || !category || !condition || !imageFiles.length || !description || !location || !tags) {
         showToast('Please complete all required fields');
         return;
       }
+
+      const image = await fileToDataUrl(imageFiles[0]);
 
       const storedProducts = readStoredProducts();
       const product = {
@@ -671,6 +805,7 @@
         price,
         originalPrice: originalPrice || price,
         image,
+        documents: documentFiles.map((file) => file.name),
         description,
         location,
         shipping,

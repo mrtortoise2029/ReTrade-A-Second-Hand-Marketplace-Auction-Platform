@@ -14,7 +14,7 @@
 <aside class="sidebar">
 <div class="brand"><div class="logo">R</div><span>ReTrade</span><span class="seller-chip">Seller</span></div>
 <div class="user-card"><div class="avatar">JO</div><div><div class="name">James Okere</div><div class="role"><span class="dot"></span>Seller</div></div></div>
-<a class="create-btn" href="SellerListing.html?create=1">+ Create Listing</a>
+<a class="create-btn" href="../sell.html">+ Create Listing</a>
 <nav class="main-nav">
 <a class="nav-item" href="SellerOverview.html"><span class="nav-icon">📊</span><span>Overview</span></a>
 <a class="nav-item active" href="SellerListing.html"><span class="nav-icon">📋</span><span>Listings</span></a>
@@ -29,7 +29,7 @@
 <div class="nav-bottom"><a class="nav-item" href="../landingwithlogin.html"><span class="nav-icon">🏠</span><span>Back to Site</span></a></div>
 </aside>
 <main class="main">
-<header class="topbar"><div><h1>Listings</h1><p>Manage your active, paused, and sold products.</p></div><div class="actions"><button class="btn" onclick="showToast('Listing report prepared')">Export</button><button class="btn-primary" onclick="openListingModal()">+ New Listing</button></div></header>
+<header class="topbar"><div><h1>Listings</h1><p>Manage your active, paused, and sold products.</p></div><div class="actions"><button class="btn" onclick="showToast('Listing report prepared')">Export</button><a class="btn-primary" href="../sell.html">+ New Listing</a></div></header>
 <section class="grid-4"><div class="stat-card"><div class="stat-head"><div class="icon">📋</div><span class="trend">+2</span></div><div class="value">12</div><div class="label">Active listings</div></div><div class="stat-card"><div class="stat-head"><div class="icon">🔨</div></div><div class="value">3</div><div class="label">In auction</div></div><div class="stat-card"><div class="stat-head"><div class="icon">✓</div></div><div class="value">28</div><div class="label">Items sold</div></div><div class="stat-card"><div class="stat-head"><div class="icon">👁</div></div><div class="value">8.4K</div><div class="label">Listing views</div></div></section>
 <section class="panel"><div class="panel-head"><div><h2>Your listings</h2><div class="muted">Keep product details and availability up to date.</div></div></div><div class="tabs"><button class="tab active" data-filter="all" onclick="filterListings(this)">All</button><button class="tab" data-filter="active" onclick="filterListings(this)">Active</button><button class="tab" data-filter="auction" onclick="filterListings(this)">Auction</button><button class="tab" data-filter="sold" onclick="filterListings(this)">Sold</button><button class="tab" data-filter="paused" onclick="filterListings(this)">Paused</button></div><div class="listing-grid">
 <article class="listing-card" data-status="active"><div class="listing-thumb">⌚</div><div class="listing-body"><div class="listing-title">Tissot PR100 Watch</div><div class="listing-meta">L003 · Like New · Accessories</div><div class="listing-foot"><span class="listing-price">$380</span><span class="status green">Live</span></div><div class="listing-actions"><button class="btn" onclick="showToast('Edit form opened')">Edit</button><button class="btn" onclick="toggleStatus(this)">Pause</button></div></div></article>

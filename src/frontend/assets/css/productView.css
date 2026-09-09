@@ -934,3 +934,110 @@ input {
     }
 
 }
+
+.tab-panel {
+    display: none;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+.tab-panel h3 {
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+
+.bid-history,
+.review-list,
+.comment-list {
+    display: grid;
+    gap: 10px;
+}
+
+.bid-row,
+.review-card,
+.comment-card {
+    border: 1px solid #edf2f7;
+    border-radius: 8px;
+    padding: 12px;
+    background: #fbfdff;
+}
+
+.bid-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.bid-user,
+.review-author,
+.comment-author {
+    font-size: 11px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.bid-time,
+.review-date,
+.comment-date {
+    display: block;
+    color: #94a3b8;
+    font-size: 9px;
+    margin-top: 4px;
+}
+
+.bid-amount {
+    color: #0f9e5f;
+    font-size: 13px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.review-rating {
+    color: #f59e0b;
+    font-size: 11px;
+    margin: 5px 0;
+}
+
+.review-card p,
+.comment-card p {
+    color: #64748b;
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+.comment-form {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.comment-form textarea {
+    width: 100%;
+    min-height: 78px;
+    resize: vertical;
+    border: 1px solid #dbe3ed;
+    border-radius: 8px;
+    padding: 10px;
+    color: #111827;
+    font: inherit;
+    font-size: 11px;
+}
+
+.comment-form button {
+    justify-self: start;
+    border: 0;
+    border-radius: 7px;
+    background: #0db477;
+    color: white;
+    padding: 9px 13px;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
