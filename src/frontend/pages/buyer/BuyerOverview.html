@@ -32,7 +32,7 @@
   a{text-decoration:none;color:inherit;}
   button{font-family:inherit;cursor:pointer;}
 
-  /* ===== Sidebar ===== */
+
   .sidebar{
     width:230px;
     background:var(--card);
@@ -87,7 +87,7 @@
   }
   .nav-bottom{display:flex;flex-direction:column;gap:2px;margin-top:10px;border-top:1px solid var(--border);padding-top:10px;}
 
-  /* ===== Main ===== */
+
   .main{
     flex:1;
     width:100%;
@@ -117,7 +117,7 @@
     color:#fff;font-weight:700;font-size:14px;
   }
 
-  /* ===== Stat cards ===== */
+
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px;}
   .stat-card{
     background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
@@ -137,7 +137,7 @@
   .stat-value{font-size:22px;font-weight:700;}
   .stat-label{font-size:12.5px;color:var(--muted);margin-top:2px;}
 
-  /* ===== Wallet + Impact ===== */
+
   .row2{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-bottom:16px;}
   .wallet-card{
     border-radius:var(--radius);
@@ -178,7 +178,7 @@
   }
   .pill span{display:block;font-weight:400;font-size:10.5px;opacity:.85;margin-top:2px;}
 
-  /* ===== Chart card ===== */
+
   .card{
     background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
     padding:20px;margin-bottom:16px;
@@ -193,7 +193,7 @@
   }
   .chart-wrap{position:relative;}
 
-  /* ===== Orders ===== */
+
   .order-row{
     display:flex;align-items:center;gap:12px;padding:10px 4px;border-radius:10px;
     transition:background .15s;cursor:pointer;
@@ -210,7 +210,7 @@
   .status-shipping{background:#eaf1ff;color:#2563eb;}
   .status-delivered{background:#e6f9ef;color:var(--green-dark);}
 
-  /* ===== Recommended ===== */
+
   .rec-title{font-size:15px;font-weight:700;margin:6px 0 12px;}
   .rec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
   .rec-card{
@@ -247,7 +247,7 @@
   }
   .stars{color:#f0a93b;font-size:11px;}
 
-  /* ===== Toast ===== */
+
   #toast{
     position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
     background:#16181d;color:#fff;padding:12px 20px;border-radius:10px;
@@ -256,7 +256,7 @@
   }
   #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-  /* ===== Modal ===== */
+
   .modal-overlay{
     position:fixed;inset:0;background:rgba(15,16,20,.45);
     display:flex;align-items:center;justify-content:center;
@@ -293,7 +293,7 @@
 </head>
 <body>
 
-<!-- ===== Sidebar ===== -->
+
 <aside class="sidebar">
   <div class="brand"><div class="logo">R</div> ReTrade</div>
   <div class="user-card">
@@ -317,7 +317,7 @@
   </div>
 </aside>
 
-<!-- ===== Main ===== -->
+
 <main class="main">
   <div class="topbar">
     <div>
@@ -330,7 +330,7 @@
     </div>
   </div>
 
-  <!-- Stats -->
+
   <div class="stats">
     <div class="stat-card">
       <div class="stat-top"><div class="stat-ic blue">💼</div><div class="stat-trend">▲ 12.4%</div></div>
@@ -354,7 +354,7 @@
     </div>
   </div>
 
-  <!-- Wallet + Impact -->
+
   <div class="row2">
     <div class="wallet-card">
       <div class="wallet-top">
@@ -385,7 +385,7 @@
     </div>
   </div>
 
-  <!-- Chart -->
+
   <div class="card">
     <div class="card-head"><h3>Monthly Spending</h3></div>
     <div class="chart-wrap">
@@ -394,7 +394,7 @@
     </div>
   </div>
 
-  <!-- Recent Orders -->
+
   <div class="card">
     <div class="card-head"><h3>Recent Orders</h3><a class="view-all" data-page="Orders">View All</a></div>
     <div class="order-row" data-page="Orders">
@@ -432,7 +432,7 @@
     </div>
   </div>
 
-  <!-- Recommended -->
+
   <div class="rec-title">Recommended for You</div>
   <div class="rec-grid">
     <div class="rec-card" data-item="MacBook Pro M2 16&quot;">
@@ -484,7 +484,7 @@
 
 <div id="toast"></div>
 
-<!-- Withdraw Modal -->
+
 <div class="modal-overlay" id="withdrawModal">
   <div class="modal">
     <h3>Withdraw Funds</h3>
@@ -499,7 +499,6 @@
 </div>
 
 <script>
-  // ---------- Toast helper ----------
   const toastEl = document.getElementById('toast');
   let toastTimer;
   function showToast(msg){
@@ -509,7 +508,6 @@
     toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 2200);
   }
 
-  // ---------- Sidebar navigation ----------
   document.querySelectorAll('.nav-item').forEach(item=>{
     item.addEventListener('click', ()=>{
       document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
@@ -523,12 +521,10 @@
 
 
 
-  // ---------- Recommended card click ----------
   document.querySelectorAll('.rec-card').forEach(card=>{
     card.addEventListener('click', ()=> showToast('Viewing: ' + card.dataset.item));
   });
 
-  // ---------- Withdraw modal ----------
   const modal = document.getElementById('withdrawModal');
   document.getElementById('withdrawBtn').addEventListener('click', ()=> modal.classList.add('show'));
   document.getElementById('cancelWithdraw').addEventListener('click', ()=> modal.classList.remove('show'));
@@ -542,7 +538,6 @@
     document.getElementById('withdrawAmount').value = '';
   });
 
-  // ---------- Live auction countdown ----------
   let secondsLeft = 1*3600 + 29*60 + 11;
   const timerEl = document.getElementById('auctionTimer');
   setInterval(()=>{
@@ -554,7 +549,6 @@
     timerEl.textContent = `${h}h ${m}m ${s}s`;
   }, 1000);
 
-  // ---------- Monthly spending chart (SVG line, interactive) ----------
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul'];
   const values = [420, 260, 610, 380, 700, 480, 640];
   const svg = document.getElementById('spendChart');
@@ -577,7 +571,6 @@
       </linearGradient>
     </defs>`;
 
-  // gridlines + y labels
   [0,200,400,600,800].forEach(v=>{
     const y = yFor(v);
     svgHTML += `<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="#eceef1" stroke-width="1"/>`;

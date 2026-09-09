@@ -1,4 +1,3 @@
-// Helper function to resolve asset paths for both port 3000 and 8000
 function getAssetPath(relativePath) {
     const currentPath = window.location.pathname;
 
@@ -288,7 +287,6 @@ function applySourceNavigation() {
     }
 }
 
-// Update DOM with product data
 function displayProduct(product) {
     const breadcrumb = document.querySelector('.breadcrumb');
     if (breadcrumb) {
@@ -426,7 +424,6 @@ function displayProduct(product) {
         buyNowButton.textContent = `Buy Now — $${product.buyNowPrice.toLocaleString()}`;
     }
     
-    // Update specifications
     const specRows = document.querySelectorAll('.spec-row');
     if (specRows.length >= 6) {
         specRows[0].innerHTML = `<span>Case Diameter</span><strong>${product.specifications.caseDiameter}</strong>`;
@@ -454,11 +451,9 @@ function displayProduct(product) {
     }
 }
 
-// Change main image
 function changeImage(imageSrc) {
     document.querySelector('.main-image img').src = imageSrc;
     
-    // Update active thumbnail
     document.querySelectorAll('.thumbnails img').forEach(thumb => {
         thumb.classList.remove('active-thumb');
         if (thumb.src.includes(imageSrc.split('/').pop())) {
@@ -467,7 +462,6 @@ function changeImage(imageSrc) {
     });
 }
 
-// Place bid
 function placeBid() {
     const role = localStorage.getItem('userRole');
     if (role !== 'user' && role !== 'admin') {
@@ -489,18 +483,15 @@ function placeBid() {
         return;
     }
     
-    // TODO: Send bid to backend API
     console.log(`Placing bid: $${bidAmount}`);
     alert(`Bid placed successfully! Your bid: $${bidAmount}`);
     
-    // Update UI
     document.querySelector('.current-bid h2').textContent = `$${parseInt(bidAmount).toLocaleString()}`;
     const newMinBid = parseInt(bidAmount) + 20;
     document.querySelector('.bid-panel h3 strong').textContent = `$${newMinBid.toLocaleString()}`;
     document.querySelector('.bid-panel input[type="number"]').value = newMinBid + 20;
 }
 
-// Auction timer
 function updateAuctionTimer(endTime) {
     const timerElement = document.querySelector('.timer');
     
@@ -532,7 +523,6 @@ function updateAuctionTimer(endTime) {
     setInterval(calculateTimeLeft, 1000);
 }
 
-// Initialize page
 async function initProductView() {
     try {
         applySourceNavigation();
@@ -548,5 +538,4 @@ async function initProductView() {
     }
 }
 
-// Load when DOM is ready
 document.addEventListener('DOMContentLoaded', initProductView);

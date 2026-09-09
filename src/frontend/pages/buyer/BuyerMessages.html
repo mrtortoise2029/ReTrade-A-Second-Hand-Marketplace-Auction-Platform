@@ -31,7 +31,7 @@
   a{text-decoration:none;color:inherit;}
   button{font-family:inherit;cursor:pointer;}
 
-  /* ===== Sidebar ===== */
+
   .sidebar{
     width:230px;background:var(--card);border-right:1px solid var(--border);
     display:flex;flex-direction:column;padding:20px 14px;flex-shrink:0;
@@ -62,7 +62,7 @@
   .badge{margin-left:auto;background:var(--pink);color:#fff;font-size:10px;font-weight:700;border-radius:10px;padding:1px 6px;}
   .nav-bottom{display:flex;flex-direction:column;gap:2px;margin-top:10px;border-top:1px solid var(--border);padding-top:10px;}
 
-  /* ===== Main ===== */
+
   .main{flex:1;padding:26px 34px;display:flex;flex-direction:column;max-width:1100px;}
   .topbar{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;}
   .topbar h1{margin:0;font-size:22px;}
@@ -78,7 +78,7 @@
     display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;
   }
 
-  /* ===== Messages layout ===== */
+
   .msg-layout{
     display:grid;grid-template-columns:260px 1fr;gap:16px;
     background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
@@ -145,7 +145,7 @@
   }
   .send-btn:hover{background:var(--blue-dark);}
 
-  /* ===== Quick nav footer ===== */
+
   .quicknav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:auto;}
   .quicknav a{
     display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border);
@@ -172,7 +172,7 @@
 </head>
 <body>
 
-<!-- ===== Sidebar ===== -->
+
 <aside class="sidebar">
   <div class="brand"><div class="logo">R</div> ReTrade</div>
   <div class="user-card">
@@ -196,7 +196,7 @@
   </div>
 </aside>
 
-<!-- ===== Main ===== -->
+
 <main class="main">
   <div class="topbar">
     <div>
@@ -210,7 +210,7 @@
   </div>
 
   <div class="msg-layout">
-    <!-- Conversations -->
+
     <div class="conv-panel">
       <div class="conv-head">Conversations</div>
       <div class="conv-list" id="convList">
@@ -239,7 +239,7 @@
       </div>
     </div>
 
-    <!-- Chat -->
+
     <div class="chat-panel">
       <div class="chat-head">
         <div class="conv-av" id="chatAv" style="background:#6b5bf5;">ML</div>
@@ -256,7 +256,7 @@
     </div>
   </div>
 
-  <!-- Quick nav footer -->
+
   <div class="quicknav">
     <a data-page="Home">🏠 Home</a>
     <a data-page="Log In">🔑 Log In</a>
@@ -270,7 +270,6 @@
 <div id="toast"></div>
 
 <script>
-  // ---------- Toast ----------
   const toastEl = document.getElementById('toast');
   let toastTimer;
   function showToast(msg){
@@ -280,7 +279,6 @@
     toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 2200);
   }
 
-  // ---------- Sidebar nav ----------
   document.querySelectorAll('.nav-item').forEach(item=>{
     item.addEventListener('click', ()=>{
       document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
@@ -293,7 +291,6 @@
     a.addEventListener('click', ()=> showToast('Navigating to ' + a.dataset.page));
   });
 
-  // ---------- Conversation data ----------
   const conversations = {
     marcus: {
       name: 'Marcus L.', initials:'ML', color:'#6b5bf5', online:true,
@@ -354,7 +351,6 @@
     return row;
   }
 
-  // ---------- Switch conversation ----------
   document.getElementById('convList').addEventListener('click', e=>{
     const item = e.target.closest('.conv-item');
     if(!item) return;
@@ -365,7 +361,6 @@
     renderChat(activeConv);
   });
 
-  // ---------- Send message ----------
   const msgInput = document.getElementById('msgInput');
   const sendBtn = document.getElementById('sendBtn');
 
@@ -386,7 +381,6 @@
     chatBody.scrollTop = chatBody.scrollHeight;
     msgInput.value = '';
 
-    // typing indicator + simulated reply
     const typing = document.createElement('div');
     typing.className = 'typing';
     typing.style.display = 'flex';
@@ -406,7 +400,6 @@
   sendBtn.addEventListener('click', sendMessage);
   msgInput.addEventListener('keydown', e=>{ if(e.key === 'Enter') sendMessage(); });
 
-  // ---------- Init ----------
   renderChat(activeConv);
 </script>
 </body>

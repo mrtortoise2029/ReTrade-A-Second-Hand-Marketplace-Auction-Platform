@@ -1,6 +1,4 @@
-/* ================================
-   PRODUCT VIEW PAGE
-================================ */
+
 
 * {
     margin: 0;
@@ -20,9 +18,7 @@ input {
 }
 
 
-/* ================================
-   BREADCRUMB
-================================ */
+
 
 .breadcrumb {
     height: 36px;
@@ -36,9 +32,7 @@ input {
 }
 
 
-/* ================================
-   MAIN PRODUCT AREA
-================================ */
+
 
 .product-page {
     max-width: 1350px;
@@ -54,16 +48,14 @@ input {
 }
 
 
-/* ================================
-   LEFT SIDE
-================================ */
+
 
 .product-left {
     width: 100%;
 }
 
 
-/* Main Image */
+
 
 .main-image {
     position: relative;
@@ -86,7 +78,7 @@ input {
 }
 
 
-/* Live Badge */
+
 
 .live-badge {
     position: absolute;
@@ -110,9 +102,7 @@ input {
 }
 
 
-/* ================================
-   THUMBNAILS
-================================ */
+
 
 .thumbnails {
     display: grid;
@@ -148,9 +138,7 @@ input {
 }
 
 
-/* ================================
-   ENVIRONMENTAL IMPACT
-================================ */
+
 
 .environment {
     margin-top: 10px;
@@ -221,9 +209,7 @@ input {
 }
 
 
-/* ================================
-   CENTER PRODUCT INFORMATION
-================================ */
+
 
 .product-info {
     padding-top: 5px;
@@ -275,9 +261,7 @@ input {
 }
 
 
-/* ================================
-   CURRENT BID
-================================ */
+
 
 .current-bid {
     position: relative;
@@ -316,7 +300,7 @@ input {
 }
 
 
-/* Timer */
+
 
 .timer {
     position: absolute;
@@ -363,9 +347,7 @@ input {
 }
 
 
-/* ================================
-   SELLER
-================================ */
+
 
 .seller {
     background: white;
@@ -451,7 +433,7 @@ input {
 }
 
 
-/* Seller Stats */
+
 
 .seller-stats {
     display: grid;
@@ -486,9 +468,7 @@ input {
 }
 
 
-/* ================================
-   LOCATION
-================================ */
+
 
 .location {
     color: #64748b;
@@ -499,9 +479,7 @@ input {
 }
 
 
-/* ================================
-   BASIC INFO
-================================ */
+
 
 .basic-info {
     display: grid;
@@ -530,9 +508,7 @@ input {
 }
 
 
-/* ================================
-   RIGHT BID PANEL
-================================ */
+
 
 .bid-panel {
     background: white;
@@ -585,7 +561,7 @@ input {
 }
 
 
-/* Bid Buttons */
+
 
 .place-bid,
 .buy-now {
@@ -619,7 +595,7 @@ input {
 }
 
 
-/* Save Share */
+
 
 .bid-actions {
     display: grid;
@@ -648,7 +624,7 @@ input {
 }
 
 
-/* Protection */
+
 
 .protection {
     border-top: 1px solid #e5e7eb;
@@ -667,9 +643,7 @@ input {
 }
 
 
-/* ================================
-   AUTO BID
-================================ */
+
 
 .auto-bid {
     border-top: 1px solid #e5e7eb;
@@ -710,9 +684,7 @@ input {
 }
 
 
-/* ================================
-   DETAILS SECTION
-================================ */
+
 
 .details-section {
     max-width: 1150px;
@@ -723,7 +695,7 @@ input {
 }
 
 
-/* Tabs */
+
 
 .tabs {
     display: flex;
@@ -764,7 +736,7 @@ input {
 }
 
 
-/* Details Grid */
+
 
 .details-grid {
     display: grid;
@@ -789,7 +761,7 @@ input {
 }
 
 
-/* Specifications */
+
 
 .spec-row {
     display: flex;
@@ -812,9 +784,7 @@ input {
 }
 
 
-/* ================================
-   SIMILAR ITEMS
-================================ */
+
 
 .similar {
     max-width: 1150px;
@@ -881,9 +851,7 @@ input {
 }
 
 
-/* ================================
-   RESPONSIVE
-================================ */
+
 
 @media (max-width: 1100px) {
 

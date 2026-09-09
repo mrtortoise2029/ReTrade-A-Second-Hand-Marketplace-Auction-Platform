@@ -1,7 +1,4 @@
-/* =========================================================
-   ReTrade Admin Shared Styles
-   Used by: adminOverview.html + sellers.html
-   ========================================================= */
+
 
 *{box-sizing:border-box;margin:0;padding:0}
 body{
@@ -17,7 +14,7 @@ button{font:inherit}
     display:flex;
 }
 
-/* SIDEBAR */
+
 .sidebar{
     width:190px;
     min-height:100vh;
@@ -105,7 +102,7 @@ button{font:inherit}
     color:#7d8ba3!important;
 }
 
-/* MAIN */
+
 .main{
     margin-left:190px;
     width:calc(100% - 190px);
@@ -135,7 +132,7 @@ button{font:inherit}
     color:#fff;
 }
 
-/* STAT CARDS */
+
 .stats{
     display:grid;
     grid-template-columns:repeat(4,1fr);
@@ -173,7 +170,7 @@ button{font:inherit}
     font-size:8px;font-weight:700;
 }
 
-/* CHARTS */
+
 .revenue{
     margin-top:16px;
     padding:15px 16px 12px;
@@ -208,7 +205,7 @@ button{font:inherit}
     overflow:visible;
 }
 
-/* LOWER CHARTS */
+
 .lower{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -254,7 +251,7 @@ button{font:inherit}
     color:#a0acbc;font-size:7px;
 }
 
-/* DONUT */
+
 .donut-content{
     display:flex;align-items:center;justify-content:center;
     height:112px;gap:20px;
@@ -283,7 +280,7 @@ button{font:inherit}
 .d1{background:#4d8fe7}.d2{background:#ee3f91}.d3{background:#8997ad}
 .d4{background:#12bd88}.d5{background:#f2a719}
 
-/* RECENT SALES */
+
 .recent{margin-top:17px}
 .recent-title{font-size:11px;font-weight:800;margin-bottom:9px}
 .table-head{
@@ -318,7 +315,7 @@ button{font:inherit}
     background:#f8b400;color:#fff;font-size:7px;
 }
 
-/* BOTTOM NAV */
+
 .bottom-nav{
     width:285px;height:38px;margin:30px auto 0;
     background:#fff;border:1px solid #e3e8ef;border-radius:18px;
@@ -331,7 +328,7 @@ button{font:inherit}
 }
 .bottom-nav a.active{background:#4d8fe7;color:#fff}
 
-/* RESPONSIVE */
+
 @media(max-width:900px){
     .sidebar{width:160px}
     .main{margin-left:160px;width:calc(100% - 160px)}
@@ -349,7 +346,7 @@ button{font:inherit}
     .bottom-nav{width:100%}
 }
 
-/* ================= SELLERS PAGE ================= */
+
 
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:Inter,Arial,sans-serif;background:#424242;color:#172033}
@@ -436,7 +433,7 @@ button{font-family:inherit;cursor:pointer}
 @media(max-width:800px){.sidebar{width:160px}.main{margin-left:160px;width:calc(100% - 160px)}}
 @media(max-width:600px){.sidebar{display:none}.main{margin-left:0;width:100%;padding:16px}.header{flex-direction:column;gap:12px}.actions{width:100%}.btn{flex:1}.detail-grid{grid-template-columns:1fr}.modal-panel{max-height:90vh;overflow:auto}}
 
-/* ================= LISTINGS PAGE ================= */
+
 
 .seller-avatar {
     width: 40px;
@@ -466,7 +463,7 @@ button{font-family:inherit;cursor:pointer}
     padding: 0 12px;
 }
 
-/* ================= AUCTIONS PAGE ================= */
+
 
 .auction-stats {
     display: grid;
@@ -706,7 +703,7 @@ button{font-family:inherit;cursor:pointer}
     }
 }
 
-/*======== analytics page ========*/
+
 * {
     margin: 0;
     padding: 0;
@@ -727,7 +724,7 @@ body {
 .stats{
     margin-top: 20px;
 }
-/* Header */
+
 
 .analytics-header {
     display: flex;
@@ -774,7 +771,7 @@ body {
     border: 1px solid #4d8fe7;
 }
 
-/* Chart */
+
 
 .chart-card {
     background: #fff;
@@ -886,7 +883,7 @@ body {
     font-size: 14px;
 }
 
-/* Statistics */
+
 
 .stats-grid {
     display: grid;
@@ -922,7 +919,7 @@ body {
     font-weight: 700;
 }
 
-/* Responsive */
+
 
 @media (max-width: 800px) {
     .analytics-page {
@@ -980,7 +977,7 @@ body {
 }
 
 
-/* ================= COMMISSION SETTINGS ================= */
+
 
 .card-commission {
     background: #ffffff;
@@ -992,7 +989,7 @@ body {
 }
 
 
-/* Header */
+
 
 .commission-header {
     display: flex;
@@ -1009,7 +1006,7 @@ body {
 }
 
 
-/* Save Button */
+
 
 .savebtn {
     background: #ffffff;
@@ -1029,7 +1026,7 @@ body {
 }
 
 
-/* Commission Grid */
+
 
 .commission-grid {
     display: grid;
@@ -1038,7 +1035,7 @@ body {
 }
 
 
-/* Individual Box */
+
 
 .commission-box {
     background: #f7f9fc;
@@ -1052,7 +1049,7 @@ body {
 }
 
 
-/* Label */
+
 
 .commission-box label {
     color: #637895;
@@ -1061,7 +1058,7 @@ body {
 }
 
 
-/* Value */
+
 
 .commission-box strong {
     color: #111a2d;
@@ -1070,7 +1067,7 @@ body {
 }
 
 
-/* Responsive */
+
 
 @media (max-width: 800px) {
 
@@ -1103,9 +1100,7 @@ body {
 
 }
 
-/* 
-   RECENT SYSTEM MESSAGES
-*/
+
 
 .messages-card {
     width: 100%;
@@ -1117,7 +1112,7 @@ body {
 }
 
 
-/* Message Row */
+
 
 .message-row {
     position: relative;
@@ -1135,14 +1130,14 @@ body {
 }
 
 
-/* Unread Messages */
+
 
 .message-row.unread {
     background: #eef6ff;
 }
 
 
-/* Icon */
+
 
 .message-icon {
     width: 54px;
@@ -1162,7 +1157,7 @@ body {
 }
 
 
-/* Icon Backgrounds */
+
 
 .message-icon.critical {
     background: #f4e8f0;
@@ -1181,7 +1176,7 @@ body {
 }
 
 
-/* Message Content */
+
 
 .message-content {
     flex: 1;
@@ -1207,7 +1202,7 @@ body {
 }
 
 
-/* Time */
+
 
 .message-time {
     width: 75px;
@@ -1227,7 +1222,7 @@ body {
 }
 
 
-/* Unread Dot */
+
 
 .message-time i {
     width: 12px;
@@ -1243,7 +1238,7 @@ body {
 }
 
 
-/* Responsive */
+
 
 @media (max-width: 800px) {
 

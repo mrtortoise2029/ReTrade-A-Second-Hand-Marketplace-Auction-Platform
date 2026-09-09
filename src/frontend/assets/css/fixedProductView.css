@@ -1,7 +1,5 @@
 
-/* =====================================
-   GLOBAL
-===================================== */
+
 
 * {
     margin: 0;
@@ -16,9 +14,7 @@ body {
 }
 
 
-/* =====================================
-   NAVBAR
-===================================== */
+
 
 .logged-navbar {
     height: 76px;
@@ -40,7 +36,7 @@ body {
 }
 
 
-/* NAV LEFT */
+
 
 .nav-left {
     display: flex;
@@ -49,7 +45,7 @@ body {
 }
 
 
-/* LOGO */
+
 
 .logo {
     display: flex;
@@ -79,7 +75,7 @@ body {
 }
 
 
-/* DIVIDER */
+
 
 .nav-divider {
     width: 1px;
@@ -89,7 +85,7 @@ body {
 }
 
 
-/* MAIN NAV */
+
 
 .main-nav {
     display: flex;
@@ -117,7 +113,7 @@ body {
 }
 
 
-/* SEARCH */
+
 
 .nav-search {
     width: 330px;
@@ -159,7 +155,7 @@ body {
 }
 
 
-/* NAV RIGHT */
+
 
 .nav-right {
     display: flex;
@@ -168,7 +164,7 @@ body {
 }
 
 
-/* SELL BUTTON */
+
 
 .sell-item-btn {
     display: flex;
@@ -189,7 +185,7 @@ body {
 }
 
 
-/* ACTION BUTTON */
+
 
 .action-btn {
     position: relative;
@@ -204,7 +200,7 @@ body {
 }
 
 
-/* NOTIFICATION */
+
 
 .notification-badge {
     position: absolute;
@@ -228,7 +224,7 @@ body {
 }
 
 
-/* PROFILE */
+
 
 .profile-trigger {
     display: flex;
@@ -294,9 +290,7 @@ body {
 }
 
 
-/* =====================================
-   PRODUCT PAGE
-===================================== */
+
 
 .product-page {
     max-width: 1380px;
@@ -318,9 +312,7 @@ body {
 }
 
 
-/* =====================================
-   PRODUCT IMAGE
-===================================== */
+
 
 .main-image {
     position: relative;
@@ -344,7 +336,7 @@ body {
 }
 
 
-/* FIXED PRICE BADGE */
+
 
 .fixed-badge {
     position: absolute;
@@ -369,7 +361,7 @@ body {
 }
 
 
-/* THUMBNAILS */
+
 
 .thumbnails {
     display: flex;
@@ -399,9 +391,7 @@ body {
 }
 
 
-/* =====================================
-   ENVIRONMENT
-===================================== */
+
 
 .environment {
     margin-top: 22px;
@@ -476,16 +466,14 @@ body {
 }
 
 
-/* =====================================
-   PRODUCT INFORMATION
-===================================== */
+
 
 .product-info {
     padding-top: 3px;
 }
 
 
-/* TAGS */
+
 
 .tags {
     display: flex;
@@ -514,7 +502,7 @@ body {
 }
 
 
-/* PRODUCT TITLE */
+
 
 .product-info h1 {
     font-size: 25px;
@@ -527,7 +515,7 @@ body {
 }
 
 
-/* VIEWS */
+
 
 .views {
     font-size: 10px;
@@ -538,9 +526,7 @@ body {
 }
 
 
-/* =====================================
-   FIXED PRICE BOX
-===================================== */
+
 
 .fixed-price {
     position: relative;
@@ -601,9 +587,7 @@ body {
 }
 
 
-/* =====================================
-   SELLER
-===================================== */
+
 
 .seller {
     border: 1px solid #e2e8f0;
@@ -687,7 +671,7 @@ body {
 }
 
 
-/* SELLER STATS */
+
 
 .seller-stats {
     display: grid;
@@ -724,7 +708,7 @@ body {
 }
 
 
-/* LOCATION */
+
 
 .location {
     font-size: 10px;
@@ -735,7 +719,7 @@ body {
 }
 
 
-/* BASIC INFO */
+
 
 .basic-info {
     display: grid;
@@ -772,9 +756,7 @@ body {
 }
 
 
-/* =====================================
-   PURCHASE PANEL
-===================================== */
+
 
 .purchase-panel {
     background: white;
@@ -791,7 +773,7 @@ body {
 }
 
 
-/* PURCHASE HEADER */
+
 
 .purchase-panel > h3 {
     font-size: 11px;
@@ -812,7 +794,7 @@ body {
 }
 
 
-/* QUANTITY */
+
 
 .quantity-section {
     margin-bottom: 14px;
@@ -872,7 +854,7 @@ body {
 }
 
 
-/* PURCHASE BUTTONS */
+
 
 .add-cart,
 .buy-now {
@@ -917,7 +899,7 @@ body {
 }
 
 
-/* PURCHASE ACTIONS */
+
 
 .purchase-actions {
     display: grid;
@@ -948,7 +930,7 @@ body {
 }
 
 
-/* PROTECTION */
+
 
 .protection {
     padding: 11px 0;
@@ -967,7 +949,7 @@ body {
 }
 
 
-/* DELIVERY */
+
 
 .delivery {
     padding-top: 12px;
@@ -988,9 +970,7 @@ body {
 }
 
 
-/* =====================================
-   DETAILS SECTION
-===================================== */
+
 
 .details-section {
     max-width: 1380px;
@@ -1001,7 +981,7 @@ body {
 }
 
 
-/* TABS */
+
 
 .tabs {
     display: flex;
@@ -1034,7 +1014,7 @@ body {
 }
 
 
-/* DETAILS GRID */
+
 
 .details-grid {
     display: grid;
@@ -1067,7 +1047,7 @@ body {
 }
 
 
-/* SPECIFICATIONS */
+
 
 .spec-row {
     display: flex;
@@ -1090,9 +1070,7 @@ body {
 }
 
 
-/* =====================================
-   SIMILAR PRODUCTS
-===================================== */
+
 
 .similar {
     max-width: 1380px;
@@ -1117,7 +1095,7 @@ body {
 }
 
 
-/* SIMILAR CARD */
+
 
 .similar-card {
     background: white;
@@ -1163,9 +1141,7 @@ body {
 }
 
 
-/* =====================================
-   RESPONSIVE
-===================================== */
+
 
 @media (max-width: 1150px) {
 

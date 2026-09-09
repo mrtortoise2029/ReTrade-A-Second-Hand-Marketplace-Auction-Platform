@@ -32,7 +32,7 @@
   a{text-decoration:none;color:inherit;}
   button{font-family:inherit;cursor:pointer;}
 
-  /* ===== Sidebar ===== */
+
   .sidebar{
     width:230px;background:var(--card);border-right:1px solid var(--border);
     display:flex;flex-direction:column;padding:20px 14px;flex-shrink:0;
@@ -62,7 +62,7 @@
   .badge.hidden{display:none;}
   .nav-bottom{display:flex;flex-direction:column;gap:2px;margin-top:10px;border-top:1px solid var(--border);padding-top:10px;}
 
-  /* ===== Main ===== */
+
   .main{
     flex:1;
     width:100%;
@@ -84,7 +84,7 @@
     display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;
   }
 
-  /* ===== Notification card ===== */
+
   .card{
     background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
     overflow:hidden;margin-bottom:22px;
@@ -132,7 +132,7 @@
   .empty-state h3{margin:0 0 4px;color:var(--text);font-size:15px;}
   .empty-state p{margin:0;font-size:12.5px;}
 
-  /* ===== Quick nav footer ===== */
+
   .quicknav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
   .quicknav a{
     display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border);
@@ -157,7 +157,7 @@
 </head>
 <body>
 
-<!-- ===== Sidebar ===== -->
+
 <aside class="sidebar">
   <div class="brand"><div class="logo">R</div> ReTrade</div>
   <div class="user-card">
@@ -181,7 +181,7 @@
   </div>
 </aside>
 
-<!-- ===== Main ===== -->
+
 <main class="main">
   <div class="topbar">
     <div>
@@ -257,7 +257,7 @@
     </div>
   </div>
 
-  <!-- Quick nav footer -->
+
   <div class="quicknav">
     <a data-page="Home">🏠 Home</a>
     <a data-page="Product">📦 Product</a>
@@ -269,7 +269,6 @@
 <div id="toast"></div>
 
 <script>
-  // ---------- Toast ----------
   const toastEl = document.getElementById('toast');
   let toastTimer;
   function showToast(msg){
@@ -279,7 +278,6 @@
     toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 2200);
   }
 
-  // ---------- Sidebar nav ----------
   document.querySelectorAll('.nav-item').forEach(item=>{
     item.addEventListener('click', ()=>{
       document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
@@ -291,7 +289,6 @@
     a.addEventListener('click', ()=> showToast('Navigating to ' + a.dataset.page));
   });
 
-  // ---------- Unread count tracking ----------
   const sidebarBadge = document.getElementById('sidebarBadge');
   const bellDot = document.getElementById('bellDot');
   const markAllBtn = document.getElementById('markAllBtn');
@@ -342,7 +339,6 @@
     showToast(unread > 0 ? unread + ' unread notification' + (unread>1?'s':'') : 'No new notifications');
   });
 
-  // ---------- Init ----------
   updateUnreadCount();
 </script>
 </body>

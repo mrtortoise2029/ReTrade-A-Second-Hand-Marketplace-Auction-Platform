@@ -33,7 +33,7 @@
   a{text-decoration:none;color:inherit;}
   button{font-family:inherit;cursor:pointer;}
 
-  /* ===== Sidebar ===== */
+
   .sidebar{
     width:230px;
     background:var(--card);
@@ -87,7 +87,7 @@
   }
   .nav-bottom{display:flex;flex-direction:column;gap:2px;margin-top:10px;border-top:1px solid var(--border);padding-top:10px;}
 
-  /* ===== Main ===== */
+
   .main{
     flex:1;
     width:100%;
@@ -117,7 +117,7 @@
     color:#fff;font-weight:700;font-size:14px;
   }
 
-  /* ===== Stat cards ===== */
+
   .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:20px;}
   .stat-card{
     background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
@@ -134,7 +134,7 @@
   .stat-value{font-size:24px;font-weight:700;}
   .stat-label{font-size:12.5px;color:var(--muted);margin-top:-6px;}
 
-  /* ===== Auction rows ===== */
+
   .auction-list{display:flex;flex-direction:column;gap:12px;margin-bottom:26px;}
   .auction-card{
     background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
@@ -172,7 +172,7 @@
   }
   .bid-btn:hover{filter:brightness(.93);}
 
-  /* ===== Modal ===== */
+
   .modal-overlay{
     position:fixed;inset:0;background:rgba(15,16,20,.45);
     display:flex;align-items:center;justify-content:center;
@@ -199,7 +199,7 @@
   .btn-confirm{background:var(--red);color:#fff;}
   .btn-confirm:hover{background:#c73a3f;}
 
-  /* ===== Quick nav footer ===== */
+
   .quicknav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
   .quicknav a{
     display:flex;align-items:center;gap:6px;
@@ -211,7 +211,7 @@
   .quicknav a.primary{background:var(--blue);color:#fff;border-color:var(--blue);}
   .quicknav a.primary:hover{background:var(--blue-dark);}
 
-  /* ===== Toast ===== */
+
   #toast{
     position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
     background:#16181d;color:#fff;padding:12px 20px;border-radius:10px;
@@ -230,7 +230,7 @@
 </head>
 <body>
 
-<!-- ===== Sidebar ===== -->
+
 <aside class="sidebar">
   <div class="brand"><div class="logo">R</div> ReTrade</div>
   <div class="user-card">
@@ -254,7 +254,7 @@
   </div>
 </aside>
 
-<!-- ===== Main ===== -->
+
 <main class="main">
   <div class="topbar">
     <div>
@@ -267,7 +267,7 @@
     </div>
   </div>
 
-  <!-- Stats -->
+
   <div class="stats">
     <div class="stat-card">
       <div class="stat-ic amber">🏷️</div>
@@ -279,7 +279,7 @@
     </div>
   </div>
 
-  <!-- Auctions -->
+
   <div class="auction-list" id="auctionList">
 
     <div class="auction-card" data-name="Tissot PR100 Watch" data-current="1240">
@@ -332,12 +332,12 @@
 
   </div>
 
-  
+
 </main>
 
 <div id="toast"></div>
 
-<!-- Bid modal -->
+
 <div class="modal-overlay" id="bidModal">
   <div class="modal">
     <h3 id="modalTitle">Place a Bid</h3>
@@ -352,7 +352,6 @@
 </div>
 
 <script>
-  // ---------- Toast ----------
   const toastEl = document.getElementById('toast');
   let toastTimer;
   function showToast(msg){
@@ -362,7 +361,6 @@
     toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 2200);
   }
 
-  // ---------- Sidebar nav ----------
   document.querySelectorAll('.nav-item').forEach(item=>{
     item.addEventListener('click', ()=>{
       document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
@@ -372,7 +370,6 @@
   });
   document.getElementById('bellBtn').addEventListener('click', ()=> showToast('2 new notifications'));
 
-  // ---------- Bid modal ----------
   const modal = document.getElementById('bidModal');
   const modalTitle = document.getElementById('modalTitle');
   const modalSub = document.getElementById('modalSub');
@@ -412,7 +409,6 @@
       showToast('Bid must be higher than $' + current.toLocaleString());
       return;
     }
-    // update card
     activeCard.dataset.current = val;
     const meta = activeCard.querySelectorAll('.a-meta div b');
     meta[0].textContent = '$' + val.toLocaleString();
@@ -427,7 +423,6 @@
     closeModal();
   });
 
-  // ---------- Countdown timers ----------
   function startTimer(id, seconds){
     const el = document.getElementById(id);
     let t = seconds;
@@ -444,7 +439,6 @@
   startTimer('timer2', 3*3600 + 59*60 + 55);
   startTimer('timer3', 6*3600 + 12*60 + 40);
 
-  // ---------- Quick nav ----------
   document.querySelectorAll('.quicknav a').forEach(a=>{
     a.addEventListener('click', ()=> showToast('Navigating to ' + a.dataset.page));
   });

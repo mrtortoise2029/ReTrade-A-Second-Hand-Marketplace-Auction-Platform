@@ -32,7 +32,7 @@
   a{text-decoration:none;color:inherit;}
   button{font-family:inherit;cursor:pointer;}
 
-  /* ===== Sidebar ===== */
+
   .sidebar{
     width:230px;
     background:var(--card);
@@ -86,7 +86,7 @@
   }
   .nav-bottom{display:flex;flex-direction:column;gap:2px;margin-top:10px;border-top:1px solid var(--border);padding-top:10px;}
 
-  /* ===== Main ===== */
+
   .main{
     flex:1;
     width:100%;
@@ -116,7 +116,7 @@
     color:#fff;font-weight:700;font-size:14px;
   }
 
-  /* ===== Tabs ===== */
+
   .tabs{
     display:flex;background:var(--card);border-radius:12px;
     box-shadow:var(--shadow);padding:4px;margin-bottom:18px;
@@ -129,7 +129,7 @@
   .tab.active{background:var(--text);color:#fff;}
   .tab:not(.active):hover{background:#f4f5f7;color:var(--text);}
 
-  /* ===== Order card ===== */
+
   .order-list{display:flex;flex-direction:column;gap:12px;margin-bottom:22px;}
   .order-card{
     background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
@@ -164,7 +164,7 @@
   .btn-invoice{background:#fff;color:#4c525c;border:1px solid var(--border);}
   .btn-review{background:var(--green);color:#fff;}
 
-  /* ===== Pagination ===== */
+
   .pagination{display:flex;justify-content:center;align-items:center;gap:6px;margin-bottom:26px;}
   .page-btn{
     width:32px;height:32px;border-radius:9px;border:1px solid var(--border);
@@ -175,7 +175,7 @@
   .page-btn:hover:not(.active){background:#f2f3f6;}
   .page-btn.nav{color:var(--muted);}
 
-  /* ===== Footer quick nav ===== */
+
   .quicknav{
     display:flex;justify-content:center;gap:10px;flex-wrap:wrap;
   }
@@ -189,7 +189,7 @@
   .quicknav a.primary{background:var(--blue);color:#fff;border-color:var(--blue);}
   .quicknav a.primary:hover{background:var(--blue-dark);}
 
-  /* ===== Toast ===== */
+
   #toast{
     position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
     background:#16181d;color:#fff;padding:12px 20px;border-radius:10px;
@@ -206,7 +206,7 @@
 </head>
 <body>
 
-<!-- ===== Sidebar ===== -->
+
 <aside class="sidebar">
   <div class="brand"><div class="logo">R</div> ReTrade</div>
   <div class="user-card">
@@ -230,7 +230,7 @@
   </div>
 </aside>
 
-<!-- ===== Main ===== -->
+
 <main class="main">
   <div class="topbar">
     <div>
@@ -243,7 +243,7 @@
     </div>
   </div>
 
-  <!-- Tabs -->
+
   <div class="tabs">
     <div class="tab active" data-filter="all">All</div>
     <div class="tab" data-filter="transit">In Transit</div>
@@ -251,7 +251,7 @@
     <div class="tab" data-filter="pending">Pending</div>
   </div>
 
-  <!-- Orders -->
+
   <div class="order-list" id="orderList">
 
     <div class="order-card" data-status="transit">
@@ -333,7 +333,7 @@
 
   </div>
 
-  <!-- Pagination -->
+
   <div class="pagination" id="pagination">
     <button class="page-btn nav" data-page="prev">‹</button>
     <button class="page-btn active" data-page="1">1</button>
@@ -348,7 +348,6 @@
 <div id="toast"></div>
 
 <script>
-  // ---------- Toast helper ----------
   const toastEl = document.getElementById('toast');
   let toastTimer;
   function showToast(msg){
@@ -358,7 +357,6 @@
     toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 2200);
   }
 
-  // ---------- Sidebar navigation ----------
   document.querySelectorAll('.nav-item').forEach(item=>{
     item.addEventListener('click', ()=>{
       document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
@@ -369,7 +367,6 @@
 
   document.getElementById('bellBtn').addEventListener('click', ()=> showToast('2 new notifications'));
 
-  // ---------- Tab filtering ----------
   const tabs = document.querySelectorAll('.tab');
   const orderCards = document.querySelectorAll('.order-card');
   tabs.forEach(tab=>{
@@ -385,7 +382,6 @@
     });
   });
 
-  // ---------- Action buttons ----------
   document.querySelectorAll('.btn').forEach(btn=>{
     btn.addEventListener('click', e=>{
       e.stopPropagation();
@@ -400,7 +396,6 @@
     });
   });
 
-  // ---------- Pagination ----------
   const pageBtns = document.querySelectorAll('.page-btn');
   let currentPage = 1;
   const totalPages = 5;
@@ -422,7 +417,6 @@
     });
   });
 
-  // ---------- Quick nav ----------
   document.querySelectorAll('.quicknav a').forEach(a=>{
     a.addEventListener('click', ()=> showToast('Navigating to ' + a.dataset.page));
   });
