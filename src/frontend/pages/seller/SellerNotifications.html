@@ -1,4 +1,104 @@
 ﻿<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>ReTrade - Seller Notifications</title><link rel="stylesheet" href="../../assets/css/seller.css"></head><body><div class="shell">
-<aside class="sidebar"><div class="brand"><div class="logo">R</div><span>ReTrade</span><span class="seller-chip">Seller</span></div><div class="user-card"><div class="avatar">JO</div><div><div class="name">James Okere</div><div class="role"><span class="dot"></span>Seller</div></div></div><a class="create-btn" href="SellerListing.html?create=1">+ Create Listing</a><nav class="main-nav"><a class="nav-item" href="SellerOverview.html"><span class="nav-icon">[ ]</span><span>Overview</span></a><a class="nav-item" href="SellerListing.html"><span class="nav-icon">[=]</span><span>Listings</span></a><a class="nav-item" href="SellerAuctions.html"><span class="nav-icon">[!]</span><span>Auctions</span></a><a class="nav-item" href="SellerOrders.html"><span class="nav-icon">[+]</span><span>Orders</span></a><a class="nav-item" href="SellerAnalytics.html"><span class="nav-icon">/\</span><span>Analytics</span></a><a class="nav-item" href="SellerWallet.html"><span class="nav-icon">$</span><span>Wallet</span></a><a class="nav-item" href="SellerMessages.html"><span class="nav-icon">...</span><span>Messages</span></a><a class="nav-item active" href="SellerNotifications.html"><span class="nav-icon">(!)</span><span>Notifications</span><span class="badge">2</span></a></nav><div class="trust-box"><div class="trust-label">Trust Score</div><div class="trust-bar"><div class="trust-bar-fill"></div></div><div class="trust-score">Excellent Â· 84</div></div><div class="nav-bottom"><a class="nav-item" href="../landingwithlogin.html"><span class="nav-icon"><</span><span>Back to Site</span></a></div></aside>
-<main class="main"><header class="topbar"><div><h1>Notifications</h1><p>Important updates about your store and account.</p></div><button class="btn" onclick="markRead()">Mark all as read</button></header><section class="panel"><div class="panel-head"><div><h2>Recent activity</h2><div class="muted">2 unread notifications</div></div><select class="input" style="width:auto"><option>All notifications</option><option>Unread</option><option>Orders</option></select></div><div class="list"><div class="notice unread"><div class="notice-icon">$</div><div><div class="row-title">Your auction received a new bid</div><div class="row-sub">Canon EOS R5 reached $2,800 from a verified bidder Â· 12 minutes ago</div></div></div><div class="notice unread"><div class="notice-icon">!</div><div><div class="row-title">Review your listing price</div><div class="row-sub">Our pricing assistant noticed that Canon EOS R6 may be underpriced Â· 1 hour ago</div></div></div><div class="notice"><div class="notice-icon">+</div><div><div class="row-title">Order #RT-5888 is ready for payout</div><div class="row-sub">The buyer confirmed delivery. $240 has been added to your wallet Â· Yesterday</div></div></div><div class="notice"><div class="notice-icon">OK</div><div><div class="row-title">Your seller profile reached Gold status</div><div class="row-sub">You now qualify for priority support and reduced commission Â· Jul 24</div></div></div></div></section></main></div><div class="toast" id="toast"></div><script>function markRead(){document.querySelectorAll('.notice').forEach(item=>item.classList.remove('unread'));showToast('All notifications marked as read')}function showToast(message){const toast=document.getElementById('toast');toast.textContent=message;toast.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>toast.classList.remove('show'),1800)}</script></body></html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReTrade - Seller Notifications</title>
+    <link rel="stylesheet" href="../../assets/css/seller.css">
+</head>
+
+<body>
+    <div class="shell">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo">R</div><span>ReTrade</span><span class="seller-chip">Seller</span>
+            </div>
+            <div class="user-card">
+                <div class="avatar">JO</div>
+                <div>
+                    <div class="name">James Okere</div>
+                    <div class="role"><span class="dot"></span>Seller</div>
+                </div>
+            </div><a class="create-btn" href="SellerListing.html?create=1">+ Create Listing</a>
+            <nav class="main-nav"><a class="nav-item" href="SellerOverview.html"><span class="nav-icon">[
+                        ]</span><span>Overview</span></a><a class="nav-item" href="SellerListing.html"><span
+                        class="nav-icon">[=]</span><span>Listings</span></a><a class="nav-item"
+                    href="SellerAuctions.html"><span class="nav-icon">[!]</span><span>Auctions</span></a><a
+                    class="nav-item" href="SellerOrders.html"><span class="nav-icon">[+]</span><span>Orders</span></a><a
+                    class="nav-item" href="SellerAnalytics.html"><span
+                        class="nav-icon">/\</span><span>Analytics</span></a><a class="nav-item"
+                    href="SellerWallet.html"><span class="nav-icon">$</span><span>Wallet</span></a><a class="nav-item"
+                    href="SellerMessages.html"><span class="nav-icon">...</span><span>Messages</span></a><a
+                    class="nav-item active" href="SellerNotifications.html"><span
+                        class="nav-icon">(!)</span><span>Notifications</span><span class="badge">2</span></a></nav>
+            <div class="trust-box">
+                <div class="trust-label">Trust Score</div>
+                <div class="trust-bar">
+                    <div class="trust-bar-fill"></div>
+                </div>
+                <div class="trust-score">Excellent Â· 84</div>
+            </div>
+            <div class="nav-bottom"><a class="nav-item" href="../landingwithlogin.html"><span class="nav-icon">
+                        << /span><span>Back to Site</span></a></div>
+        </aside>
+        <main class="main">
+            <header class="topbar">
+                <div>
+                    <h1>Notifications</h1>
+                    <p>Important updates about your store and account.</p>
+                </div><button class="btn" onclick="markRead()">Mark all as read</button>
+            </header>
+            <section class="panel">
+                <div class="panel-head">
+                    <div>
+                        <h2>Recent activity</h2>
+                        <div class="muted">2 unread notifications</div>
+                    </div><select class="input" style="width:auto">
+                        <option>All notifications</option>
+                        <option>Unread</option>
+                        <option>Orders</option>
+                    </select>
+                </div>
+                <div class="list">
+                    <div class="notice unread">
+                        <div class="notice-icon">$</div>
+                        <div>
+                            <div class="row-title">Your auction received a new bid</div>
+                            <div class="row-sub">Canon EOS R5 reached $2,800 from a verified bidder Â· 12 minutes ago
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notice unread">
+                        <div class="notice-icon">!</div>
+                        <div>
+                            <div class="row-title">Review your listing price</div>
+                            <div class="row-sub">Our pricing assistant noticed that Canon EOS R6 may be underpriced Â· 1
+                                hour ago</div>
+                        </div>
+                    </div>
+                    <div class="notice">
+                        <div class="notice-icon">+</div>
+                        <div>
+                            <div class="row-title">Order #RT-5888 is ready for payout</div>
+                            <div class="row-sub">The buyer confirmed delivery. $240 has been added to your wallet Â·
+                                Yesterday</div>
+                        </div>
+                    </div>
+                    <div class="notice">
+                        <div class="notice-icon">OK</div>
+                        <div>
+                            <div class="row-title">Your seller profile reached Gold status</div>
+                            <div class="row-sub">You now qualify for priority support and reduced commission Â· Jul 24
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script>function markRead() { document.querySelectorAll('.notice').forEach(item => item.classList.remove('unread')); showToast('All notifications marked as read') } function showToast(message) { const toast = document.getElementById('toast'); toast.textContent = message; toast.classList.add('show'); clearTimeout(window.toastTimer); window.toastTimer = setTimeout(() => toast.classList.remove('show'), 1800) }</script>
+</body>
+
+</html>

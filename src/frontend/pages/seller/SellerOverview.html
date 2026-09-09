@@ -395,7 +395,7 @@
 
   document.getElementById('exportBtn').addEventListener('click', ()=> showToast('Exporting overview as PDF...'));
 
-  // ---------- AI warning ----------
+
   document.getElementById('aiWarning').addEventListener('click', e=>{
     if(e.target.id === 'dismissWarning') return;
     showToast('Opening listing: Canon EOS R6');
@@ -406,7 +406,7 @@
     showToast('Warning dismissed');
   });
 
-  // ---------- Withdraw modal ----------
+
   const modal = document.getElementById('withdrawModal');
   document.getElementById('withdrawBtn').addEventListener('click', ()=> modal.classList.add('show'));
   document.getElementById('cancelWithdraw').addEventListener('click', ()=> modal.classList.remove('show'));
