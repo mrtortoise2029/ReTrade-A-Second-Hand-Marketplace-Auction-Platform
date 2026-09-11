@@ -35,6 +35,10 @@
 
   .sidebar{
     width:230px;
+    height:100vh;
+    position:sticky;
+    top:0;
+    overflow:hidden;
     background:var(--card);
     border-right:1px solid var(--border);
     display:flex;
@@ -164,6 +168,36 @@
   .btn-invoice{background:#fff;color:#4c525c;border:1px solid var(--border);}
   .btn-review{background:var(--green);color:#fff;}
 
+  .tracking-modal{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(15,16,20,.45);}
+  .tracking-modal[hidden]{display:none;}
+  .tracking-dialog{width:min(420px,100%);max-height:calc(100vh - 32px);overflow:auto;background:#fff;border-radius:16px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.22);}
+  .tracking-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+  .tracking-header h2{margin:0;font-size:19px;}
+  .tracking-close{border:0;background:#f2f3f6;color:#4c525c;border-radius:8px;padding:7px 10px;font-weight:600;cursor:pointer;}
+  .tracking-order{display:flex;align-items:center;gap:12px;padding:14px;background:#f7f9fc;border-radius:12px;margin-bottom:22px;}
+  .tracking-order img{width:48px;height:48px;object-fit:cover;border-radius:10px;background:#eef2f7;}
+  .tracking-order strong{display:block;font-size:14px;}
+  .tracking-order small{display:block;color:var(--muted);font-size:11px;margin-top:3px;}
+  .tracking-pill{margin-left:auto;background:#eaf1ff;color:#2563eb;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:700;white-space:nowrap;}
+  .tracking-timeline{position:relative;padding-left:0;}
+  .tracking-step{display:grid;grid-template-columns:42px 1fr;min-height:68px;position:relative;}
+  .tracking-step:not(:last-child)::before{content:'';position:absolute;left:20px;top:42px;bottom:0;width:2px;background:#18b987;}
+  .tracking-step.pending:not(:last-child)::before{background:#dbe4ef;}
+  .tracking-icon{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#12b985;color:#fff;font-size:16px;z-index:1;}
+  .tracking-step.active .tracking-icon{background:#4d91e8;box-shadow:0 0 0 6px #eaf1ff;}
+  .tracking-step.pending .tracking-icon{background:#f1f4f8;color:#9aabc0;border:2px solid #dbe4ef;}
+  .tracking-copy{padding:2px 0 0 14px;}
+  .tracking-copy strong{display:block;font-size:14px;margin-bottom:4px;}
+  .tracking-copy span{color:#8ba0bd;font-size:11px;}
+  .tracking-step.active .tracking-copy strong{color:#2563eb;}
+  .tracking-note{display:inline-block;margin-top:7px;background:#edf5ff;color:#2563eb;border-radius:8px;padding:7px 10px;font-size:11px;font-weight:600;}
+  .tracking-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;border-top:1px solid var(--border);margin-top:8px;padding-top:16px;}
+  .tracking-meta div,.tracking-address{background:#f7f9fc;border-radius:10px;padding:11px 12px;color:#7185a1;font-size:11px;}
+  .tracking-meta strong{display:block;color:#172033;font-size:13px;margin-top:4px;}
+  .tracking-address{margin-top:10px;}
+  .tracking-footer{margin-top:16px;}
+  .tracking-footer button{width:100%;padding:10px;border:1px solid var(--border);border-radius:10px;background:#fff;color:#172033;font-weight:700;cursor:pointer;}
+
 
   .pagination{display:flex;justify-content:center;align-items:center;gap:6px;margin-bottom:26px;}
   .page-btn{
@@ -223,10 +257,11 @@
     <a href="BuyerAuction.html" class="nav-item" data-page="Auctions"><span class="ic">🔨</span> Auctions</a>
     <a href="BuyerMessages.html" class="nav-item" data-page="Messages"><span class="ic">💬</span> Messages</a>
     <a href="BuyerNotification.html" class="nav-item" data-page="Notifications"><span class="ic">🔔</span> Notifications <span class="badge">2</span></a>
+    <a href="../landingwithlogin.html" class="nav-item" data-page="Back to Shopping"><span class="ic">🛍️</span> Back to Shopping</a>
   </nav>
   <div class="nav-bottom">
     <a href="BuyerOverview.html" class="nav-item" data-page="Settings"><span class="ic">⚙️</span> Settings</a>
-    <a href="../landingwithlogin.html" class="nav-item" data-page="Back to Site"><span class="ic">🏠</span> Back to Site</a>
+    <a href="../landing.html" class="nav-item" data-page="Logout" onclick="localStorage.clear()"><span class="ic">🚪</span> Logout</a>
   </div>
 </aside>
 
@@ -262,7 +297,7 @@
         <div class="order-price">$195</div>
       </div>
       <div class="order-right">
-        <div class="order-status status-shipping">Shipping</div>
+        <div class="order-status status-shipping">In Transit</div>
         <div class="order-actions">
           <button class="btn btn-track" data-action="Tracking Sony WH-1000XM5">🚚 Track</button>
         </div>
@@ -324,7 +359,7 @@
         <div class="order-price">$1,590</div>
       </div>
       <div class="order-right">
-        <div class="order-status status-shipping">Shipping</div>
+        <div class="order-status status-shipping">In Transit</div>
         <div class="order-actions">
           <button class="btn btn-track" data-action="Tracking MacBook Pro M2 16&quot;">🚚 Track</button>
         </div>
@@ -346,6 +381,23 @@
 </main>
 
 <div id="toast"></div>
+
+<div class="tracking-modal" id="trackingModal" role="dialog" aria-modal="true" aria-labelledby="trackingTitle" hidden>
+  <div class="tracking-dialog">
+    <div class="tracking-header"><h2 id="trackingTitle">Track Order</h2><button class="tracking-close" type="button" onclick="closeTracking()">Close</button></div>
+    <div class="tracking-order"><img id="trackingImage" src="" alt=""><div><strong id="trackingProduct">Sony WH-1000XM5</strong><small id="trackingOrderId">#RT-4821</small></div><span class="tracking-pill">● In Transit</span></div>
+    <div class="tracking-timeline">
+      <div class="tracking-step"><div class="tracking-icon">▣</div><div class="tracking-copy"><strong>Order Placed</strong><span id="trackingPlaced">Jul 24, 09:12 AM</span></div></div>
+      <div class="tracking-step"><div class="tracking-icon">✓</div><div class="tracking-copy"><strong>Payment Confirmed</strong><span id="trackingPayment">Jul 24, 09:14 AM</span></div></div>
+      <div class="tracking-step"><div class="tracking-icon">□</div><div class="tracking-copy"><strong>Seller Packed</strong><span id="trackingPacked">Jul 24, 03:30 PM</span></div></div>
+      <div class="tracking-step active"><div class="tracking-icon">▣</div><div class="tracking-copy"><strong>Out for Delivery</strong><span id="trackingDeliveryTime">Jul 26, 08:55 AM — Active</span><span class="tracking-note" id="trackingNote">● Kwame D. is on the way</span></div></div>
+      <div class="tracking-step pending"><div class="tracking-icon">□</div><div class="tracking-copy"><strong>Delivered</strong><span id="trackingExpected">Expected Jul 27</span></div></div>
+    </div>
+    <div class="tracking-meta"><div>Estimated Delivery<strong id="trackingEstimated">Jul 27, 2025</strong></div><div>Delivery Person<strong id="trackingPerson">Kwame D.</strong></div></div>
+    <div class="tracking-address">⌾ &nbsp;<span id="trackingAddress">180 E 80th St, New York, NY 10021</span></div>
+    <div class="tracking-footer"><button type="button" onclick="closeTracking()">Close</button></div>
+  </div>
+</div>
 
 <script>
   const toastEl = document.getElementById('toast');
@@ -385,8 +437,38 @@
   document.querySelectorAll('.btn').forEach(btn=>{
     btn.addEventListener('click', e=>{
       e.stopPropagation();
+      if(btn.classList.contains('btn-track')){
+        openTracking(btn.closest('.order-card'));
+        return;
+      }
       showToast(btn.dataset.action);
     });
+  });
+
+  const trackingData = {
+    'Sony WH-1000XM5': {id:'#RT-4821', image:'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=120&h=120&fit=crop', person:'Kwame D.', address:'180 E 80th St, New York, NY 10021', estimated:'Jul 27, 2025'},
+    'MacBook Pro M2 16"': {id:'#RT-5012', image:'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=120&h=120&fit=crop', person:'Amina R.', address:'24 Gulshan Avenue, Dhaka, Bangladesh', estimated:'Jul 28, 2025'}
+  };
+
+  function openTracking(card){
+    const product = card.querySelector('.order-title').textContent.trim();
+    const data = trackingData[product] || trackingData['Sony WH-1000XM5'];
+    document.getElementById('trackingProduct').textContent = product;
+    document.getElementById('trackingOrderId').textContent = data.id;
+    document.getElementById('trackingImage').src = data.image;
+    document.getElementById('trackingImage').alt = product;
+    document.getElementById('trackingPerson').textContent = data.person;
+    document.getElementById('trackingNote').textContent = '● ' + data.person + ' is on the way';
+    document.getElementById('trackingEstimated').textContent = data.estimated;
+    document.getElementById('trackingExpected').textContent = 'Expected ' + data.estimated.replace(', 2025', '');
+    document.getElementById('trackingAddress').textContent = data.address;
+    document.getElementById('trackingModal').hidden = false;
+  }
+
+  function closeTracking(){ document.getElementById('trackingModal').hidden = true; }
+
+  document.getElementById('trackingModal').addEventListener('click', event=>{
+    if(event.target.id === 'trackingModal') closeTracking();
   });
 
   document.querySelectorAll('.order-card').forEach(card=>{

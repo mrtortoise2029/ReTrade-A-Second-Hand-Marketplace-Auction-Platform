@@ -35,6 +35,72 @@
     .faq-item:hover {
         transform: translateY(-2px);
     }
+
+    @media (max-width: 1050px) {
+        .logged-navbar {
+            padding: 0 16px;
+            gap: 12px;
+        }
+
+        .logged-navbar .nav-left {
+            gap: 12px;
+        }
+
+        .logged-navbar .logo span {
+            display: none;
+        }
+
+        .logged-navbar .nav-item {
+            padding: 9px 8px;
+        }
+
+        .logged-navbar .nav-search {
+            min-width: 120px;
+            max-width: none;
+        }
+
+        .logged-navbar .search-shortcut {
+            display: none;
+        }
+    }
+
+    @media (max-width: 760px) {
+        .logged-navbar {
+            height: auto;
+            min-height: 64px;
+            flex-wrap: wrap;
+            padding: 10px 12px;
+        }
+
+        .logged-navbar .nav-left {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .logged-navbar .main-nav {
+            gap: 2px;
+        }
+
+        .logged-navbar .nav-item span {
+            display: none;
+        }
+
+        .logged-navbar .nav-item {
+            padding: 9px 10px;
+        }
+
+        .logged-navbar .nav-search {
+            order: 3;
+            flex: 1 0 100%;
+            width: 100%;
+            height: 38px;
+        }
+
+        .logged-navbar .profile-text,
+        .logged-navbar .profile-trigger > i {
+            display: none;
+        }
+    }
 </style>
 
 </head>
@@ -166,12 +232,7 @@
 
                 <a href="buyer/BuyerOverview.html">
                     <i class="fa-solid fa-chart-pie"></i>
-                    Dashboard
-                </a>
-
-                <a href="profile.html">
-                    <i class="fa-regular fa-user"></i>
-                    My Profile
+                    Overview
                 </a>
 
 
@@ -183,26 +244,36 @@
                     MARKETPLACE
                 </span>
 
-                <a href="my-listings.html">
+                <a href="buyer/BuyerOrders.html">
                     <i class="fa-solid fa-box"></i>
-                    My Listings
+                    Orders
                 </a>
 
-                <a href="orders.html">
-                    <i class="fa-solid fa-bag-shopping"></i>
-                    My Orders
+                <a href="buyer/BuyerWishlist.html">
+                    <i class="fa-regular fa-heart"></i>
+                    Wishlist
                 </a>
 
-                <a href="my-bids.html">
+                <a href="buyer/BuyerAuction.html">
                     <i class="fa-solid fa-gavel"></i>
-                    My Bids
+                    Auctions
+                </a>
+
+                <a href="buyer/BuyerMessages.html">
+                    <i class="fa-solid fa-message"></i>
+                    Messages
+                </a>
+
+                <a href="buyer/BuyerNotification.html">
+                    <i class="fa-regular fa-bell"></i>
+                    Notifications
                 </a>
 
 
                 <div class="dropdown-line"></div>
 
 
-                <a href="settings.html">
+                <a href="buyer/BuyerOverview.html">
                     <i class="fa-solid fa-gear"></i>
                     Settings
                 </a>

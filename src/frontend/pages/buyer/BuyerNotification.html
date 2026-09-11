@@ -34,7 +34,7 @@
 
 
   .sidebar{
-    width:230px;background:var(--card);border-right:1px solid var(--border);
+    width:230px;height:100vh;position:sticky;top:0;overflow:hidden;background:var(--card);border-right:1px solid var(--border);
     display:flex;flex-direction:column;padding:20px 14px;flex-shrink:0;
   }
   .brand{display:flex;align-items:center;gap:10px;padding:4px 8px 20px;font-weight:700;font-size:16px;}
@@ -174,10 +174,11 @@
     <a href="BuyerAuction.html" class="nav-item" data-page="Auctions"><span class="ic">🔨</span> Auctions</a>
     <a href="BuyerMessages.html" class="nav-item" data-page="Messages"><span class="ic">💬</span> Messages</a>
     <a href="BuyerNotification.html" class="nav-item active" data-page="Notifications"><span class="ic">🔔</span> Notifications <span class="badge" id="sidebarBadge">2</span></a>
+    <a href="../landingwithlogin.html" class="nav-item" data-page="Back to Shopping"><span class="ic">🛍️</span> Back to Shopping</a>
   </nav>
   <div class="nav-bottom">
     <a href="BuyerOverview.html" class="nav-item" data-page="Settings"><span class="ic">⚙️</span> Settings</a>
-    <a href="../landingwithlogin.html" class="nav-item" data-page="Back to Site"><span class="ic">🏠</span> Back to Site</a>
+    <a href="../landing.html" class="nav-item" data-page="Logout" onclick="localStorage.clear()"><span class="ic">🚪</span> Logout</a>
   </div>
 </aside>
 

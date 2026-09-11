@@ -116,16 +116,35 @@
             </div>
 
             <div class="detail-grid">
+                <div class="detail-box"><span>Product Title</span><strong id="listingTitle">Apple Watch</strong></div>
                 <div class="detail-box"><span>Category</span><strong id="listingCategory">Electronics</strong></div>
                 <div class="detail-box"><span>Price</span><strong id="listingPrice">৳ 24,500</strong></div>
+                <div class="detail-box"><span>Original Price</span><strong id="listingOriginalPrice">৳ 32,000</strong></div>
                 <div class="detail-box"><span>Condition</span><strong id="listingCondition">Like New</strong></div>
+                <div class="detail-box"><span>Listing Type</span><strong id="listingType">Fixed Price</strong></div>
                 <div class="detail-box"><span>Submitted</span><strong id="listingDate">Jul 24, 2025</strong></div>
-                <div class="detail-box"><span>Seller Docs</span><strong id="listingDocs">3 / 3 Verified</strong></div>
+                <div class="detail-box"><span>Location</span><strong id="listingLocation">Dhaka, Bangladesh</strong></div>
+                <div class="detail-box"><span>Shipping Fee</span><strong id="listingShipping">৳ 120</strong></div>
+                <div class="detail-box"><span>Keywords</span><strong id="listingTags">apple, watch, wearable</strong></div>
+                <div class="detail-box"><span>Seller</span><strong id="listingSellerDetail">Apple Gadgets BD</strong></div>
                 <div class="detail-box"><span>Status</span><strong id="listingStatus">Pending Review</strong></div>
             </div>
 
+            <div class="listing-media-box">
+                <h5>Product Images</h5>
+                <div id="listingImageGallery" class="listing-image-gallery"></div>
+            </div>
+
+            <div class="documents-box">
+                <div class="documents-heading">
+                    <h5>Documents and Warranty</h5>
+                    <span>Download submitted files</span>
+                </div>
+                <div id="listingDocumentList" class="document-list"></div>
+            </div>
+
             <div class="summary-box">
-                <h5>Listing Summary</h5>
+                <h5>Description</h5>
                 <p id="listingSummary">The product has complete image uploads, a valid seller profile, and matching product information. This item appears aligned with marketplace standards and is ready for compliance review.</p>
             </div>
 
@@ -144,47 +163,130 @@ const listingData = {
         initials: 'AW',
         seller: 'Apple Gadgets BD',
         category: 'Electronics',
+        title: 'Apple Watch',
         price: '৳ 24,500',
+        originalPrice: '৳ 32,000',
         condition: 'Like New',
+        listingType: 'Fixed Price',
         date: 'Jul 24, 2025',
-        docs: '3 / 3 Verified',
+        location: 'Dhaka, Bangladesh',
+        shipping: '৳ 120',
+        tags: 'apple, watch, wearable',
+        images: ['../../assets/images/apple.png'],
+        documents: ['apple-watch-warranty.pdf'],
         summary: 'The product has complete image uploads, a valid seller profile, and matching product information. This item appears aligned with marketplace standards and is ready for compliance review.'
     },
     'Macbook Pro': {
         initials: 'MP',
         seller: 'BD Mac Care',
+        title: 'Macbook Pro',
         category: 'Computers',
         price: '৳ 78,000',
+        originalPrice: '৳ 95,000',
         condition: 'Excellent',
+        listingType: 'Fixed Price',
         date: 'Jul 23, 2025',
-        docs: '3 / 3 Verified',
+        location: 'Dhaka, Bangladesh',
+        shipping: '৳ 180',
+        tags: 'macbook, apple, laptop',
+        images: ['../../assets/images/ashdaud.jpg'],
+        documents: ['macbook-receipt.pdf', 'macbook-warranty.pdf'],
         summary: 'The listing includes a complete device description, serial verification, and seller identity confirmation. This listing meets the standard approval criteria.'
     },
     'Aloe Vera Gel': {
         initials: 'AG',
         seller: 'Cosmeticx Zone',
+        title: 'Aloe Vera Gel',
         category: 'Beauty',
         price: '৳ 680',
+        originalPrice: '৳ 850',
         condition: 'New',
+        listingType: 'Fixed Price',
         date: 'Jul 22, 2025',
-        docs: '2 / 3 Verified',
+        location: 'Sylhet, Bangladesh',
+        shipping: '৳ 80',
+        tags: 'aloe vera, skincare, beauty',
+        images: ['../../assets/images/alove.png'],
+        documents: ['product-certificate.pdf'],
         summary: 'Product details are mostly complete, but one document requirement is still incomplete. The listing is otherwise valid and needs final verification before approval.'
     }
 };
 
+function getStoredListing(name){
+    try {
+        const stored = JSON.parse(localStorage.getItem('retrade_listed_products') || '[]');
+        return Array.isArray(stored) ? stored.find((listing) => listing.title === name) : null;
+    } catch {
+        return null;
+    }
+}
+
+function formatCurrency(value){
+    return value === undefined || value === '' ? 'Not provided' : '৳ ' + Number(value).toLocaleString();
+}
+
+function createDocumentUrl(fileName, listingName){
+    const content = 'ReTrade listing document\nListing: ' + listingName + '\nFile: ' + fileName;
+    return 'data:text/plain;charset=utf-8,' + encodeURIComponent(content);
+}
+
+function renderListingImages(images, listingName){
+    const gallery = document.getElementById('listingImageGallery');
+    gallery.innerHTML = '';
+    (images || []).forEach((image, index) => {
+        const imageElement = document.createElement('img');
+        imageElement.src = image;
+        imageElement.alt = listingName + ' image ' + (index + 1);
+        gallery.appendChild(imageElement);
+    });
+    if (!gallery.children.length) {
+        gallery.textContent = 'No product images submitted.';
+    }
+}
+
+function renderListingDocuments(documents, listingName){
+    const list = document.getElementById('listingDocumentList');
+    list.innerHTML = '';
+    (documents || []).forEach((fileName) => {
+        const link = document.createElement('a');
+        link.className = 'document-link';
+        link.href = createDocumentUrl(fileName, listingName);
+        link.download = fileName;
+        link.innerHTML = '<span><strong>Submitted file</strong><small></small></span><span class="download-label">Download</span>';
+        link.querySelector('small').textContent = fileName;
+        list.appendChild(link);
+    });
+    if (!list.children.length) {
+        list.textContent = 'No documents or warranty files submitted.';
+    }
+}
+
 function viewListing(name){
-    const data = listingData[name] || listingData['Apple Watch'];
+    const storedListing = getStoredListing(name);
+    const data = Object.assign({}, listingData[name] || listingData['Apple Watch'], storedListing || {});
+    if (storedListing) {
+        data.date = new Date(storedListing.createdAt).toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'});
+        data.summary = storedListing.description || 'No description provided.';
+    }
     document.getElementById('listingModalAvatar').textContent = data.initials;
     document.getElementById('listingModalAvatar').style.background = 'linear-gradient(135deg,#f59e0b,#fb7185)';
-    document.getElementById('listingModalName').textContent = name;
+    document.getElementById('listingModalName').textContent = data.title || name;
     document.getElementById('listingModalSeller').textContent = data.seller;
+    document.getElementById('listingTitle').textContent = data.title || name;
     document.getElementById('listingCategory').textContent = data.category;
-    document.getElementById('listingPrice').textContent = data.price;
+    document.getElementById('listingPrice').textContent = typeof data.price === 'number' ? formatCurrency(data.price) : data.price;
+    document.getElementById('listingOriginalPrice').textContent = typeof data.originalPrice === 'number' ? formatCurrency(data.originalPrice) : data.originalPrice;
     document.getElementById('listingCondition').textContent = data.condition;
+    document.getElementById('listingType').textContent = data.listingType === 'auction' ? 'Auction' : data.listingType;
     document.getElementById('listingDate').textContent = data.date;
-    document.getElementById('listingDocs').textContent = data.docs;
+    document.getElementById('listingLocation').textContent = data.location;
+    document.getElementById('listingShipping').textContent = typeof data.shipping === 'number' ? formatCurrency(data.shipping) : data.shipping;
+    document.getElementById('listingTags').textContent = data.tags;
+    document.getElementById('listingSellerDetail').textContent = data.seller;
     document.getElementById('listingStatus').textContent = 'Pending Review';
     document.getElementById('listingSummary').textContent = data.summary;
+    renderListingImages(data.images || (data.image ? [data.image] : []), data.title || name);
+    renderListingDocuments(data.documents, data.title || name);
     document.getElementById('listingModal').classList.remove('hidden');
 }
 

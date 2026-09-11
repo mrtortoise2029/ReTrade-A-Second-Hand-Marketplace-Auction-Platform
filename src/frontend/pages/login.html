@@ -240,9 +240,10 @@
 
         const USER_EMAIL = "user@retrade.com";
         const ADMIN_EMAIL = "admin@retrade.com";
-        const BUYER_EMAIL ="buyer@gamil.com"
+        const BUYER_EMAIL = "buyer@gamil.com";
+        const SELLER_EMAIL = "seller@retrade.com";
 
-        if (email === USER_EMAIL) {
+        if (email === USER_EMAIL || email === BUYER_EMAIL) {
 
 
             localStorage.setItem("userRole", "user");
@@ -251,6 +252,12 @@
 
             window.location.href = "landingwithlogin.html";
 
+        }
+
+        else if (email === SELLER_EMAIL) {
+            localStorage.setItem("userRole", "seller");
+            localStorage.setItem("userEmail", email);
+            window.location.href = "seller/SellerOverview.html";
         }
 
 

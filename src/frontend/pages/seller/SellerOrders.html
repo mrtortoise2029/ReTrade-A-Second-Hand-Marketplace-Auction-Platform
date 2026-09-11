@@ -74,6 +74,61 @@
       opacity: 0.65;
     }
 
+    .order-details-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: rgba(15, 16, 20, 0.45);
+    }
+
+    .order-details-modal[hidden] { display: none; }
+
+    .order-details-dialog {
+      width: min(700px, 100%);
+      max-height: calc(100vh - 32px);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
+    }
+
+    .order-details-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .order-details-header h2 { margin: 0; font-size: 19px; }
+    .order-details-body { padding: 20px 22px 0; overflow-y: auto; min-height: 0; }
+    .order-details-hero { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; }
+    .order-details-hero img { width: 64px; height: 64px; border-radius: 12px; object-fit: cover; background: #f7f8fa; }
+    .order-details-hero h3 { margin: 0 0 4px; font-size: 18px; }
+    .order-details-hero p { margin: 0; color: var(--muted); font-size: 12px; }
+    .order-details-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .order-detail { padding: 12px; border: 1px solid var(--border); border-radius: 10px; background: #f8f9fb; }
+    .order-detail span { display: block; color: var(--muted); font-size: 11px; margin-bottom: 5px; }
+    .order-detail strong { display: block; font-size: 13px; line-height: 1.45; }
+    .order-description { margin-top: 12px; padding: 14px; border-radius: 10px; background: #f8f9fb; }
+    .order-description h4 { margin: 0 0 7px; font-size: 13px; }
+    .order-description p { margin: 0; color: #4c525c; font-size: 13px; line-height: 1.6; }
+    .order-details-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 16px 0 18px; margin-top: 16px; border-top: 1px solid var(--border); background: #fff; position: sticky; bottom: 0; }
+    .status-action { border: 0; border-radius: 8px; padding: 9px 12px; font-size: 12px; font-weight: 700; cursor: pointer; }
+    .status-action.transit { background: #e8efff; color: var(--blue); }
+    .status-action.awaiting { background: #fff4df; color: #a66a08; }
+    .status-action.delivered { background: #e6f9ef; color: var(--green-dark); }
+    .status-action.handed-over { background: #eeeaff; color: #6654c8; }
+    .status.handed-over-status { background: #eeeaff; color: #6654c8; }
+    @media (max-width: 600px) { .order-details-grid { grid-template-columns: 1fr; } .order-details-actions { flex-wrap: wrap; } }
+
     @media (max-width: 900px) {
       .table-wrap {
         overflow-x: auto;
@@ -127,19 +182,19 @@
               <tr>
                 <td><strong>#RT-5894</strong></td><td>Sarah Chen</td>
                 <td><div class="order-item"><img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&amp;fit=crop&amp;w=120&amp;q=80" alt="Sony WH-1000XM5 headphones"><span class="order-item-name">Sony WH-1000XM5</span></div></td>
-                <td>$195</td><td><span class="status amber">Awaiting shipment</span></td><td>Jul 26</td>
+                <td>$195</td><td><span class="status amber">Pending</span></td><td>Jul 26</td>
                 <td><div class="order-actions"><button class="order-action approve-action" onclick="approveOrder(this)">Approve</button><button class="order-action reject-action" onclick="rejectOrder(this)">Reject</button></div></td>
               </tr>
               <tr>
                 <td><strong>#RT-5888</strong></td><td>David Park</td>
                 <td><div class="order-item"><img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&amp;fit=crop&amp;w=120&amp;q=80" alt="Nike Air Jordan 1 shoes"><span class="order-item-name">Nike Air Jordan 1</span></div></td>
-                <td>$240</td><td><span class="status blue">In transit</span></td><td>Jul 25</td>
+                <td>$240</td><td><span class="status amber">Pending</span></td><td>Jul 25</td>
                 <td><div class="order-actions"><button class="order-action approve-action" onclick="approveOrder(this)">Approve</button><button class="order-action reject-action" onclick="rejectOrder(this)">Reject</button></div></td>
               </tr>
               <tr>
                 <td><strong>#RT-5862</strong></td><td>Maya Singh</td>
                 <td><div class="order-item"><img src="../../assets/images/apple.png" alt="Tissot PR100 Watch"><span class="order-item-name">Tissot PR100 Watch</span></div></td>
-                <td>$380</td><td><span class="status green">Delivered</span></td><td>Jul 22</td>
+                <td>$380</td><td><span class="status amber">Pending</span></td><td>Jul 22</td>
                 <td><div class="order-actions"><button class="order-action approve-action" onclick="approveOrder(this)">Approve</button><button class="order-action reject-action" onclick="rejectOrder(this)">Reject</button></div></td>
               </tr>
             </tbody>
@@ -150,7 +205,39 @@
   </div>
 
   <div class="toast" id="toast"></div>
+  <div class="order-details-modal" id="orderDetailsModal" role="dialog" aria-modal="true" aria-labelledby="orderDetailsTitle" hidden>
+    <div class="order-details-dialog">
+      <div class="order-details-header"><h2 id="orderDetailsTitle">Order details</h2><button class="btn" type="button" onclick="closeOrderDetails()">Close</button></div>
+      <div class="order-details-body">
+        <div class="order-details-hero"><img id="orderDetailsImage" src="" alt=""><div><h3 id="orderDetailsProduct">Sony WH-1000XM5</h3><p id="orderDetailsOrder">#RT-5894 · Sarah Chen</p></div></div>
+        <div class="order-details-grid">
+          <div class="order-detail"><span>Product title</span><strong id="detailTitle"></strong></div>
+          <div class="order-detail"><span>Category</span><strong id="detailCategory"></strong></div>
+          <div class="order-detail"><span>Condition</span><strong id="detailCondition"></strong></div>
+          <div class="order-detail"><span>Listing type</span><strong id="detailListingType"></strong></div>
+          <div class="order-detail"><span>Selling price</span><strong id="detailPrice"></strong></div>
+          <div class="order-detail"><span>Original price</span><strong id="detailOriginalPrice"></strong></div>
+          <div class="order-detail"><span>Buyer</span><strong id="detailBuyer"></strong></div>
+          <div class="order-detail"><span>Order date</span><strong id="detailDate"></strong></div>
+          <div class="order-detail"><span>Location</span><strong id="detailLocation"></strong></div>
+          <div class="order-detail"><span>Shipping fee</span><strong id="detailShipping"></strong></div>
+          <div class="order-detail"><span>Keywords</span><strong id="detailTags"></strong></div>
+          <div class="order-detail"><span>Status</span><strong id="detailStatus"></strong></div>
+        </div>
+        <div class="order-description"><h4>Description</h4><p id="detailDescription"></p></div>
+        <div class="order-description"><h4>Documents and warranty</h4><p id="detailDocuments"></p></div>
+        <div class="order-details-actions"><button class="status-action awaiting" onclick="updateOrderStatus('Awaiting shipment')">Awaiting shipment</button><button class="status-action transit" onclick="updateOrderStatus('In transit')">In transit</button><button class="status-action handed-over" onclick="updateOrderStatus('Handed over to delivery')">Handed over to delivery</button><button class="status-action delivered" onclick="updateOrderStatus('Delivered')">Delivered</button></div>
+      </div>
+    </div>
+  </div>
   <script>
+    const orderData = {
+      '#RT-5894': {buyer: 'Sarah Chen', title: 'Sony WH-1000XM5', category: 'Electronics', condition: 'Excellent', listingType: 'Fixed Price', price: '$195', originalPrice: '$279', date: 'Jul 26', location: 'Dhaka, Bangladesh', shipping: '$0', tags: 'wireless, sony, headphones', description: 'Premium noise-cancelling headphones in excellent condition with clear sound and comfortable ear cushions.', documents: 'Warranty card and purchase receipt', image: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=120&q=80'},
+      '#RT-5888': {buyer: 'David Park', title: 'Nike Air Jordan 1', category: 'Fashion', condition: 'Like New', listingType: 'Fixed Price', price: '$240', originalPrice: '$320', date: 'Jul 25', location: 'Dhaka, Bangladesh', shipping: '$12', tags: 'nike, sneakers, jordan', description: 'Lightly worn Air Jordan 1 sneakers with the original box and minimal signs of use.', documents: 'Original box and authenticity paperwork', image: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=120&q=80'},
+      '#RT-5862': {buyer: 'Maya Singh', title: 'Tissot PR100 Watch', category: 'Accessories', condition: 'Like New', listingType: 'Auction', price: '$380', originalPrice: '$450', date: 'Jul 22', location: 'Chattogram, Bangladesh', shipping: '$8', tags: 'tissot, watch, swiss', description: 'A carefully maintained Swiss watch with a clean face, working movement, and original accessories.', documents: 'Service history and warranty card', image: '../../assets/images/apple.png'}
+    };
+    let activeOrderRow = null;
+
     function showToast(message) {
       const toast = document.getElementById('toast');
       toast.textContent = message;
@@ -162,14 +249,10 @@
     function approveOrder(button) {
       const row = button.closest('tr');
       const status = row.querySelector('.status');
-      status.textContent = 'Approved';
-      status.className = 'status green';
-      button.textContent = 'Handover to deliver';
-      button.className = 'order-action handover-action';
-      button.onclick = function () {
-        handoverOrder(this);
-      };
-      showToast('Order approved for handover');
+      status.textContent = 'In transit';
+      status.className = 'status blue';
+      row.querySelector('.order-actions').innerHTML = '<button class="order-action handover-action" onclick="openOrderDetails(this)">Details</button>';
+      showToast('Order approved and marked in transit');
     }
 
     function handoverOrder(button) {
@@ -180,6 +263,30 @@
       button.textContent = 'Handed over';
       button.disabled = true;
       showToast('Order handed over to delivery');
+    }
+
+    function openOrderDetails(button) {
+      activeOrderRow = button.closest('tr');
+      const orderId = activeOrderRow.querySelector('td strong').textContent;
+      const data = orderData[orderId];
+      document.getElementById('orderDetailsProduct').textContent = data.title;
+      document.getElementById('orderDetailsOrder').textContent = orderId + ' · ' + data.buyer;
+      document.getElementById('orderDetailsImage').src = data.image;
+      document.getElementById('orderDetailsImage').alt = data.title;
+      const fields = {detailTitle: data.title, detailCategory: data.category, detailCondition: data.condition, detailListingType: data.listingType, detailPrice: data.price, detailOriginalPrice: data.originalPrice, detailBuyer: data.buyer, detailDate: data.date, detailLocation: data.location, detailShipping: data.shipping, detailTags: data.tags, detailStatus: activeOrderRow.querySelector('.status').textContent, detailDescription: data.description, detailDocuments: data.documents};
+      Object.keys(fields).forEach((id) => { document.getElementById(id).textContent = fields[id]; });
+      document.getElementById('orderDetailsModal').hidden = false;
+    }
+
+    function closeOrderDetails() { document.getElementById('orderDetailsModal').hidden = true; activeOrderRow = null; }
+
+    function updateOrderStatus(statusText) {
+      if (!activeOrderRow) return;
+      const status = activeOrderRow.querySelector('.status');
+      status.textContent = statusText;
+      status.className = 'status ' + (statusText === 'Delivered' ? 'green' : statusText === 'In transit' ? 'blue' : statusText === 'Handed over to delivery' ? 'handed-over-status' : 'amber');
+      document.getElementById('detailStatus').textContent = statusText;
+      showToast('Order status updated to ' + statusText);
     }
 
     function rejectOrder(button) {
