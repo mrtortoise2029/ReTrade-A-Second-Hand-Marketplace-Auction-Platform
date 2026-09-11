@@ -44,9 +44,10 @@
     <div class="commission-header">
         <h1>Commission Settings</h1>
 
-        <button class="savebtn">
-            Save Changes
-        </button>
+        <div class="commission-actions">
+            <button class="editbtn" id="editCommissionBtn" type="button" onclick="toggleCommissionEdit()">Edit</button>
+            <button class="savebtn" id="saveCommissionBtn" type="button" onclick="saveCommissionSettings()">Save Changes</button>
+        </div>
     </div>
 
 
@@ -54,25 +55,25 @@
 
         <div class="commission-box">
             <label>Standard Listing Commission</label>
-            <strong>7.5%</strong>
+            <div class="commission-input"><input id="standardCommission" type="number" min="0" step="0.1" value="7.5" disabled><span>%</span></div>
         </div>
 
 
         <div class="commission-box">
             <label>Auction Commission</label>
-            <strong>8.0%</strong>
+            <div class="commission-input"><input id="auctionCommission" type="number" min="0" step="0.1" value="8.0" disabled><span>%</span></div>
         </div>
 
 
         <div class="commission-box">
             <label>Minimum Commission</label>
-            <strong>$2.00</strong>
+            <div class="commission-input"><span>$</span><input id="minimumCommission" type="number" min="0" step="0.01" value="2.00" disabled></div>
         </div>
 
 
         <div class="commission-box">
             <label>Withdrawal Fee</label>
-            <strong>$0.50</strong>
+            <div class="commission-input"><span>$</span><input id="withdrawalFee" type="number" min="0" step="0.01" value="0.50" disabled></div>
         </div>
 
     </div>
@@ -80,5 +81,42 @@
 </section>
 </main>
 </div>
+<script>
+const commissionStorageKey = 'retrade_commission_settings';
+const commissionInputIds = ['standardCommission', 'auctionCommission', 'minimumCommission', 'withdrawalFee'];
+
+function toggleCommissionEdit(){
+    const inputs = commissionInputIds.map((id) => document.getElementById(id));
+    const isEditing = inputs[0].disabled;
+    inputs.forEach((input) => { input.disabled = !isEditing; });
+    document.getElementById('editCommissionBtn').textContent = isEditing ? 'Cancel' : 'Edit';
+    if (isEditing) inputs[0].focus();
+}
+
+function saveCommissionSettings(){
+    const settings = {};
+    commissionInputIds.forEach((id) => {
+        const input = document.getElementById(id);
+        settings[id] = Number(input.value).toFixed(id === 'standardCommission' || id === 'auctionCommission' ? 1 : 2);
+        input.value = settings[id];
+        input.disabled = true;
+    });
+    localStorage.setItem(commissionStorageKey, JSON.stringify(settings));
+    document.getElementById('editCommissionBtn').textContent = 'Edit';
+}
+
+function loadCommissionSettings(){
+    try {
+        const settings = JSON.parse(localStorage.getItem(commissionStorageKey) || '{}');
+        commissionInputIds.forEach((id) => {
+            if (settings[id] !== undefined) document.getElementById(id).value = settings[id];
+        });
+    } catch {
+        localStorage.removeItem(commissionStorageKey);
+    }
+}
+
+loadCommissionSettings();
+</script>
 </body>
 </html>

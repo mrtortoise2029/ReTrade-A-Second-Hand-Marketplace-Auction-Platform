@@ -65,17 +65,39 @@
             </div>
 
             <div class="detail-grid">
+                <div class="detail-box"><span>First Name</span><strong id="sellerFirstName">Aria</strong></div>
+                <div class="detail-box"><span>Last Name</span><strong id="sellerLastName">Kim</strong></div>
+                <div class="detail-box"><span>Email</span><strong id="sellerEmailDetail">aria@email.com</strong></div>
+                <div class="detail-box"><span>Phone Number</span><strong id="sellerPhone">+880 1712-345678</strong></div>
+                <div class="detail-box"><span>Role</span><strong id="sellerRole">Seller</strong></div>
                 <div class="detail-box"><span>Applied</span><strong id="sellerApplied">Jul 24, 2025</strong></div>
                 <div class="detail-box"><span>Status</span><strong id="sellerStatus">Pending Review</strong></div>
-                <div class="detail-box"><span>Business Type</span><strong id="sellerBusiness">Electronics Seller</strong></div>
+                <div class="detail-box"><span>Business Name</span><strong id="sellerBusiness">Kim Tech Finds</strong></div>
                 <div class="detail-box"><span>Documents</span><strong id="sellerDocs">3 / 3 Verified</strong></div>
                 <div class="detail-box"><span>Location</span><strong id="sellerLocation">Dhaka, Bangladesh</strong></div>
                 <div class="detail-box"><span>Verification</span><strong id="sellerVerification">Identity Verified</strong></div>
             </div>
 
+            <div class="documents-box">
+                <div class="documents-heading">
+                    <h5>Submitted Documents</h5>
+                    <span>Download for verification</span>
+                </div>
+                <div class="document-list">
+                    <a id="sellerNidLink" class="document-link" href="#" download>
+                        <span><strong>NID</strong><small id="sellerNidName">aria-kim-nid.pdf</small></span>
+                        <span class="download-label">Download</span>
+                    </a>
+                    <a id="sellerTradeLink" class="document-link" href="#" download>
+                        <span><strong>Trade Licence</strong><small id="sellerTradeName">aria-kim-trade-licence.pdf</small></span>
+                        <span class="download-label">Download</span>
+                    </a>
+                </div>
+            </div>
+
             <div class="summary-box">
-                <h5>Application Summary</h5>
-                <p id="sellerSummary">This seller has submitted all required verification documents, including NID, business registration, and bank account information. The account looks structurally complete and is suitable for manual review.</p>
+                <h5>Business Description</h5>
+                <p id="sellerSummary">I sell carefully tested second-hand electronics and provide clear condition details for every listing.</p>
             </div>
 
             <div class="modal-actions">
@@ -91,41 +113,79 @@
 const sellerData = {
     'Aria Kim': {
         initials: 'AK',
+        firstName: 'Aria',
+        lastName: 'Kim',
         email: 'aria@email.com',
+        phone: '+880 1712-345678',
         applied: 'Jul 24, 2025',
-        business: 'Electronics Seller',
+        business: 'Kim Tech Finds',
         docs: '3 / 3 Verified',
         location: 'Dhaka, Bangladesh',
         verification: 'Identity Verified',
-        summary: 'This seller has submitted all required verification documents, including NID, business registration, and bank account information. The account looks structurally complete and is suitable for manual review.'
+        summary: 'I sell carefully tested second-hand electronics and provide clear condition details for every listing.',
+        nidFile: 'aria-kim-nid.pdf',
+        tradeLicenseFile: 'aria-kim-trade-licence.pdf'
     },
     'Dev Patel': {
         initials: 'DP',
+        firstName: 'Dev',
+        lastName: 'Patel',
         email: 'dev@email.com',
+        phone: '+880 1812-456789',
         applied: 'Jul 23, 2025',
-        business: 'Home Goods Seller',
+        business: 'Patel Home Goods',
         docs: '3 / 3 Verified',
         location: 'Chattogram, Bangladesh',
         verification: 'KYC Approved',
-        summary: 'The seller profile is complete, the warehouse records are consistent, and the documentation appears valid. This applicant is ready for approval unless a compliance exception is found.'
+        summary: 'I resell quality home goods after checking their condition, cleanliness, and functionality before listing.',
+        nidFile: 'dev-patel-nid.pdf',
+        tradeLicenseFile: 'dev-patel-trade-licence.pdf'
     },
     'Lucy Wang': {
         initials: 'LW',
+        firstName: 'Lucy',
+        lastName: 'Wang',
         email: 'lucy@email.com',
+        phone: '+880 1912-567890',
         applied: 'Jul 22, 2025',
-        business: 'Beauty Seller',
+        business: 'Lucy Beauty Resale',
         docs: '2 / 3 Verified',
         location: 'Sylhet, Bangladesh',
         verification: 'Identity Pending',
-        summary: 'One verification document is still missing. The seller has completed the business profile and most checks, but the final identity confirmation is still pending admin review.'
+        summary: 'I curate lightly used beauty products and include product condition and usage information in each listing.',
+        nidFile: 'lucy-wang-nid.pdf',
+        tradeLicenseFile: null
     }
 };
+
+function createDownloadUrl(fileName, sellerName){
+    const content = 'ReTrade seller document\nSeller: ' + sellerName + '\nDocument: ' + fileName;
+    return 'data:text/plain;charset=utf-8,' + encodeURIComponent(content);
+}
+
+function setDocumentLink(id, fileName, sellerName){
+    const link = document.getElementById(id);
+    const name = link.querySelector('small');
+    name.textContent = fileName || 'Not submitted';
+    link.classList.toggle('disabled', !fileName);
+    link.href = fileName ? createDownloadUrl(fileName, sellerName) : '#';
+    link.download = fileName || '';
+    link.removeAttribute('aria-disabled');
+    if (!fileName) {
+        link.setAttribute('aria-disabled', 'true');
+    }
+}
 
 function viewSeller(name){
     const data = sellerData[name] || sellerData['Aria Kim'];
     document.getElementById('sellerModalAvatar').textContent = data.initials;
     document.getElementById('sellerModalName').textContent = name;
     document.getElementById('sellerModalEmail').textContent = data.email;
+    document.getElementById('sellerFirstName').textContent = data.firstName;
+    document.getElementById('sellerLastName').textContent = data.lastName;
+    document.getElementById('sellerEmailDetail').textContent = data.email;
+    document.getElementById('sellerPhone').textContent = data.phone;
+    document.getElementById('sellerRole').textContent = 'Seller';
     document.getElementById('sellerApplied').textContent = data.applied;
     document.getElementById('sellerStatus').textContent = 'Pending Review';
     document.getElementById('sellerBusiness').textContent = data.business;
@@ -133,6 +193,8 @@ function viewSeller(name){
     document.getElementById('sellerLocation').textContent = data.location;
     document.getElementById('sellerVerification').textContent = data.verification;
     document.getElementById('sellerSummary').textContent = data.summary;
+    setDocumentLink('sellerNidLink', data.nidFile, name);
+    setDocumentLink('sellerTradeLink', data.tradeLicenseFile, name);
     document.getElementById('sellerModal').classList.remove('hidden');
 }
 

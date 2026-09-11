@@ -1339,7 +1339,7 @@ body {
 
     border: 1px solid #dfe5ee;
 
-    border-radius: 10px;
+    border-radius: 50%;
 
     display: flex;
     align-items: center;
@@ -2079,7 +2079,7 @@ body {
     align-items: center;
     justify-content: center;
 
-    border-radius: 10px;
+    border-radius: 50%;
 
     background: linear-gradient(
         135deg,
@@ -2175,6 +2175,13 @@ body {
     opacity: 1;
     visibility: visible;
 
+    transform: translateY(0);
+}
+
+.profile-dropdown:hover .dropdown-content,
+.profile-dropdown:focus-within .dropdown-content {
+    opacity: 1;
+    visibility: visible;
     transform: translateY(0);
 }
 
@@ -2335,6 +2342,8 @@ body {
     display: none;
 }
 
-.dropdown-content.show {
+.dropdown-content.show,
+.profile-dropdown:hover .dropdown-content,
+.profile-dropdown:focus-within .dropdown-content {
     display: block;
 }

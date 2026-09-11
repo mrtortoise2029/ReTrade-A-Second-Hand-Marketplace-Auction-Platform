@@ -32,7 +32,8 @@
 <header class="header"><div><h1>Auctions</h1><p>Platform overview · July 2025</p></div><div class="actions"><button class="btn">Export CSV</button><button class="btn btn-primary">Generate PDF</button></div></header>
 <section class="auction-stats">
 <div class="auction-stat"><div class="auction-stat-icon orange">♙</div><h2>3</h2><p>Active Bids</p></div>
-<div class="auction-stat"><div class="auction-stat-icon green">♙</div><h2>8</h2><p>Won</p></div>
+<div class="auction-stat"><div class="auction-stat-icon green">♙</div><h2>8</h2><p>Completed</p></div>
+<div class="auction-stat"><div class="auction-stat-icon red">♙</div><h2>2</h2><p>Canceled</p></div>
 </section>
 <section class="auction-list">
 
@@ -61,14 +62,11 @@
                 </div>
             </div>
 
-            <button class="rebid-btn" onclick="rebid('Tissot PR100 Watch')">
-                Re-bid Now
-            </button>
         </div>
 
         <div class="auction-actions">
-            <button class="auction-pill pill-review">Review</button>
-            <button class="auction-pill pill-outbid">Outbid</button>
+            <button class="auction-pill pill-review" onclick="viewAuction('Tissot PR100 Watch')">Review</button>
+            <button class="auction-pill pill-live">●&nbsp; Live</button>
         </div>
     </div>
 
@@ -101,13 +99,7 @@
         </div>
 
         <div class="auction-actions">
-            <button class="auction-pill pill-pause" onclick="pauseAuction()">
-                ●&nbsp; Pause
-            </button>
-
-            <button class="auction-pill pill-stop" onclick="stopAuction()">
-                ●&nbsp; Stop
-            </button>
+            <button class="auction-pill pill-review" onclick="viewAuction('Leica M6 Film Camera')">Review</button>
 
             <button class="auction-pill pill-live" onclick="liveAuction()">
                 ●&nbsp; Live
@@ -118,6 +110,168 @@
 </section>
 </main>
 </div>
-<script>function rebid(product){alert("Re-bid option selected for " + product);}</script>
+
+<div id="auctionModal" class="modal-overlay hidden" aria-modal="true" role="dialog" aria-labelledby="auctionModalTitle">
+    <div class="modal-panel">
+        <div class="modal-header">
+            <h3 id="auctionModalTitle">Auction Review</h3>
+            <button class="close-modal" type="button" onclick="closeAuctionModal()">Close</button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-hero">
+                <div id="auctionModalAvatar" class="avatar-lg" style="background: linear-gradient(135deg,#f59e0b,#fb7185);">TW</div>
+                <div>
+                    <h4 id="auctionModalName">Tissot PR100 Watch</h4>
+                    <p id="auctionModalSeller">Luxury Time BD</p>
+                </div>
+            </div>
+
+            <div class="detail-grid">
+                <div class="detail-box"><span>Product Title</span><strong id="auctionTitle">Tissot PR100 Watch</strong></div>
+                <div class="detail-box"><span>Category</span><strong id="auctionCategory">Fashion</strong></div>
+                <div class="detail-box"><span>Current Bid</span><strong id="auctionPrice">$1,240</strong></div>
+                <div class="detail-box"><span>Original Price</span><strong id="auctionOriginalPrice">$1,500</strong></div>
+                <div class="detail-box"><span>Condition</span><strong id="auctionCondition">Excellent</strong></div>
+                <div class="detail-box"><span>Listing Type</span><strong id="auctionType">Auction</strong></div>
+                <div class="detail-box"><span>Submitted</span><strong id="auctionDate">Jul 24, 2025</strong></div>
+                <div class="detail-box"><span>Location</span><strong id="auctionLocation">Dhaka, Bangladesh</strong></div>
+                <div class="detail-box"><span>Shipping Fee</span><strong id="auctionShipping">$25</strong></div>
+                <div class="detail-box"><span>Keywords</span><strong id="auctionTags">watch, tissot, luxury</strong></div>
+                <div class="detail-box"><span>Your Bid</span><strong id="auctionBid">$1,200</strong></div>
+                <div class="detail-box"><span>Ends In</span><strong id="auctionEnds">1h 29m 55s</strong></div>
+                <div class="detail-box"><span>Bids</span><strong id="auctionBidCount">18</strong></div>
+                <div class="detail-box"><span>Status</span><strong id="auctionStatus">Live</strong></div>
+            </div>
+
+            <div class="listing-media-box">
+                <h5>Product Images</h5>
+                <div id="auctionImageGallery" class="listing-image-gallery"></div>
+            </div>
+
+            <div class="documents-box">
+                <div class="documents-heading">
+                    <h5>Documents and Warranty</h5>
+                    <span>Download submitted files</span>
+                </div>
+                <div id="auctionDocumentList" class="document-list"></div>
+            </div>
+
+            <div class="summary-box">
+                <h5>Description</h5>
+                <p id="auctionDescription">A well-maintained Swiss watch with original packaging and documented service history.</p>
+            </div>
+
+            <div class="modal-actions">
+                <button class="secondary-btn" type="button" onclick="closeAuctionModal()">Cancel</button>
+                <button class="reject-btn" type="button" onclick="stopAuctionFromModal()">Stop</button>
+                <button class="approve-btn" type="button" onclick="pauseAuctionFromModal()">Pause</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const auctionData = {
+    'Tissot PR100 Watch': {
+        initials: 'TW', seller: 'Luxury Time BD', category: 'Fashion', title: 'Tissot PR100 Watch',
+        price: '$1,240', originalPrice: '$1,500', condition: 'Excellent', date: 'Jul 24, 2025',
+        location: 'Dhaka, Bangladesh', shipping: '$25', tags: 'watch, tissot, luxury', bid: '$1,200',
+        ends: '1h 29m 55s', bidCount: '18', status: 'Live', images: ['../../assets/images/apple.png'],
+        documents: ['tissot-warranty.pdf', 'service-history.pdf'],
+        description: 'A well-maintained Swiss watch with original packaging and documented service history.'
+    },
+    'Leica M6 Film Camera': {
+        initials: 'LC', seller: 'Classic Camera House', category: 'Cameras', title: 'Leica M6 Film Camera',
+        price: '$1,680', originalPrice: '$2,100', condition: 'Excellent', date: 'Jul 23, 2025',
+        location: 'Chattogram, Bangladesh', shipping: '$30', tags: 'leica, film camera, photography', bid: '$1,680',
+        ends: '3h 59m 55s', bidCount: '24', status: 'Live', images: ['../../assets/images/camera.png'],
+        documents: ['leica-receipt.pdf', 'camera-warranty.pdf'],
+        description: 'A classic Leica film camera in excellent working condition, with a clear lens and original accessories.'
+    }
+};
+
+function getStoredAuction(name){
+    try {
+        const stored = JSON.parse(localStorage.getItem('retrade_listed_products') || '[]');
+        return Array.isArray(stored) ? stored.find((listing) => listing.title === name && listing.listingType === 'auction') : null;
+    } catch {
+        return null;
+    }
+}
+
+function createAuctionDocumentUrl(fileName, auctionName){
+    const content = 'ReTrade auction document\nListing: ' + auctionName + '\nFile: ' + fileName;
+    return 'data:text/plain;charset=utf-8,' + encodeURIComponent(content);
+}
+
+function renderAuctionImages(images, auctionName){
+    const gallery = document.getElementById('auctionImageGallery');
+    gallery.innerHTML = '';
+    (images || []).forEach((image, index) => {
+        const imageElement = document.createElement('img');
+        imageElement.src = image;
+        imageElement.alt = auctionName + ' image ' + (index + 1);
+        gallery.appendChild(imageElement);
+    });
+    if (!gallery.children.length) gallery.textContent = 'No product images submitted.';
+}
+
+function renderAuctionDocuments(documents, auctionName){
+    const list = document.getElementById('auctionDocumentList');
+    list.innerHTML = '';
+    (documents || []).forEach((fileName) => {
+        const link = document.createElement('a');
+        link.className = 'document-link';
+        link.href = createAuctionDocumentUrl(fileName, auctionName);
+        link.download = fileName;
+        link.innerHTML = '<span><strong>Submitted file</strong><small></small></span><span class="download-label">Download</span>';
+        link.querySelector('small').textContent = fileName;
+        list.appendChild(link);
+    });
+    if (!list.children.length) list.textContent = 'No documents or warranty files submitted.';
+}
+
+function viewAuction(name){
+    const storedAuction = getStoredAuction(name);
+    const data = Object.assign({}, auctionData[name] || auctionData['Tissot PR100 Watch'], storedAuction || {});
+    document.getElementById('auctionModalAvatar').textContent = data.initials || 'AU';
+    document.getElementById('auctionModalName').textContent = data.title || name;
+    document.getElementById('auctionModalSeller').textContent = data.seller || 'Seller not provided';
+    document.getElementById('auctionTitle').textContent = data.title || name;
+    document.getElementById('auctionCategory').textContent = data.category || 'Not provided';
+    document.getElementById('auctionPrice').textContent = typeof data.price === 'number' ? '$' + data.price.toLocaleString() : data.price;
+    document.getElementById('auctionOriginalPrice').textContent = typeof data.originalPrice === 'number' ? '$' + data.originalPrice.toLocaleString() : data.originalPrice;
+    document.getElementById('auctionCondition').textContent = data.condition || 'Not provided';
+    document.getElementById('auctionType').textContent = 'Auction';
+    document.getElementById('auctionDate').textContent = data.createdAt ? new Date(data.createdAt).toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) : data.date;
+    document.getElementById('auctionLocation').textContent = data.location || 'Not provided';
+    document.getElementById('auctionShipping').textContent = typeof data.shipping === 'number' ? '$' + data.shipping.toLocaleString() : data.shipping;
+    document.getElementById('auctionTags').textContent = data.tags || 'Not provided';
+    document.getElementById('auctionBid').textContent = data.bid || data.price;
+    document.getElementById('auctionEnds').textContent = data.ends || 'Not provided';
+    document.getElementById('auctionBidCount').textContent = data.bidCount || 'Not provided';
+    document.getElementById('auctionStatus').textContent = data.status || 'Live';
+    document.getElementById('auctionDescription').textContent = data.description || 'No description provided.';
+    renderAuctionImages(data.images || (data.image ? [data.image] : []), data.title || name);
+    renderAuctionDocuments(data.documents, data.title || name);
+    document.getElementById('auctionModal').classList.remove('hidden');
+}
+
+function closeAuctionModal(){
+    document.getElementById('auctionModal').classList.add('hidden');
+}
+
+function pauseAuctionFromModal(){
+    document.getElementById('auctionStatus').textContent = 'Paused';
+    alert(document.getElementById('auctionModalName').textContent + ' has been paused.');
+}
+
+function stopAuctionFromModal(){
+    document.getElementById('auctionStatus').textContent = 'Stopped';
+    alert(document.getElementById('auctionModalName').textContent + ' has been stopped.');
+}
+
+function liveAuction(){ alert('Auction is live.'); }
+</script>
 </body>
 </html>
