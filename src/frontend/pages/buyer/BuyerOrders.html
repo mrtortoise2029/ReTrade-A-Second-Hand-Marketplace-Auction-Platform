@@ -288,85 +288,8 @@
 
 
   <div class="order-list" id="orderList">
-
-    <div class="order-card" data-status="transit">
-      <img class="order-thumb" src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=120&h=120&fit=crop" alt="">
-      <div class="order-info">
-        <div class="order-title">Sony WH-1000XM5</div>
-        <div class="order-sub">#RT-4821 · Seller: Priya S.</div>
-        <div class="order-price">$195</div>
-      </div>
-      <div class="order-right">
-        <div class="order-status status-shipping">In Transit</div>
-        <div class="order-actions">
-          <button class="btn btn-track" data-action="Tracking Sony WH-1000XM5">🚚 Track</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="order-card" data-status="delivered">
-      <img class="order-thumb" src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=120&h=120&fit=crop" alt="">
-      <div class="order-info">
-        <div class="order-title">Nike Air Jordan 1 OG</div>
-        <div class="order-sub">#RT-4759 · Seller: Zara M.</div>
-        <div class="order-price">$240</div>
-      </div>
-      <div class="order-right">
-        <div class="order-status status-delivered">Delivered</div>
-        <div class="order-actions">
-          <button class="btn btn-invoice" data-action="Downloading invoice for Nike Air Jordan 1 OG">⬇ Invoice</button>
-          <button class="btn btn-review" data-action="Opening review form for Nike Air Jordan 1 OG">★ Review</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="order-card" data-status="delivered">
-      <img class="order-thumb" src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=120&h=120&fit=crop" alt="">
-      <div class="order-info">
-        <div class="order-title">Kindle Paperwhite 11th Gen</div>
-        <div class="order-sub">#RT-4680 · Seller: Leo K.</div>
-        <div class="order-price">$89</div>
-      </div>
-      <div class="order-right">
-        <div class="order-status status-delivered">Delivered</div>
-        <div class="order-actions">
-          <button class="btn btn-invoice" data-action="Downloading invoice for Kindle Paperwhite 11th Gen">⬇ Invoice</button>
-          <button class="btn btn-review" data-action="Opening review form for Kindle Paperwhite 11th Gen">★ Review</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="order-card" data-status="pending">
-      <img class="order-thumb" src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=120&h=120&fit=crop" alt="">
-      <div class="order-info">
-        <div class="order-title">Tissot PR100 Watch</div>
-        <div class="order-sub">#RT-4901 · Seller: Marcus L.</div>
-        <div class="order-price">$1,240</div>
-      </div>
-      <div class="order-right">
-        <div class="order-status status-pending">Pending</div>
-        <div class="order-actions">
-          <button class="btn btn-invoice" data-action="Payment pending for Tissot PR100 Watch">⏳ Awaiting Payment</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="order-card" data-status="transit">
-      <img class="order-thumb" src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=120&h=120&fit=crop" alt="">
-      <div class="order-info">
-        <div class="order-title">MacBook Pro M2 16"</div>
-        <div class="order-sub">#RT-5012 · Seller: Tom K.</div>
-        <div class="order-price">$1,590</div>
-      </div>
-      <div class="order-right">
-        <div class="order-status status-shipping">In Transit</div>
-        <div class="order-actions">
-          <button class="btn btn-track" data-action="Tracking MacBook Pro M2 16&quot;">🚚 Track</button>
-        </div>
-      </div>
-    </div>
-
   </div>
+
 
 
   <div class="pagination" id="pagination">
@@ -445,25 +368,7 @@
     });
   });
 
-  const trackingData = {
-    'Sony WH-1000XM5': {id:'#RT-4821', image:'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=120&h=120&fit=crop', person:'Kwame D.', address:'180 E 80th St, New York, NY 10021', estimated:'Jul 27, 2025'},
-    'MacBook Pro M2 16"': {id:'#RT-5012', image:'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=120&h=120&fit=crop', person:'Amina R.', address:'24 Gulshan Avenue, Dhaka, Bangladesh', estimated:'Jul 28, 2025'}
-  };
-
-  function openTracking(card){
-    const product = card.querySelector('.order-title').textContent.trim();
-    const data = trackingData[product] || trackingData['Sony WH-1000XM5'];
-    document.getElementById('trackingProduct').textContent = product;
-    document.getElementById('trackingOrderId').textContent = data.id;
-    document.getElementById('trackingImage').src = data.image;
-    document.getElementById('trackingImage').alt = product;
-    document.getElementById('trackingPerson').textContent = data.person;
-    document.getElementById('trackingNote').textContent = '● ' + data.person + ' is on the way';
-    document.getElementById('trackingEstimated').textContent = data.estimated;
-    document.getElementById('trackingExpected').textContent = 'Expected ' + data.estimated.replace(', 2025', '');
-    document.getElementById('trackingAddress').textContent = data.address;
-    document.getElementById('trackingModal').hidden = false;
-  }
+  function openTracking() {}
 
   function closeTracking(){ document.getElementById('trackingModal').hidden = true; }
 
@@ -503,5 +408,7 @@
     a.addEventListener('click', ()=> showToast('Navigating to ' + a.dataset.page));
   });
 </script>
+<script src="../../assets/js/api.js"></script>
+<script src="../../assets/js/backend-integration.js"></script>
 </body>
 </html>

@@ -1,0 +1,4 @@
+<?php
+require __DIR__.'/bootstrap.php';
+if(method()==='GET'){$pid=int_value($_GET['product_id']??null,'product');$stmt=$db->prepare("SELECT pc.id,pc.body,pc.created_at,CONCAT(u.first_name,' ',LEFT(u.last_name,1),'.') author FROM product_comments pc JOIN users u ON u.id=pc.user_id WHERE pc.product_id=? AND pc.status='published' ORDER BY pc.created_at DESC");$stmt->bind_param('i',$pid);ok(db_all($stmt));}
+$u=require_user();if(method()==='POST'){$in=input();$pid=int_value($in['product_id']??null,'product');$body=text_value($in,'body',2000);$uid=(int)$u['id'];$stmt=$db->prepare('INSERT INTO product_comments(product_id,user_id,body) VALUES(?,?,?)');$stmt->bind_param('iis',$pid,$uid,$body);$stmt->execute();ok(['id'=>$stmt->insert_id,'author'=>$u['name'],'body'=>$body,'created_at'=>date('Y-m-d H:i:s')],'Comment posted.',201);}fail('Method not allowed.',405);

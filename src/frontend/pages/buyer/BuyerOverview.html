@@ -401,90 +401,14 @@
 
 
   <div class="card">
-    <div class="card-head"><h3>Recent Orders</h3><a class="view-all" data-page="Orders">View All</a></div>
-    <div class="order-row" data-page="Orders">
-      <img class="order-thumb" src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=100&h=100&fit=crop" alt="">
-      <div class="order-info">
-        <div class="order-title">Sony WH-1000XM5</div>
-        <div class="order-sub">#RT-6821 · Jul 24</div>
-      </div>
-      <div>
-        <div class="order-price">$195</div>
-        <div class="order-status status-shipping">Shipping</div>
-      </div>
-    </div>
-    <div class="order-row" data-page="Orders">
-      <img class="order-thumb" src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=100&h=100&fit=crop" alt="">
-      <div class="order-info">
-        <div class="order-title">Nike Air Jordan 1 OG</div>
-        <div class="order-sub">#RT-4759 · Jul 18</div>
-      </div>
-      <div>
-        <div class="order-price">$240</div>
-        <div class="order-status status-delivered">Delivered</div>
-      </div>
-    </div>
-    <div class="order-row" data-page="Orders">
-      <img class="order-thumb" src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=100&h=100&fit=crop" alt="">
-      <div class="order-info">
-        <div class="order-title">Kindle Paperwhite 11th Gen</div>
-        <div class="order-sub">#RT-4680 · Jul 10</div>
-      </div>
-      <div>
-        <div class="order-price">$89</div>
-        <div class="order-status status-delivered">Delivered</div>
-      </div>
-    </div>
+    <div class="card-head"><h3>Recent Orders</h3><a class="view-all" href="BuyerOrders.html" data-page="Orders">View All</a></div>
   </div>
 
 
   <div class="rec-title">Recommended for You</div>
   <div class="rec-grid">
-    <div class="rec-card" data-item="MacBook Pro M2 16&quot;">
-      <div class="rec-img" style="background-image:url('https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=300&fit=crop')">
-        <div class="rec-tag">Good</div>
-      </div>
-      <div class="rec-body">
-        <div class="rec-name">MacBook Pro M2 16"</div>
-        <div class="rec-price-row"><span class="rec-price">$1,590</span><span class="rec-orig">$2,499</span></div>
-        <div class="rec-foot">
-          <div class="seller"><span class="sav" style="background:#e05b3d;">TK</span> Tom K.</div>
-          <div class="stars">★★★★★</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="rec-card" data-item="Tissot PR100 Watch">
-      <div class="rec-img" style="background-image:url('https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=400&h=300&fit=crop')">
-        <div class="rec-tag">Like New</div>
-        <div class="rec-tag live">Live Auction</div>
-      </div>
-      <div class="rec-body">
-        <div class="rec-name">Tissot PR100 Watch</div>
-        <div class="rec-bid-label">Current Bid</div>
-        <div class="rec-price-row"><span class="rec-bid-val">$1,240</span></div>
-        <div class="rec-timer" id="auctionTimer">1h 29m 11s</div>
-        <div class="rec-foot" style="margin-top:6px;">
-          <div class="seller"><span class="sav" style="background:#6b5bf5;">ML</span> Marcus L.</div>
-          <div class="stars">★★★★★</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="rec-card" data-item="Dyson V15 Detect Vacuum">
-      <div class="rec-img" style="background-image:url('https://images.unsplash.com/photo-1585421514738-01798e348b17?w=400&h=300&fit=crop')">
-        <div class="rec-tag">Like New</div>
-      </div>
-      <div class="rec-body">
-        <div class="rec-name">Dyson V15 Detect Vacuum</div>
-        <div class="rec-price-row"><span class="rec-price">$320</span><span class="rec-orig">$650</span></div>
-        <div class="rec-foot">
-          <div class="seller"><span class="sav" style="background:#2e9e5b;">AR</span> Anna R.</div>
-          <div class="stars">★★★★★</div>
-        </div>
-      </div>
-    </div>
   </div>
+
 </main>
 
 <div id="toast"></div>
@@ -546,7 +470,7 @@
   let secondsLeft = 1*3600 + 29*60 + 11;
   const timerEl = document.getElementById('auctionTimer');
   setInterval(()=>{
-    if(secondsLeft <= 0) return;
+    if(secondsLeft <= 0 || !timerEl) return;
     secondsLeft--;
     const h = Math.floor(secondsLeft/3600);
     const m = Math.floor((secondsLeft%3600)/60);
@@ -612,5 +536,7 @@
     });
   });
 </script>
+<script src="../../assets/js/api.js"></script>
+<script src="../../assets/js/backend-integration.js"></script>
 </body>
 </html>

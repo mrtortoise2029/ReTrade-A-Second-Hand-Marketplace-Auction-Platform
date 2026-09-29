@@ -286,57 +286,7 @@
 
 
   <div class="auction-list" id="auctionList">
-
-    <div class="auction-card" data-name="Tissot PR100 Watch" data-current="1240">
-      <img class="a-thumb" src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=120&h=120&fit=crop" alt="">
-      <div class="a-info">
-        <div class="a-title">Tissot PR100 Watch</div>
-        <div class="a-meta">
-          <div>Your Bid<b>$1,200</b></div>
-          <div class="current">Current<b>$1,240</b></div>
-          <div class="ends">Ends in<b id="timer1">1h 29m 55s</b></div>
-        </div>
-      </div>
-      <div class="a-right">
-        <div class="status-pill status-outbid">Outbid</div>
-        <button class="rebid-btn" data-action="rebid">Re-bid Now</button>
-      </div>
-    </div>
-
-    <div class="auction-card" data-name="Leica M6 Film Camera" data-current="1680">
-      <img class="a-thumb" src="https://images.unsplash.com/photo-1495707902641-75cac588d2e9?w=120&h=120&fit=crop" alt="">
-      <div class="a-info">
-        <div class="a-title">Leica M6 Film Camera</div>
-        <div class="a-meta">
-          <div>Your Bid<b>$1,680</b></div>
-          <div class="current">Current<b>$1,680</b></div>
-          <div class="ends">Ends in<b id="timer2">3h 59m 55s</b></div>
-        </div>
-      </div>
-      <div class="a-right">
-        <div class="status-pill status-live">Live</div>
-        <button class="bid-btn" data-action="bid">Raise Bid</button>
-      </div>
-    </div>
-
-    <div class="auction-card" data-name="Herman Miller Aeron Chair" data-current="640">
-      <img class="a-thumb" src="https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=120&h=120&fit=crop" alt="">
-      <div class="a-info">
-        <div class="a-title">Herman Miller Aeron Chair</div>
-        <div class="a-meta">
-          <div>Your Bid<b>$640</b></div>
-          <div class="current">Current<b>$640</b></div>
-          <div class="ends">Ends in<b id="timer3">6h 12m 40s</b></div>
-        </div>
-      </div>
-      <div class="a-right">
-        <div class="status-pill status-live">Live</div>
-        <button class="bid-btn" data-action="bid">Raise Bid</button>
-      </div>
-    </div>
-
   </div>
-
 
 </main>
 
@@ -432,7 +382,7 @@
     const el = document.getElementById(id);
     let t = seconds;
     setInterval(()=>{
-      if(t <= 0 || !el.isConnected) return;
+      if(t <= 0 || !el || !el.isConnected) return;
       t--;
       const h = Math.floor(t/3600);
       const m = Math.floor((t%3600)/60);
@@ -448,5 +398,7 @@
     a.addEventListener('click', ()=> showToast('Navigating to ' + a.dataset.page));
   });
 </script>
+<script src="../../assets/js/api.js"></script>
+<script src="../../assets/js/backend-integration.js"></script>
 </body>
 </html>

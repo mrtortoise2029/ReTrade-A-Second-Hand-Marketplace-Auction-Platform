@@ -82,7 +82,6 @@
 </main>
 </div>
 <script>
-const commissionStorageKey = 'retrade_commission_settings';
 const commissionInputIds = ['standardCommission', 'auctionCommission', 'minimumCommission', 'withdrawalFee'];
 
 function toggleCommissionEdit(){
@@ -94,29 +93,15 @@ function toggleCommissionEdit(){
 }
 
 function saveCommissionSettings(){
-    const settings = {};
     commissionInputIds.forEach((id) => {
         const input = document.getElementById(id);
-        settings[id] = Number(input.value).toFixed(id === 'standardCommission' || id === 'auctionCommission' ? 1 : 2);
-        input.value = settings[id];
+        input.value = Number(input.value).toFixed(id === 'standardCommission' || id === 'auctionCommission' ? 1 : 2);
         input.disabled = true;
     });
-    localStorage.setItem(commissionStorageKey, JSON.stringify(settings));
     document.getElementById('editCommissionBtn').textContent = 'Edit';
 }
-
-function loadCommissionSettings(){
-    try {
-        const settings = JSON.parse(localStorage.getItem(commissionStorageKey) || '{}');
-        commissionInputIds.forEach((id) => {
-            if (settings[id] !== undefined) document.getElementById(id).value = settings[id];
-        });
-    } catch {
-        localStorage.removeItem(commissionStorageKey);
-    }
-}
-
-loadCommissionSettings();
 </script>
+<script src="../../assets/js/api.js"></script>
+<script src="../../assets/js/backend-integration.js"></script>
 </body>
 </html>

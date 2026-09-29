@@ -1,184 +1,57 @@
-CREATE DATABASE IF NOT EXISTS retrade_db;
+CREATE DATABASE IF NOT EXISTS retrade_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE retrade_db;
+SET FOREIGN_KEY_CHECKS=0;
+DROP TABLE IF EXISTS fraud_reports,commissions,wallet_transactions,wallets,notifications,messages,product_comments,reviews,deliveries,payments,order_items,orders,wishlist_items,cart_items,carts,bids,auctions,product_images,products,seller_profiles,categories,users,roles,system_settings;
+SET FOREIGN_KEY_CHECKS=1;
 
-CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(150) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE products (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    title VARCHAR(255) NOT NULL,
-    description TEXT,
-    price DECIMAL(10,2) NOT NULL,
-    category VARCHAR(100),
-    status VARCHAR(50) DEFAULT 'available',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
-CREATE TABLE IF NOT EXISTS categories (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(150) NOT NULL UNIQUE,
-    parent_id INT DEFAULT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (parent_id) REFERENCES categories(id)
-);
-
-CREATE TABLE IF NOT EXISTS product_images (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL,
-    path VARCHAR(500) NOT NULL,
-    is_primary TINYINT(1) DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS auctions (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL,
-    seller_id INT NOT NULL,
-    start_price DECIMAL(10,2) NOT NULL,
-    reserve_price DECIMAL(10,2) DEFAULT NULL,
-    start_time DATETIME NOT NULL,
-    end_time DATETIME NOT NULL,
-    status VARCHAR(30) DEFAULT 'scheduled',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
-    FOREIGN KEY (seller_id) REFERENCES users(id)
-);
-
-CREATE TABLE IF NOT EXISTS bids (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    auction_id INT NOT NULL,
-    bidder_id INT NOT NULL,
-    amount DECIMAL(10,2) NOT NULL,
-    placed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (auction_id) REFERENCES auctions(id) ON DELETE CASCADE,
-    FOREIGN KEY (bidder_id) REFERENCES users(id)
-);
-
-CREATE TABLE IF NOT EXISTS carts (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL UNIQUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS cart_items (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    cart_id INT NOT NULL,
-    product_id INT NOT NULL,
-    quantity INT NOT NULL DEFAULT 1,
-    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (cart_id) REFERENCES carts(id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES products(id)
-);
-
-CREATE TABLE IF NOT EXISTS orders (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    total_amount DECIMAL(12,2) NOT NULL,
-    status VARCHAR(50) DEFAULT 'pending',
-    payment_method VARCHAR(50) DEFAULT NULL,
-    placed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    shipping_address TEXT,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
-CREATE TABLE IF NOT EXISTS order_items (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT NOT NULL,
-    product_id INT NOT NULL,
-    seller_id INT NOT NULL,
-    unit_price DECIMAL(10,2) NOT NULL,
-    quantity INT NOT NULL DEFAULT 1,
-    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES products(id),
-    FOREIGN KEY (seller_id) REFERENCES users(id)
-);
-
-CREATE TABLE IF NOT EXISTS deliveries (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT NOT NULL,
-    status VARCHAR(50) DEFAULT 'pending',
-    carrier VARCHAR(100) DEFAULT NULL,
-    tracking_number VARCHAR(200) DEFAULT NULL,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS messages (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    sender_id INT NOT NULL,
-    receiver_id INT NOT NULL,
-    product_id INT DEFAULT NULL,
-    content TEXT NOT NULL,
-    is_read TINYINT(1) DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (sender_id) REFERENCES users(id),
-    FOREIGN KEY (receiver_id) REFERENCES users(id),
-    FOREIGN KEY (product_id) REFERENCES products(id)
-);
-
-CREATE TABLE IF NOT EXISTS notifications (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    type VARCHAR(100) NOT NULL,
-    data JSON DEFAULT NULL,
-    is_read TINYINT(1) DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS wallets (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL UNIQUE,
-    balance DECIMAL(12,2) DEFAULT 0.00,
-    currency VARCHAR(10) DEFAULT 'USD',
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS wallet_transactions (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    wallet_id INT NOT NULL,
-    type VARCHAR(50) NOT NULL,
-    amount DECIMAL(12,2) NOT NULL,
-    reference VARCHAR(255) DEFAULT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (wallet_id) REFERENCES wallets(id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS commissions (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT NOT NULL,
-    amount DECIMAL(12,2) NOT NULL,
-    percentage DECIMAL(5,2) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS fraud_reports (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    reporter_id INT NOT NULL,
-    product_id INT DEFAULT NULL,
-    order_id INT DEFAULT NULL,
-    reason TEXT NOT NULL,
-    status VARCHAR(50) DEFAULT 'open',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (reporter_id) REFERENCES users(id),
-    FOREIGN KEY (product_id) REFERENCES products(id),
-    FOREIGN KEY (order_id) REFERENCES orders(id)
-);
-
-CREATE INDEX idx_products_user ON products(user_id);
-CREATE INDEX idx_products_category ON products(category);
-CREATE INDEX idx_auctions_product ON auctions(product_id);
-CREATE INDEX idx_orders_user ON orders(user_id);
-
-SET FOREIGN_KEY_CHECKS = 1;
+CREATE TABLE roles(id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,name VARCHAR(30) NOT NULL UNIQUE,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB;
+CREATE TABLE users(
+ id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,role_id TINYINT UNSIGNED NOT NULL,first_name VARCHAR(80) NOT NULL,last_name VARCHAR(80) NOT NULL,
+ email VARCHAR(190) NOT NULL UNIQUE,phone VARCHAR(30),password_hash VARCHAR(255) NOT NULL,status ENUM('pending','active','suspended','rejected') NOT NULL DEFAULT 'active',
+ avatar VARCHAR(500),email_verified_at DATETIME,last_login_at DATETIME,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ FOREIGN KEY(role_id) REFERENCES roles(id),INDEX(role_id,status)
+) ENGINE=InnoDB;
+CREATE TABLE seller_profiles(
+ user_id BIGINT UNSIGNED PRIMARY KEY,business_name VARCHAR(180),business_description TEXT,nid_document VARCHAR(500),trade_license VARCHAR(500),
+ verification_status ENUM('pending','approved','rejected') NOT NULL DEFAULT 'pending',rating DECIMAL(3,2) NOT NULL DEFAULT 0,rating_count INT UNSIGNED NOT NULL DEFAULT 0,approved_at DATETIME,
+ FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,INDEX(verification_status)
+) ENGINE=InnoDB;
+CREATE TABLE categories(
+ id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,parent_id INT UNSIGNED,name VARCHAR(120) NOT NULL UNIQUE,slug VARCHAR(140) NOT NULL UNIQUE,icon VARCHAR(50),is_active TINYINT(1) NOT NULL DEFAULT 1,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ FOREIGN KEY(parent_id) REFERENCES categories(id) ON DELETE SET NULL,INDEX(is_active)
+) ENGINE=InnoDB;
+CREATE TABLE products(
+ id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,seller_id BIGINT UNSIGNED NOT NULL,category_id INT UNSIGNED NOT NULL,slug VARCHAR(190) NOT NULL UNIQUE,title VARCHAR(255) NOT NULL,description TEXT NOT NULL,
+ condition_label ENUM('New','Like New','Excellent','Good','Fair') NOT NULL,sale_type ENUM('fixed','auction') NOT NULL DEFAULT 'fixed',price DECIMAL(12,2),quantity INT UNSIGNED NOT NULL DEFAULT 1,
+ brand VARCHAR(120),year_purchased SMALLINT UNSIGNED,accessories VARCHAR(255),location VARCHAR(180),shipping_days VARCHAR(30) DEFAULT '2-4 days',specifications JSON,co2_saved_kg DECIMAL(8,2) NOT NULL DEFAULT 0,
+ status ENUM('pending','active','paused','sold','rejected') NOT NULL DEFAULT 'pending',views INT UNSIGNED NOT NULL DEFAULT 0,approved_by BIGINT UNSIGNED,approved_at DATETIME,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ FOREIGN KEY(seller_id) REFERENCES users(id),FOREIGN KEY(category_id) REFERENCES categories(id),FOREIGN KEY(approved_by) REFERENCES users(id) ON DELETE SET NULL,
+ INDEX(status,sale_type,category_id,created_at),INDEX(seller_id,status),FULLTEXT(title,description)
+) ENGINE=InnoDB;
+CREATE TABLE product_images(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,product_id BIGINT UNSIGNED NOT NULL,image_url VARCHAR(700) NOT NULL,sort_order SMALLINT UNSIGNED NOT NULL DEFAULT 0,is_primary TINYINT(1) NOT NULL DEFAULT 0,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,FOREIGN KEY(product_id) REFERENCES products(id) ON DELETE CASCADE,INDEX(product_id,sort_order)) ENGINE=InnoDB;
+CREATE TABLE auctions(
+ id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,product_id BIGINT UNSIGNED NOT NULL UNIQUE,starting_price DECIMAL(12,2) NOT NULL,reserve_price DECIMAL(12,2),bid_increment DECIMAL(12,2) NOT NULL DEFAULT 10,current_price DECIMAL(12,2) NOT NULL,
+ buy_now_price DECIMAL(12,2),highest_bidder_id BIGINT UNSIGNED,starts_at DATETIME NOT NULL,ends_at DATETIME NOT NULL,status ENUM('scheduled','live','paused','ended','cancelled') NOT NULL DEFAULT 'scheduled',closed_at DATETIME,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ FOREIGN KEY(product_id) REFERENCES products(id) ON DELETE CASCADE,FOREIGN KEY(highest_bidder_id) REFERENCES users(id) ON DELETE SET NULL,INDEX(status,ends_at)
+) ENGINE=InnoDB;
+CREATE TABLE bids(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,auction_id BIGINT UNSIGNED NOT NULL,bidder_id BIGINT UNSIGNED NOT NULL,amount DECIMAL(12,2) NOT NULL,is_winning TINYINT(1) NOT NULL DEFAULT 0,placed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,FOREIGN KEY(auction_id) REFERENCES auctions(id) ON DELETE CASCADE,FOREIGN KEY(bidder_id) REFERENCES users(id),INDEX(auction_id,amount),INDEX(bidder_id,placed_at)) ENGINE=InnoDB;
+CREATE TABLE carts(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,user_id BIGINT UNSIGNED NOT NULL UNIQUE,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE) ENGINE=InnoDB;
+CREATE TABLE cart_items(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,cart_id BIGINT UNSIGNED NOT NULL,product_id BIGINT UNSIGNED NOT NULL,quantity INT UNSIGNED NOT NULL DEFAULT 1,added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,FOREIGN KEY(cart_id) REFERENCES carts(id) ON DELETE CASCADE,FOREIGN KEY(product_id) REFERENCES products(id) ON DELETE CASCADE,UNIQUE(cart_id,product_id)) ENGINE=InnoDB;
+CREATE TABLE wishlist_items(user_id BIGINT UNSIGNED NOT NULL,product_id BIGINT UNSIGNED NOT NULL,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,PRIMARY KEY(user_id,product_id),FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,FOREIGN KEY(product_id) REFERENCES products(id) ON DELETE CASCADE) ENGINE=InnoDB;
+CREATE TABLE orders(
+ id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,order_number VARCHAR(30) NOT NULL UNIQUE,buyer_id BIGINT UNSIGNED NOT NULL,subtotal DECIMAL(12,2) NOT NULL,shipping_amount DECIMAL(12,2) NOT NULL DEFAULT 0,tax_amount DECIMAL(12,2) NOT NULL DEFAULT 0,total_amount DECIMAL(12,2) NOT NULL,
+ status ENUM('pending_payment','paid','approved','processing','shipped','delivered','cancelled','rejected') NOT NULL DEFAULT 'pending_payment',shipping_name VARCHAR(160) NOT NULL,shipping_email VARCHAR(190) NOT NULL,shipping_phone VARCHAR(30) NOT NULL,shipping_address TEXT NOT NULL,
+ placed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,FOREIGN KEY(buyer_id) REFERENCES users(id),INDEX(buyer_id,placed_at),INDEX(status,placed_at)
+) ENGINE=InnoDB;
+CREATE TABLE order_items(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,order_id BIGINT UNSIGNED NOT NULL,product_id BIGINT UNSIGNED NOT NULL,seller_id BIGINT UNSIGNED NOT NULL,title_snapshot VARCHAR(255) NOT NULL,unit_price DECIMAL(12,2) NOT NULL,quantity INT UNSIGNED NOT NULL DEFAULT 1,status ENUM('pending','approved','rejected','processing','shipped','delivered') NOT NULL DEFAULT 'pending',FOREIGN KEY(order_id) REFERENCES orders(id) ON DELETE CASCADE,FOREIGN KEY(product_id) REFERENCES products(id),FOREIGN KEY(seller_id) REFERENCES users(id),INDEX(seller_id,status)) ENGINE=InnoDB;
+CREATE TABLE payments(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,order_id BIGINT UNSIGNED NOT NULL,method ENUM('card','wallet','cash_on_delivery') NOT NULL,amount DECIMAL(12,2) NOT NULL,transaction_reference VARCHAR(100) UNIQUE,status ENUM('pending','completed','failed','refunded') NOT NULL DEFAULT 'pending',paid_at DATETIME,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,FOREIGN KEY(order_id) REFERENCES orders(id) ON DELETE CASCADE,INDEX(status,created_at)) ENGINE=InnoDB;
+CREATE TABLE deliveries(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,order_id BIGINT UNSIGNED NOT NULL UNIQUE,carrier VARCHAR(100),tracking_number VARCHAR(100) UNIQUE,status ENUM('pending','picked_up','in_transit','out_for_delivery','delivered','failed') NOT NULL DEFAULT 'pending',estimated_delivery DATETIME,delivered_at DATETIME,updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,FOREIGN KEY(order_id) REFERENCES orders(id) ON DELETE CASCADE,INDEX(status)) ENGINE=InnoDB;
+CREATE TABLE reviews(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,order_item_id BIGINT UNSIGNED NOT NULL UNIQUE,reviewer_id BIGINT UNSIGNED NOT NULL,seller_id BIGINT UNSIGNED NOT NULL,product_id BIGINT UNSIGNED NOT NULL,rating TINYINT UNSIGNED NOT NULL,comment TEXT,status ENUM('published','hidden') NOT NULL DEFAULT 'published',created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,CHECK(rating BETWEEN 1 AND 5),FOREIGN KEY(order_item_id) REFERENCES order_items(id),FOREIGN KEY(reviewer_id) REFERENCES users(id),FOREIGN KEY(seller_id) REFERENCES users(id),FOREIGN KEY(product_id) REFERENCES products(id),INDEX(product_id,status)) ENGINE=InnoDB;
+CREATE TABLE product_comments(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,product_id BIGINT UNSIGNED NOT NULL,user_id BIGINT UNSIGNED NOT NULL,body VARCHAR(2000) NOT NULL,status ENUM('published','hidden') NOT NULL DEFAULT 'published',created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,FOREIGN KEY(product_id) REFERENCES products(id) ON DELETE CASCADE,FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,INDEX(product_id,status,created_at)) ENGINE=InnoDB;
+CREATE TABLE messages(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,sender_id BIGINT UNSIGNED NOT NULL,receiver_id BIGINT UNSIGNED NOT NULL,product_id BIGINT UNSIGNED,body TEXT NOT NULL,read_at DATETIME,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,FOREIGN KEY(sender_id) REFERENCES users(id),FOREIGN KEY(receiver_id) REFERENCES users(id),FOREIGN KEY(product_id) REFERENCES products(id) ON DELETE SET NULL,INDEX(sender_id,receiver_id,created_at),INDEX(receiver_id,read_at)) ENGINE=InnoDB;
+CREATE TABLE notifications(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,user_id BIGINT UNSIGNED NOT NULL,type VARCHAR(60) NOT NULL,title VARCHAR(180) NOT NULL,message VARCHAR(500) NOT NULL,data JSON,read_at DATETIME,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,INDEX(user_id,read_at,created_at)) ENGINE=InnoDB;
+CREATE TABLE wallets(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,user_id BIGINT UNSIGNED NOT NULL UNIQUE,available_balance DECIMAL(12,2) NOT NULL DEFAULT 0,pending_balance DECIMAL(12,2) NOT NULL DEFAULT 0,currency CHAR(3) NOT NULL DEFAULT 'USD',updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE) ENGINE=InnoDB;
+CREATE TABLE wallet_transactions(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,wallet_id BIGINT UNSIGNED NOT NULL,type ENUM('sale','purchase','commission','deposit','withdrawal','refund') NOT NULL,amount DECIMAL(12,2) NOT NULL,status ENUM('pending','completed','failed') NOT NULL DEFAULT 'completed',reference VARCHAR(100),description VARCHAR(255),created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,FOREIGN KEY(wallet_id) REFERENCES wallets(id) ON DELETE CASCADE,INDEX(wallet_id,created_at)) ENGINE=InnoDB;
+CREATE TABLE commissions(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,order_item_id BIGINT UNSIGNED NOT NULL UNIQUE,percentage DECIMAL(5,2) NOT NULL,amount DECIMAL(12,2) NOT NULL,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,FOREIGN KEY(order_item_id) REFERENCES order_items(id)) ENGINE=InnoDB;
+CREATE TABLE fraud_reports(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,reporter_id BIGINT UNSIGNED NOT NULL,reported_user_id BIGINT UNSIGNED,product_id BIGINT UNSIGNED,order_id BIGINT UNSIGNED,reason TEXT NOT NULL,status ENUM('open','investigating','resolved','dismissed') NOT NULL DEFAULT 'open',resolved_by BIGINT UNSIGNED,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,FOREIGN KEY(reporter_id) REFERENCES users(id),FOREIGN KEY(reported_user_id) REFERENCES users(id) ON DELETE SET NULL,FOREIGN KEY(product_id) REFERENCES products(id) ON DELETE SET NULL,FOREIGN KEY(order_id) REFERENCES orders(id) ON DELETE SET NULL,FOREIGN KEY(resolved_by) REFERENCES users(id) ON DELETE SET NULL,INDEX(status,created_at)) ENGINE=InnoDB;
+CREATE TABLE system_settings(setting_key VARCHAR(100) PRIMARY KEY,setting_value VARCHAR(500) NOT NULL,updated_by BIGINT UNSIGNED,updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,FOREIGN KEY(updated_by) REFERENCES users(id) ON DELETE SET NULL) ENGINE=InnoDB;

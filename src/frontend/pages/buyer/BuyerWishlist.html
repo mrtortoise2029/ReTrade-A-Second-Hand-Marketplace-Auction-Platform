@@ -250,68 +250,8 @@
   </div>
 
   <div class="grid" id="wishGrid">
-
-    <div class="card" data-name="MacBook Pro M2 16&quot;">
-      <div class="img" style="background-image:url('https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=300&fit=crop')">
-        <div class="tag">Good</div>
-        <button class="heart-btn" data-action="heart">❤</button>
-      </div>
-      <div class="body">
-        <div class="name">MacBook Pro M2 16"</div>
-        <div class="price-row"><span class="price">$1,590</span><span class="orig">$2,499</span></div>
-        <div class="foot">
-          <div class="seller"><span class="sav" style="background:#e05b3d;">TK</span> Tom K.</div>
-          <div class="stars">★★★★★</div>
-        </div>
-        <div class="card-actions">
-          <button class="btn btn-buy" data-action="buy">Buy Now</button>
-          <button class="btn btn-remove" data-action="remove" title="Remove from wishlist">✕</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-name="Tissot PR100 Watch">
-      <div class="img" style="background-image:url('https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=400&h=300&fit=crop')">
-        <div class="tag">Like New</div>
-        <div class="tag live">Live Auction</div>
-        <button class="heart-btn" data-action="heart">❤</button>
-      </div>
-      <div class="body">
-        <div class="name">Tissot PR100 Watch</div>
-        <div class="bid-label">Current Bid</div>
-        <div class="price-row"><span class="bid-val">$1,240</span></div>
-        <div class="timer" id="auctionTimer">1h 19m 46s</div>
-        <div class="foot">
-          <div class="seller"><span class="sav" style="background:#6b5bf5;">ML</span> Marcus L.</div>
-          <div class="stars">★★★★★</div>
-        </div>
-        <div class="card-actions">
-          <button class="btn btn-bid" data-action="bid">Place Bid</button>
-          <button class="btn btn-remove" data-action="remove" title="Remove from wishlist">✕</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" data-name="Dyson V15 Detect Vacuum">
-      <div class="img" style="background-image:url('https://images.unsplash.com/photo-1585421514738-01798e348b17?w=400&h=300&fit=crop')">
-        <div class="tag">Like New</div>
-        <button class="heart-btn" data-action="heart">❤</button>
-      </div>
-      <div class="body">
-        <div class="name">Dyson V15 Detect Vacuum</div>
-        <div class="price-row"><span class="price">$320</span><span class="orig">$650</span></div>
-        <div class="foot">
-          <div class="seller"><span class="sav" style="background:#2e9e5b;">AR</span> Anna R.</div>
-          <div class="stars">★★★★★</div>
-        </div>
-        <div class="card-actions">
-          <button class="btn btn-buy" data-action="buy">Buy Now</button>
-          <button class="btn btn-remove" data-action="remove" title="Remove from wishlist">✕</button>
-        </div>
-      </div>
-    </div>
-
   </div>
+
 
   <div class="empty-state" id="emptyState">
     <div class="ic">🤍</div>
@@ -389,7 +329,7 @@
   let secondsLeft = 1*3600 + 19*60 + 46;
   const timerEl = document.getElementById('auctionTimer');
   setInterval(()=>{
-    if(secondsLeft <= 0 || !timerEl.isConnected) return;
+    if(secondsLeft <= 0 || !timerEl || !timerEl.isConnected) return;
     secondsLeft--;
     const h = Math.floor(secondsLeft/3600);
     const m = Math.floor((secondsLeft%3600)/60);
@@ -401,5 +341,7 @@
     a.addEventListener('click', ()=> showToast('Navigating to ' + a.dataset.page));
   });
 </script>
+<script src="../../assets/js/api.js"></script>
+<script src="../../assets/js/backend-integration.js"></script>
 </body>
 </html>

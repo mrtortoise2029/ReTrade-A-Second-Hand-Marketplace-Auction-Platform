@@ -35,12 +35,12 @@
                 <span>Home</span>
             </a>
 
-            <a href="marketplace.html" class="nav-item">
+            <a href="landingwithlogin.html?view=products#products" class="nav-item">
                 <i class="fa-solid fa-store"></i>
                 <span>Marketplace</span>
             </a>
 
-            <a href="auction.html" class="nav-item">
+            <a href="landingwithlogin.html?view=auctions#auctions" class="nav-item">
                 <i class="fa-solid fa-gavel"></i>
                 <span>Auctions</span>
             </a>
@@ -135,12 +135,12 @@
                     ACCOUNT
                 </span>
 
-                <a href="dashboard.html">
+                <a href="buyer/BuyerOverview.html">
                     <i class="fa-solid fa-chart-pie"></i>
                     Dashboard
                 </a>
 
-                <a href="profile.html">
+                <a href="buyer/BuyerOverview.html">
                     <i class="fa-regular fa-user"></i>
                     My Profile
                 </a>
@@ -153,17 +153,17 @@
                     MARKETPLACE
                 </span>
 
-                <a href="my-listings.html">
+                <a href="buyer/BuyerWishlist.html">
                     <i class="fa-solid fa-box"></i>
                     My Listings
                 </a>
 
-                <a href="orders.html">
+                <a href="buyer/BuyerOrders.html">
                     <i class="fa-solid fa-bag-shopping"></i>
                     My Orders
                 </a>
 
-                <a href="my-bids.html">
+                <a href="buyer/BuyerAuction.html">
                     <i class="fa-solid fa-gavel"></i>
                     My Bids
                 </a>
@@ -172,7 +172,7 @@
                 <div class="dropdown-line"></div>
 
 
-                <a href="settings.html">
+                <a href="buyer/BuyerOverview.html">
                     <i class="fa-solid fa-gear"></i>
                     Settings
                 </a>
@@ -663,42 +663,6 @@
         });
     }
 
-    function escapeHtml(value) {
-        return value.replace(/[&<>'"]/g, function (character) {
-            return {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                "'": '&#39;',
-                '"': '&quot;'
-            }[character];
-        });
-    }
-
-    function commentStorageKey() {
-        const productId = new URLSearchParams(window.location.search).get('id') || 'tissot-pr100';
-        return 'retrade_product_comments_' + productId;
-    }
-
-    function renderComments() {
-        const commentList = document.getElementById('commentList');
-        const savedComments = JSON.parse(localStorage.getItem(commentStorageKey()) || '[]');
-
-        commentList.querySelectorAll('[data-saved-comment]').forEach(function (comment) {
-            comment.remove();
-        });
-
-        savedComments.forEach(function (comment) {
-            const article = document.createElement('article');
-            article.className = 'comment-card';
-            article.dataset.savedComment = 'true';
-            article.innerHTML = '<span class="comment-author">' + escapeHtml(comment.author) + '</span>' +
-                '<span class="comment-date">' + escapeHtml(comment.date) + '</span>' +
-                '<p>' + escapeHtml(comment.text) + '</p>';
-            commentList.prepend(article);
-        });
-    }
-
     function bindProductTabs() {
         const tabButtons = document.querySelectorAll('.tabs button[data-tab]');
         const tabPanels = document.querySelectorAll('.tab-panel');
@@ -710,29 +674,6 @@
                 button.classList.add('active');
                 document.getElementById(button.dataset.tab).classList.add('active');
             });
-        });
-    }
-
-    function bindCommentForm() {
-        const commentForm = document.getElementById('commentForm');
-        const commentInput = document.getElementById('commentInput');
-
-        commentForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-            const text = commentInput.value.trim();
-            if (!text) return;
-
-            const comment = {
-                author: localStorage.getItem('userName') || 'You',
-                date: new Date().toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' }),
-                text: text
-            };
-            const comments = JSON.parse(localStorage.getItem(commentStorageKey()) || '[]');
-            comments.push(comment);
-            localStorage.setItem(commentStorageKey(), JSON.stringify(comments));
-
-            commentInput.value = '';
-            renderComments();
         });
     }
 
@@ -749,8 +690,6 @@
 
     bindLoginGuards();
     bindProductTabs();
-    bindCommentForm();
-    renderComments();
 
     const profileTrigger = document.getElementById("profileTrigger");
     const profileDropdown = document.getElementById("profileDropdown");
@@ -795,7 +734,7 @@
                 if (!query) return;
 
                 window.location.href =
-                    "marketplace.html?search=" +
+                    "landingwithlogin.html?search=" +
                     encodeURIComponent(query);
 
             }
@@ -827,5 +766,7 @@
 });
 
 </script>
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/backend-integration.js"></script>
 </body>
 </html>

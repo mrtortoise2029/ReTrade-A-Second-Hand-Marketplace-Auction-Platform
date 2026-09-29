@@ -125,12 +125,12 @@
                         ACCOUNT
                     </span>
 
-                    <a href="dashboard.html">
+                    <a href="buyer/BuyerOverview.html">
                         <i class="fa-solid fa-chart-pie"></i>
                         Dashboard
                     </a>
 
-                    <a href="profile.html">
+                    <a href="buyer/BuyerOverview.html">
                         <i class="fa-regular fa-user"></i>
                         My Profile
                     </a>
@@ -141,24 +141,24 @@
                         MARKETPLACE
                     </span>
 
-                    <a href="my-listings.html">
+                    <a href="buyer/BuyerWishlist.html">
                         <i class="fa-solid fa-box"></i>
                         My Listings
                     </a>
 
-                    <a href="orders.html">
+                    <a href="buyer/BuyerOrders.html">
                         <i class="fa-solid fa-bag-shopping"></i>
                         My Orders
                     </a>
 
-                    <a href="my-bids.html">
+                    <a href="buyer/BuyerAuction.html">
                         <i class="fa-solid fa-gavel"></i>
                         My Bids
                     </a>
 
                     <div class="dropdown-line"></div>
 
-                    <a href="settings.html">
+                    <a href="buyer/BuyerOverview.html">
                         <i class="fa-solid fa-gear"></i>
                         Settings
                     </a>
@@ -578,35 +578,7 @@
 
         function addToCart() {
             if (!requireLogin('add to cart')) return;
-
-            const params = new URLSearchParams(window.location.search);
-            const productId = params.get('id') || 'tissot-pr100';
-            const productName = document.querySelector('h1')?.textContent?.trim() || 'Tissot PR100 Swiss Automatic Watch';
-            const price = Number((document.querySelector('.fixed-price h2')?.textContent || '$1,240').replace(/[^0-9.]/g, '')) || 1240;
-            const quantity = Math.max(1, parseInt(document.getElementById('quantity')?.value || '1', 10));
-            const image = document.querySelector('.main-image img')?.src || 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=1200&q=80';
-
-            const cart = JSON.parse(localStorage.getItem('retradeCart') || '[]');
-            const existing = cart.find(item => item.id === productId);
-
-            if (existing) {
-                existing.quantity += quantity;
-            } else {
-                cart.push({
-                    id: productId,
-                    title: productName,
-                    price,
-                    quantity,
-                    image,
-                    category: 'Watches',
-                    seller: 'Marcus L.',
-                    condition: 'Like New',
-                    shipping: 12
-                });
-            }
-
-            localStorage.setItem('retradeCart', JSON.stringify(cart));
-            window.location.href = 'cart.html';
+            // The shared backend integration owns this action and persists it in MySQL.
         }
 
         function decreaseQuantity() {
@@ -699,7 +671,7 @@
                     if (event.key === "Enter") {
                         const query = input.value.trim();
                         if (!query) return;
-                        window.location.href = "marketplace.html?search=" + encodeURIComponent(query);
+                        window.location.href = "landingwithlogin.html?search=" + encodeURIComponent(query);
                     }
                 });
             });
@@ -707,6 +679,8 @@
 
     </script>
 
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/backend-integration.js"></script>
 </body>
 
 </html>

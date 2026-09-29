@@ -637,49 +637,12 @@
     const documentInput = document.getElementById('documents');
     const documentDropzone = document.getElementById('documentDropzone');
     const documentPreview = document.getElementById('documentPreview');
-    const listKey = 'retrade_listed_products';
-
-    const sampleProducts = [
-      {
-        id: 'sample-1',
-        title: 'Sony WH-1000XM5',
-        category: 'Electronics',
-        condition: 'Excellent',
-        listingType: 'fixed',
-        price: 195,
-        originalPrice: 279,
-        image: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=900&q=80',
-        status: 'Pending approval',
-        seller: 'Fahiz Ahmed'
-      },
-      {
-        id: 'sample-2',
-        title: 'Nike Air Jordan 1 OG',
-        category: 'Fashion',
-        condition: 'Like New',
-        listingType: 'fixed',
-        price: 240,
-        originalPrice: 320,
-        image: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=900&q=80',
-        status: 'Approved',
-        seller: 'Fahiz Ahmed'
-      }
-    ];
 
     function showToast(message) {
       toast.textContent = message;
       toast.classList.add('show');
       clearTimeout(showToast.timer);
       showToast.timer = setTimeout(() => toast.classList.remove('show'), 2200);
-    }
-
-    function readStoredProducts() {
-      try {
-        const saved = JSON.parse(localStorage.getItem(listKey) || '[]');
-        return Array.isArray(saved) && saved.length ? saved : sampleProducts;
-      } catch {
-        return sampleProducts;
-      }
     }
 
     function setInputFiles(input, files) {
@@ -772,62 +735,14 @@
       showToast('Form reset');
     });
 
-    form.addEventListener('submit', async (event) => {
+    form.addEventListener('submit', (event) => {
       event.preventDefault();
-
-      const title = document.getElementById('title').value.trim();
-      const category = document.getElementById('category').value;
-      const condition = document.getElementById('condition').value;
-      const listingType = document.getElementById('listingType').value;
-      const price = Number(document.getElementById('price').value || 0);
-      const originalPrice = Number(document.getElementById('originalPrice').value || 0);
-      const imageFiles = Array.from(imageInput.files);
-      const documentFiles = Array.from(documentInput.files);
-      const description = document.getElementById('description').value.trim();
-      const location = document.getElementById('location').value.trim();
-      const shipping = Number(document.getElementById('shipping').value || 0);
-      const tags = document.getElementById('tags').value.trim();
-
-      if (!title || !category || !condition || !imageFiles.length || !description || !location || !tags) {
-        showToast('Please complete all required fields');
-        return;
-      }
-
-      const image = await fileToDataUrl(imageFiles[0]);
-
-      const storedProducts = readStoredProducts();
-      const product = {
-        id: 'listing-' + Date.now(),
-        title,
-        category,
-        condition,
-        listingType,
-        price,
-        originalPrice: originalPrice || price,
-        image,
-        documents: documentFiles.map((file) => file.name),
-        description,
-        location,
-        shipping,
-        tags,
-        status: 'Pending approval',
-        seller: 'Fahiz Ahmed',
-        createdAt: new Date().toISOString()
-      };
-
-      const updatedProducts = [product, ...storedProducts].slice(0, 12);
-      localStorage.setItem(listKey, JSON.stringify(updatedProducts));
-      form.reset();
-      document.getElementById('shipping').value = 0;
-      updatePreview();
-      showToast('Listing submitted for approval');
-
-      setTimeout(() => {
-        window.location.href = 'landingwithlogin.html';
-      }, 1200);
+      if (!window.ReTradeAPI) showToast('The backend service is unavailable');
     });
 
     updatePreview();
   </script>
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/backend-integration.js"></script>
 </body>
 </html>

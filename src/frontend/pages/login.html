@@ -232,55 +232,13 @@
 
 
     function handleLogin(event) {
-
         event.preventDefault();
-
-        const email = document.getElementById("email").value.trim().toLowerCase();
-        const password = document.getElementById("password").value;
-
-        const USER_EMAIL = "user@retrade.com";
-        const ADMIN_EMAIL = "admin@retrade.com";
-        const BUYER_EMAIL = "buyer@gamil.com";
-        const SELLER_EMAIL = "seller@retrade.com";
-
-        if (email === USER_EMAIL || email === BUYER_EMAIL) {
-
-
-            localStorage.setItem("userRole", "user");
-            localStorage.setItem("userEmail", email);
-
-
-            window.location.href = "landingwithlogin.html";
-
-        }
-
-        else if (email === SELLER_EMAIL) {
-            localStorage.setItem("userRole", "seller");
-            localStorage.setItem("userEmail", email);
-            window.location.href = "seller/SellerOverview.html";
-        }
-
-
-        else if (email === ADMIN_EMAIL) {
-
-
-            localStorage.setItem("userRole", "admin");
-            localStorage.setItem("userEmail", email);
-
-
-            window.location.href = "admin/adminOverview.html";
-
-        }
-
-
-        else {
-
-            alert("Invalid email address. Please use a registered account.");
-
-        }
+        if (!window.ReTradeAPI) alert("The backend service is unavailable. Please try again.");
     }
 
 </script>
 
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/backend-integration.js"></script>
 </body>
 </html>

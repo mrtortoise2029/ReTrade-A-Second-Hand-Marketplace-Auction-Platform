@@ -41,10 +41,8 @@
 <section class="sellers-card">
 <h2 class="card-title">Pending Seller Applications</h2>
 <div class="seller-list">
-<div class="seller-row"><div class="seller-left"><div class="seller-avatar avatar-1" style="background: linear-gradient(135deg, #6d8494, #d6b59c);">AK</div><div class="seller-details"><h3>Aria Kim</h3><p>aria@email.com · Applied Jul 24 · Docs: 3/3</p></div></div><button class="view-btn" onclick="viewSeller('Aria Kim')">◉ &nbsp;View</button></div>
-<div class="seller-row"><div class="seller-left"><div class="seller-avatar avatar-2" style="background: linear-gradient(135deg, #9c9d98, #535c5c);">DP</div><div class="seller-details"><h3>Dev Patel</h3><p>dev@email.com · Applied Jul 23 · Docs: 3/3</p></div></div><button class="view-btn" onclick="viewSeller('Dev Patel')">◉ &nbsp;View</button></div>
-<div class="seller-row"><div class="seller-left"><div class="seller-avatar avatar-3" style="background: linear-gradient(135deg, #7e2533, #e06b79);">LW</div><div class="seller-details"><h3>Lucy Wang</h3><p>lucy@email.com · Applied Jul 22 · Docs: 2/3</p></div></div><button class="view-btn" onclick="viewSeller('Lucy Wang')">◉ &nbsp;View</button></div>
 </div>
+
 </section>
 </main>
 </div>
@@ -110,94 +108,6 @@
 </div>
 
 <script>
-const sellerData = {
-    'Aria Kim': {
-        initials: 'AK',
-        firstName: 'Aria',
-        lastName: 'Kim',
-        email: 'aria@email.com',
-        phone: '+880 1712-345678',
-        applied: 'Jul 24, 2025',
-        business: 'Kim Tech Finds',
-        docs: '3 / 3 Verified',
-        location: 'Dhaka, Bangladesh',
-        verification: 'Identity Verified',
-        summary: 'I sell carefully tested second-hand electronics and provide clear condition details for every listing.',
-        nidFile: 'aria-kim-nid.pdf',
-        tradeLicenseFile: 'aria-kim-trade-licence.pdf'
-    },
-    'Dev Patel': {
-        initials: 'DP',
-        firstName: 'Dev',
-        lastName: 'Patel',
-        email: 'dev@email.com',
-        phone: '+880 1812-456789',
-        applied: 'Jul 23, 2025',
-        business: 'Patel Home Goods',
-        docs: '3 / 3 Verified',
-        location: 'Chattogram, Bangladesh',
-        verification: 'KYC Approved',
-        summary: 'I resell quality home goods after checking their condition, cleanliness, and functionality before listing.',
-        nidFile: 'dev-patel-nid.pdf',
-        tradeLicenseFile: 'dev-patel-trade-licence.pdf'
-    },
-    'Lucy Wang': {
-        initials: 'LW',
-        firstName: 'Lucy',
-        lastName: 'Wang',
-        email: 'lucy@email.com',
-        phone: '+880 1912-567890',
-        applied: 'Jul 22, 2025',
-        business: 'Lucy Beauty Resale',
-        docs: '2 / 3 Verified',
-        location: 'Sylhet, Bangladesh',
-        verification: 'Identity Pending',
-        summary: 'I curate lightly used beauty products and include product condition and usage information in each listing.',
-        nidFile: 'lucy-wang-nid.pdf',
-        tradeLicenseFile: null
-    }
-};
-
-function createDownloadUrl(fileName, sellerName){
-    const content = 'ReTrade seller document\nSeller: ' + sellerName + '\nDocument: ' + fileName;
-    return 'data:text/plain;charset=utf-8,' + encodeURIComponent(content);
-}
-
-function setDocumentLink(id, fileName, sellerName){
-    const link = document.getElementById(id);
-    const name = link.querySelector('small');
-    name.textContent = fileName || 'Not submitted';
-    link.classList.toggle('disabled', !fileName);
-    link.href = fileName ? createDownloadUrl(fileName, sellerName) : '#';
-    link.download = fileName || '';
-    link.removeAttribute('aria-disabled');
-    if (!fileName) {
-        link.setAttribute('aria-disabled', 'true');
-    }
-}
-
-function viewSeller(name){
-    const data = sellerData[name] || sellerData['Aria Kim'];
-    document.getElementById('sellerModalAvatar').textContent = data.initials;
-    document.getElementById('sellerModalName').textContent = name;
-    document.getElementById('sellerModalEmail').textContent = data.email;
-    document.getElementById('sellerFirstName').textContent = data.firstName;
-    document.getElementById('sellerLastName').textContent = data.lastName;
-    document.getElementById('sellerEmailDetail').textContent = data.email;
-    document.getElementById('sellerPhone').textContent = data.phone;
-    document.getElementById('sellerRole').textContent = 'Seller';
-    document.getElementById('sellerApplied').textContent = data.applied;
-    document.getElementById('sellerStatus').textContent = 'Pending Review';
-    document.getElementById('sellerBusiness').textContent = data.business;
-    document.getElementById('sellerDocs').textContent = data.docs;
-    document.getElementById('sellerLocation').textContent = data.location;
-    document.getElementById('sellerVerification').textContent = data.verification;
-    document.getElementById('sellerSummary').textContent = data.summary;
-    setDocumentLink('sellerNidLink', data.nidFile, name);
-    setDocumentLink('sellerTradeLink', data.tradeLicenseFile, name);
-    document.getElementById('sellerModal').classList.remove('hidden');
-}
-
 function closeSellerModal(){
     document.getElementById('sellerModal').classList.add('hidden');
 }
@@ -218,5 +128,7 @@ function rejectSeller(){
 
 function reviewAll(){alert('Opening all pending seller applications.');}
 </script>
+<script src="../../assets/js/api.js"></script>
+<script src="../../assets/js/backend-integration.js"></script>
 </body>
 </html>

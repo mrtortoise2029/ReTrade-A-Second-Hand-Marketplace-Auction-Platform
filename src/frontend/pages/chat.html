@@ -300,11 +300,11 @@
                 <i class="fa-solid fa-house"></i>
                 <span>Home</span>
             </a>
-            <a href="marketplace.html" class="nav-item">
+            <a href="landingwithlogin.html?view=products#products" class="nav-item">
                 <i class="fa-solid fa-store"></i>
                 <span>Marketplace</span>
             </a>
-            <a href="auction.html" class="nav-item">
+            <a href="landingwithlogin.html?view=auctions#auctions" class="nav-item">
                 <i class="fa-solid fa-gavel"></i>
                 <span>Auctions</span>
             </a>
@@ -354,19 +354,19 @@
                 <div class="dropdown-line"></div>
 
                 <span class="dropdown-label">ACCOUNT</span>
-                <a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i>Dashboard</a>
-                <a href="profile.html"><i class="fa-regular fa-user"></i>My Profile</a>
+                <a href="buyer/BuyerOverview.html"><i class="fa-solid fa-chart-pie"></i>Dashboard</a>
+                <a href="buyer/BuyerOverview.html"><i class="fa-regular fa-user"></i>My Profile</a>
 
                 <div class="dropdown-line"></div>
 
                 <span class="dropdown-label">MARKETPLACE</span>
-                <a href="my-listings.html"><i class="fa-solid fa-box"></i>My Listings</a>
-                <a href="orders.html"><i class="fa-solid fa-bag-shopping"></i>My Orders</a>
-                <a href="my-bids.html"><i class="fa-solid fa-gavel"></i>My Bids</a>
+                <a href="buyer/BuyerWishlist.html"><i class="fa-solid fa-box"></i>My Listings</a>
+                <a href="buyer/BuyerOrders.html"><i class="fa-solid fa-bag-shopping"></i>My Orders</a>
+                <a href="buyer/BuyerAuction.html"><i class="fa-solid fa-gavel"></i>My Bids</a>
 
                 <div class="dropdown-line"></div>
 
-                <a href="settings.html"><i class="fa-solid fa-gear"></i>Settings</a>
+                <a href="buyer/BuyerOverview.html"><i class="fa-solid fa-gear"></i>Settings</a>
                 <a href="landing.html" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>Log Out</a>
             </div>
         </div>
@@ -438,51 +438,6 @@
 </main>
 
 <script>
-    const productCatalog = {
-        'tissot-pr100': {
-            id: 'tissot-pr100',
-            name: 'Premium Swiss Watch — Tissot PR100',
-            image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200&q=80',
-            price: 38000
-        },
-        'sony-wh-1000xm5': {
-            id: 'sony-wh-1000xm5',
-            name: 'Sony WH-1000XM5 Noise Canceling Headphones',
-            image: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=1200&q=80',
-            price: 19500
-        },
-        'macbook-pro-m2': {
-            id: 'macbook-pro-m2',
-            name: 'MacBook Pro M2 16" — Space Gray',
-            image: 'https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=1200&q=80',
-            price: 165000
-        },
-        'jordan-1': {
-            id: 'jordan-1',
-            name: 'Nike Air Jordan 1 Retro High OG',
-            image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1200&q=80',
-            price: 24000
-        },
-        'leica': {
-            id: 'leica',
-            name: 'Vintage Leica M6 Film Camera',
-            image: 'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=1200&q=80',
-            price: 124000
-        },
-        'apple-watch': {
-            id: 'apple-watch',
-            name: 'Apple Watch Ultra 2 Titanium',
-            image: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=1200&q=80',
-            price: 68000
-        },
-        'bose': {
-            id: 'bose',
-            name: 'Bose QuietComfort 45 Bundle',
-            image: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=1200&q=80',
-            price: 19500
-        }
-    };
-
     function formatCurrency(value) {
         return '৳' + Number(value).toLocaleString('en-BD');
     }
@@ -493,10 +448,7 @@
     const productPage = params.get('page') || 'landingwithlogin.html';
 
     function loadProductForChat() {
-        const product = productCatalog[productId] || productCatalog['tissot-pr100'];
-        document.getElementById('chatProductImage').src = product.image;
-        document.getElementById('chatProductName').textContent = product.name;
-        document.getElementById('chatProductPrice').textContent = formatCurrency(product.price);
+        if (!window.ReTradeAPI) return;
     }
 
     function backToProduct() {
@@ -553,11 +505,13 @@
                 if (event.key === 'Enter') {
                     const query = input.value.trim();
                     if (!query) return;
-                    window.location.href = 'marketplace.html?search=' + encodeURIComponent(query);
+                    window.location.href = 'landingwithlogin.html?search=' + encodeURIComponent(query);
                 }
             });
         });
     });
 </script>
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/backend-integration.js"></script>
 </body>
 </html>
