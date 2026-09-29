@@ -33,10 +33,7 @@ async function fetchProduct(productId) {
     const isAuctionPage = window.location.pathname.toLowerCase().endsWith('/productview.html');
     let record;
     if (isAuctionPage) {
-        const auctions = await window.ReTradeAPI.get('auctions.php');
-        const summary = auctions.find(item => item.slug === productId);
-        if (!summary) throw new Error('Auction not found.');
-        record = await window.ReTradeAPI.get('auctions.php?id=' + Number(summary.id));
+        record = await window.ReTradeAPI.get('auctions.php?slug=' + encodeURIComponent(productId));
     } else {
         record = await window.ReTradeAPI.get('products.php?slug=' + encodeURIComponent(productId));
     }
@@ -51,7 +48,8 @@ async function fetchProduct(productId) {
         images: record.images || [], currentBid: current, startingBid: Number(record.starting_price ?? record.price ?? current),
         bidCount: Number(record.bid_count || 0), views: Number(record.views || 0), watching: 0,
         minNextBid: current + increment, buyNowPrice: Number(record.buy_now_price ?? record.price ?? 0),
-        auctionEndTime: new Date(record.ends_at || Date.now()),
+        auctionEndTime: new Date(record.ends_at || Date.now()), auctionStatus: record.status || null,
+        canPurchase: Boolean(record.can_purchase), isHighestBidder: Boolean(record.is_highest_bidder),
         seller: { name: `${record.first_name || ''} ${record.last_name || ''}`.trim(), badge: 'Verified', avatar: initials, sales: Number(record.seller_reviews || 0), rating: Number(record.seller_rating || 0), reviews: Number(record.seller_reviews || 0), responseTime: '—', location: record.location || 'Not provided' },
         shipping: { ships: 'nationwide', estimatedDays: record.shipping_days || 'Not provided' },
         specifications: { brand: record.brand || 'Not provided', year: record.year_purchased || 'Not provided', accessories: record.accessories || 'Not provided', caseDiameter: specs.caseDiameter || specs.screen || specs.size || 'Not provided', caseMaterial: specs.caseMaterial || specs.material || 'Not provided', movement: specs.movement || specs.processor || specs.focus || 'Not provided', waterResistance: specs.waterResistance || 'Not provided', conditionRating: record.condition_label },
@@ -218,8 +216,21 @@ function displayProduct(product) {
         fixedPrice.textContent = `$${product.buyNowPrice.toLocaleString()}`;
     }
     if (buyNowButton) {
-        buyNowButton.textContent = `Buy Now — $${product.buyNowPrice.toLocaleString()}`;
+        if (product.auctionId) {
+            buyNowButton.textContent = `Complete Purchase — $${product.currentBid.toLocaleString()}`;
+            buyNowButton.hidden = !product.canPurchase;
+            buyNowButton.style.display = product.canPurchase ? '' : 'none';
+        } else {
+            buyNowButton.textContent = `⚡ Buy Now — $${product.buyNowPrice.toLocaleString()}`;
+            buyNowButton.hidden = false;
+            buyNowButton.style.display = '';
+        }
     }
+    const placeBidButton = document.querySelector('.place-bid');
+    if (placeBidButton) { placeBidButton.hidden = product.auctionStatus !== 'live'; placeBidButton.style.display = product.auctionStatus === 'live' ? '' : 'none'; }
+    if (bidPanelInput) bidPanelInput.disabled = product.auctionStatus !== 'live';
+    if (bidPanelMin && product.auctionStatus !== 'live') bidPanelMin.textContent = product.canPurchase ? 'You won this auction' : 'Auction ended';
+    if (typeof window.bindSellerRatingCard === 'function') window.bindSellerRatingCard({ id: product.databaseId, seller_rating: product.seller.rating, rating_count: product.seller.reviews });
     
     const specRows = document.querySelectorAll('.spec-row');
     if (specRows.length >= 6) {

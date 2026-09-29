@@ -26,14 +26,24 @@ function text_value(array $data,string $key,int $max=500,bool $required=true): ?
 function int_value(mixed $value,string $name='ID'): int { $v=filter_var($value,FILTER_VALIDATE_INT,['options'=>['min_range'=>1]]); if($v===false)fail("Invalid $name.",422); return $v; }
 function db_all(mysqli_stmt $stmt): array { $stmt->execute(); return $stmt->get_result()->fetch_all(MYSQLI_ASSOC); }
 function db_one(mysqli_stmt $stmt): ?array { $stmt->execute(); return $stmt->get_result()->fetch_assoc()?:null; }
+function notify_user(mysqli $db,int $userId,string $type,string $title,string $message,array $data=[]): void {
+ $json=$data?json_encode($data,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE):null;
+ $stmt=$db->prepare('INSERT INTO notifications(user_id,type,title,message,data) VALUES(?,?,?,?,?)');
+ $stmt->bind_param('issss',$userId,$type,$title,$message,$json);$stmt->execute();
+}
 function close_ended_auctions(mysqli $db): void {
  $db->begin_transaction();
  try {
-  $rows=$db->query("SELECT id,product_id,highest_bidder_id,current_price,reserve_price FROM auctions WHERE status='live' AND ends_at<=NOW() FOR UPDATE")->fetch_all(MYSQLI_ASSOC);
+  $rows=$db->query("SELECT a.id,a.product_id,a.highest_bidder_id,a.current_price,a.reserve_price,p.seller_id,p.title FROM auctions a JOIN products p ON p.id=a.product_id WHERE a.status='live' AND a.ends_at<=NOW() FOR UPDATE")->fetch_all(MYSQLI_ASSOC);
   foreach($rows as $a){
    $met=$a['highest_bidder_id']!==null&&($a['reserve_price']===null||(float)$a['current_price']>=(float)$a['reserve_price']);
    $stmt=$db->prepare("UPDATE auctions SET status='ended',closed_at=NOW() WHERE id=?");$stmt->bind_param('i',$a['id']);$stmt->execute();
-   $status=$met?'sold':'paused';$stmt=$db->prepare('UPDATE products SET status=? WHERE id=?');$stmt->bind_param('si',$status,$a['product_id']);$stmt->execute();
+   // Ended auctions leave the public catalog but remain claimable by the winner.
+   $status='paused';$stmt=$db->prepare('UPDATE products SET status=? WHERE id=?');$stmt->bind_param('si',$status,$a['product_id']);$stmt->execute();
+   if($met){
+    notify_user($db,(int)$a['highest_bidder_id'],'auction_won','You won the auction','Complete your purchase for '.$a['title'].'.',['auction_id'=>(int)$a['id'],'product_id'=>(int)$a['product_id']]);
+    notify_user($db,(int)$a['seller_id'],'auction_ended','Auction ended','The winning bid for '.$a['title'].' is $'.number_format((float)$a['current_price'],2).'.',['auction_id'=>(int)$a['id']]);
+   }else notify_user($db,(int)$a['seller_id'],'auction_ended','Auction ended','The auction for '.$a['title'].' ended without a qualifying winner.',['auction_id'=>(int)$a['id']]);
   }
   $db->commit();
  }catch(Throwable $e){$db->rollback();throw $e;}
