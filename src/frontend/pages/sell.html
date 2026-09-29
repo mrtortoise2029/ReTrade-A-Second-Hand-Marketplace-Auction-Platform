@@ -535,6 +535,12 @@
               <input id="originalPrice" name="originalPrice" type="number" min="1" step="0.01" placeholder="799">
             </div>
 
+            <div id="auctionOptions" class="field full" style="display:none;grid-template-columns:repeat(3,1fr);gap:16px;">
+              <div class="field"><label for="auctionEndTime">Auction end time</label><input id="auctionEndTime" type="datetime-local"></div>
+              <div class="field"><label for="bidIncrement">Bid increment</label><input id="bidIncrement" type="number" min="1" step="0.01" value="10"></div>
+              <div class="field"><label for="reservePrice">Reserve price</label><input id="reservePrice" type="number" min="1" step="0.01" placeholder="Optional"></div>
+            </div>
+
             <div class="field full">
               <label for="images">Imagge</label>
               <div class="dropzone" id="imageDropzone">
@@ -546,11 +552,11 @@
             </div>
 
             <div class="field full">
-              <label for="documents">Documents and warranty</label>
+              <label for="documents">Product paper (PDF required)</label>
               <div class="dropzone" id="documentDropzone">
-                <strong>Drag and drop documents or warranty files here</strong>
-                <span>or click to choose files · PDF, DOC, DOCX, PNG, or JPG</span>
-                <input id="documents" name="documents" type="file" accept=".pdf,.doc,.docx,image/png,image/jpeg" multiple hidden>
+                <strong>Drag and drop product papers here</strong>
+                <span>or click to choose files · PDF only, up to 5MB each</span>
+                <input id="documents" name="documents" type="file" accept="application/pdf,.pdf" multiple hidden required>
               </div>
               <div class="file-preview" id="documentPreview" aria-live="polite"></div>
             </div>
@@ -719,6 +725,7 @@
       field.addEventListener('input', updatePreview);
       field.addEventListener('change', updatePreview);
     });
+    const listingTypeField=document.getElementById('listingType');const auctionOptions=document.getElementById('auctionOptions');const auctionEndTime=document.getElementById('auctionEndTime');function syncAuctionOptions(){const active=listingTypeField.value==='auction';auctionOptions.style.display=active?'grid':'none';auctionEndTime.required=active;if(active){const minimum=new Date(Date.now()+10*60*1000);minimum.setMinutes(minimum.getMinutes()-minimum.getTimezoneOffset());auctionEndTime.min=minimum.toISOString().slice(0,16);}}listingTypeField.addEventListener('change',syncAuctionOptions);syncAuctionOptions();
 
     setupDropzone(imageDropzone, imageInput, () => {
       renderImagePreview();

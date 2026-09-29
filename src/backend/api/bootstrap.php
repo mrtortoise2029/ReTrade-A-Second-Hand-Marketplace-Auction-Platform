@@ -26,11 +26,20 @@ function text_value(array $data,string $key,int $max=500,bool $required=true): ?
 function int_value(mixed $value,string $name='ID'): int { $v=filter_var($value,FILTER_VALIDATE_INT,['options'=>['min_range'=>1]]); if($v===false)fail("Invalid $name.",422); return $v; }
 function db_all(mysqli_stmt $stmt): array { $stmt->execute(); return $stmt->get_result()->fetch_all(MYSQLI_ASSOC); }
 function db_one(mysqli_stmt $stmt): ?array { $stmt->execute(); return $stmt->get_result()->fetch_assoc()?:null; }
+function private_upload_dir(): string { $dir=dirname(__DIR__).'/private_uploads';if(!is_dir($dir)&&!mkdir($dir,0750,true))fail('Private upload storage is unavailable.',500);return $dir; }
+function store_private_pdf(array $file,string $prefix='document'): string {
+ if(($file['error']??UPLOAD_ERR_NO_FILE)!==UPLOAD_ERR_OK)fail('A valid PDF file is required.',422);
+ $size=(int)($file['size']??0);if($size<1||$size>5*1024*1024)fail('Each PDF must be 5MB or smaller.',422);
+ $tmp=(string)($file['tmp_name']??'');$mime=$tmp!==''?(new finfo(FILEINFO_MIME_TYPE))->file($tmp):'';if($mime!=='application/pdf')fail('Only PDF files are allowed.',422);
+ $safePrefix=preg_replace('/[^a-z0-9-]+/i','-',trim($prefix))?:'document';$name=$safePrefix.'-'.bin2hex(random_bytes(16)).'.pdf';if(!move_uploaded_file($tmp,private_upload_dir().'/'.$name))fail('Could not securely store the PDF.',500);return $name;
+}
+function private_pdf_path(string $stored): ?string { $name=basename($stored);$path=private_upload_dir().'/'.$name;return is_file($path)?$path:null; }
 function notify_user(mysqli $db,int $userId,string $type,string $title,string $message,array $data=[]): void {
  $json=$data?json_encode($data,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE):null;
  $stmt=$db->prepare('INSERT INTO notifications(user_id,type,title,message,data) VALUES(?,?,?,?,?)');
  $stmt->bind_param('issss',$userId,$type,$title,$message,$json);$stmt->execute();
 }
+function notify_admins(mysqli $db,string $type,string $title,string $message,array $data=[]): void { $rows=$db->query("SELECT u.id FROM users u JOIN roles r ON r.id=u.role_id WHERE r.name='admin' AND u.status='active'")->fetch_all(MYSQLI_ASSOC);foreach($rows as $row)notify_user($db,(int)$row['id'],$type,$title,$message,$data); }
 function close_ended_auctions(mysqli $db): void {
  $db->begin_transaction();
  try {

@@ -148,6 +148,24 @@
                         </div>
                     </div>
 
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">🔒</span>
+                                <input type="password" id="password" placeholder="Minimum 8 characters" minlength="8" autocomplete="new-password" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">🔒</span>
+                                <input type="password" id="confirmPassword" placeholder="Repeat password" minlength="8" autocomplete="new-password" required>
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="sellerFields" style="display: none;">
                         <div class="form-group">
                             <label for="businessName">Business Name</label>
@@ -158,16 +176,16 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="nidUpload">Upload NID</label>
+                            <label for="nidUpload">Upload NID (PDF required)</label>
                             <div class="input-wrapper file-input-wrap">
-                                <input type="file" id="nidUpload" accept=".pdf,.jpg,.jpeg,.png" class="file-input">
+                                <input type="file" id="nidUpload" accept="application/pdf,.pdf" class="file-input">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="tradeLicense">Upload Trade Licence (if any)</label>
+                            <label for="tradeLicense">Upload Trade Licence (PDF required)</label>
                             <div class="input-wrapper file-input-wrap">
-                                <input type="file" id="tradeLicense" accept=".pdf,.jpg,.jpeg,.png" class="file-input">
+                                <input type="file" id="tradeLicense" accept="application/pdf,.pdf" class="file-input">
                             </div>
                         </div>
 
@@ -200,8 +218,12 @@
         function toggleSellerFields() {
             if (roleSelect.value === 'seller') {
                 sellerFields.style.display = 'block';
+                document.getElementById('nidUpload').required = true;
+                document.getElementById('tradeLicense').required = true;
             } else {
                 sellerFields.style.display = 'none';
+                document.getElementById('nidUpload').required = false;
+                document.getElementById('tradeLicense').required = false;
             }
         }
 

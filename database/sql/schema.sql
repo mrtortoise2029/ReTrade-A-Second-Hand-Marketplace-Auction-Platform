@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS retrade_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE retrade_db;
 SET FOREIGN_KEY_CHECKS=0;
-DROP TABLE IF EXISTS fraud_reports,commissions,wallet_transactions,wallets,notifications,messages,product_comments,reviews,deliveries,payments,order_items,orders,wishlist_items,cart_items,carts,bids,auctions,product_images,products,seller_profiles,categories,users,roles,system_settings;
+DROP TABLE IF EXISTS fraud_reports,commissions,wallet_transactions,wallets,notifications,messages,product_comments,reviews,deliveries,payments,order_items,orders,wishlist_items,cart_items,carts,bids,auctions,product_documents,product_images,products,seller_profiles,categories,users,roles,system_settings;
 SET FOREIGN_KEY_CHECKS=1;
 
 CREATE TABLE roles(id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,name VARCHAR(30) NOT NULL UNIQUE,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB;
@@ -29,6 +29,7 @@ CREATE TABLE products(
  INDEX(status,sale_type,category_id,created_at),INDEX(seller_id,status),FULLTEXT(title,description)
 ) ENGINE=InnoDB;
 CREATE TABLE product_images(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,product_id BIGINT UNSIGNED NOT NULL,image_url VARCHAR(700) NOT NULL,sort_order SMALLINT UNSIGNED NOT NULL DEFAULT 0,is_primary TINYINT(1) NOT NULL DEFAULT 0,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,FOREIGN KEY(product_id) REFERENCES products(id) ON DELETE CASCADE,INDEX(product_id,sort_order)) ENGINE=InnoDB;
+CREATE TABLE product_documents(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,product_id BIGINT UNSIGNED NOT NULL,original_name VARCHAR(255) NOT NULL,stored_name VARCHAR(255) NOT NULL,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,FOREIGN KEY(product_id) REFERENCES products(id) ON DELETE CASCADE,INDEX(product_id)) ENGINE=InnoDB;
 CREATE TABLE auctions(
  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,product_id BIGINT UNSIGNED NOT NULL UNIQUE,starting_price DECIMAL(12,2) NOT NULL,reserve_price DECIMAL(12,2),bid_increment DECIMAL(12,2) NOT NULL DEFAULT 10,current_price DECIMAL(12,2) NOT NULL,
  buy_now_price DECIMAL(12,2),highest_bidder_id BIGINT UNSIGNED,starts_at DATETIME NOT NULL,ends_at DATETIME NOT NULL,status ENUM('scheduled','live','paused','ended','cancelled') NOT NULL DEFAULT 'scheduled',closed_at DATETIME,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
