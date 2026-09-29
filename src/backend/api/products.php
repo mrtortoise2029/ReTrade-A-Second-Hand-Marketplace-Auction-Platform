@@ -31,6 +31,31 @@ if(method()==='POST'){
  ok(['id'=>$id,'slug'=>$slug],'Listing submitted for review.',201);
 }
 if(method()==='PATCH'){
- $id=int_value($in['id']??null);$status=$in['status']??'';if(!in_array($status,['active','paused'],true))fail('Invalid listing status.',422);$seller=(int)$u['id'];if($u['role']==='admin'){$stmt=$db->prepare('UPDATE products SET status=? WHERE id=?');$stmt->bind_param('si',$status,$id);}else{$stmt=$db->prepare('UPDATE products SET status=? WHERE id=? AND seller_id=?');$stmt->bind_param('sii',$status,$id,$seller);}$stmt->execute();ok(null,'Listing updated.');
+ $id=int_value($in['id']??null);$seller=(int)$u['id'];
+ if(($in['action']??'')==='edit'){
+  $title=text_value($in,'title',255);$description=text_value($in,'description',5000);$price=(float)($in['price']??0);
+  $stmt=$db->prepare('SELECT sale_type,status FROM products WHERE id=?'.($u['role']==='admin'?'':' AND seller_id=?'));
+  if($u['role']==='admin')$stmt->bind_param('i',$id);else$stmt->bind_param('ii',$id,$seller);
+  $product=db_one($stmt);if(!$product)fail('Listing not found.',404);if(in_array($product['status'],['sold','rejected'],true))fail('This listing can no longer be edited.',409);
+  if($product['sale_type']==='fixed'){
+   if($price<=0)fail('Enter a valid price.',422);$stmt=$db->prepare('UPDATE products SET title=?,description=?,price=? WHERE id=?');$stmt->bind_param('ssdi',$title,$description,$price,$id);
+  }else{$stmt=$db->prepare('UPDATE products SET title=?,description=? WHERE id=?');$stmt->bind_param('ssi',$title,$description,$id);}
+  $stmt->execute();ok(null,'Listing details updated.');
+ }
+ $status=$in['status']??'';if(!in_array($status,['active','paused'],true))fail('Invalid listing status.',422);
+ $stmt=$db->prepare('SELECT p.sale_type,a.status auction_status,a.ends_at FROM products p LEFT JOIN auctions a ON a.product_id=p.id WHERE p.id=?'.($u['role']==='admin'?'':' AND p.seller_id=?'));
+ if($u['role']==='admin')$stmt->bind_param('i',$id);else$stmt->bind_param('ii',$id,$seller);$current=db_one($stmt);if(!$current)fail('Listing not found.',404);
+ if($status==='active'&&$current['sale_type']==='auction'&&($current['auction_status']==='ended'||$current['auction_status']==='cancelled'||strtotime((string)$current['ends_at'])<=time()))fail('An ended auction cannot be reactivated.',409);
+ if($u['role']==='admin'){$stmt=$db->prepare('UPDATE products SET status=? WHERE id=? AND status NOT IN(\'sold\',\'rejected\')');$stmt->bind_param('si',$status,$id);}else{$stmt=$db->prepare('UPDATE products SET status=? WHERE id=? AND seller_id=? AND status NOT IN(\'sold\',\'rejected\')');$stmt->bind_param('sii',$status,$id,$seller);}$stmt->execute();
+ if(!$stmt->affected_rows)fail('Listing not found or its status cannot be changed.',409);
+ if($current['sale_type']==='auction'){$auctionStatus=$status==='paused'?'paused':'live';$stmt=$db->prepare("UPDATE auctions SET status=? WHERE product_id=? AND status IN('live','paused','scheduled')");$stmt->bind_param('si',$auctionStatus,$id);$stmt->execute();}ok(null,'Listing updated.');
+}
+if(method()==='DELETE'){
+ $id=int_value($in['id']??null);$seller=(int)$u['id'];
+ $stmt=$db->prepare('SELECT status FROM products WHERE id=?'.($u['role']==='admin'?'':' AND seller_id=?'));
+ if($u['role']==='admin')$stmt->bind_param('i',$id);else$stmt->bind_param('ii',$id,$seller);$product=db_one($stmt);
+ if(!$product)fail('Listing not found.',404);if($product['status']==='sold')fail('Sold listings must be retained with their order history.',409);
+ $stmt=$db->prepare('SELECT COUNT(*) count FROM order_items WHERE product_id=?');$stmt->bind_param('i',$id);if((int)db_one($stmt)['count']>0)fail('Listings linked to an order cannot be deleted.',409);
+ $stmt=$db->prepare('DELETE FROM products WHERE id=?');$stmt->bind_param('i',$id);$stmt->execute();ok(null,'Listing deleted.');
 }
 fail('Method not allowed.',405);

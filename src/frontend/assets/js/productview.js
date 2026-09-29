@@ -314,20 +314,34 @@ function placeBid() {
 
 function updateAuctionTimer(endTime) {
     const timerElement = document.querySelector('.timer');
+    if (!timerElement) return;
+    let timerId = null;
+    let ended = false;
     
     function calculateTimeLeft() {
         const now = new Date().getTime();
         const distance = endTime.getTime() - now;
         
-        if (distance < 0) {
-            timerElement.parentElement.innerHTML = '<p style="color: red; font-weight: bold;">Auction Ended</p>';
+        if (distance <= 0) {
+            timerElement.innerHTML = '<div style="width:100%;color:#c9343a;font-weight:700;white-space:nowrap">Auction Ended</div>';
+            if (timerId) clearInterval(timerId);
+            if (!ended) {
+                ended = true;
+                document.dispatchEvent(new CustomEvent('retrade:auction-ended'));
+            }
             return;
         }
-        
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
         
         timerElement.innerHTML = `
+            ${days ? `<div>${String(days).padStart(2, '0')}<small>D</small></div>` : ''}
+            <div>
+                ${String(hours).padStart(2, '0')}
+                <small>H</small>
+            </div>
             <div>
                 ${String(minutes).padStart(2, '0')}
                 <small>M</small>
@@ -340,7 +354,7 @@ function updateAuctionTimer(endTime) {
     }
     
     calculateTimeLeft();
-    setInterval(calculateTimeLeft, 1000);
+    if (!ended) timerId = setInterval(calculateTimeLeft, 1000);
 }
 
 async function initProductView() {

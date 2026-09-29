@@ -195,8 +195,15 @@
   .tracking-meta div,.tracking-address{background:#f7f9fc;border-radius:10px;padding:11px 12px;color:#7185a1;font-size:11px;}
   .tracking-meta strong{display:block;color:#172033;font-size:13px;margin-top:4px;}
   .tracking-address{margin-top:10px;}
-  .tracking-footer{margin-top:16px;}
+  .tracking-footer{margin-top:16px;display:grid;gap:8px;}
   .tracking-footer button{width:100%;padding:10px;border:1px solid var(--border);border-radius:10px;background:#fff;color:#172033;font-weight:700;cursor:pointer;}
+  .tracking-footer .delivery-confirm{background:#2563eb;border-color:#2563eb;color:#fff;transition:background .15s,color .15s;}
+  .tracking-footer .delivery-confirm:hover{background:#fff;color:#000;}
+  .delivery-warning{text-align:center;}
+  .delivery-warning h2{margin:0 0 20px;font-size:21px;}
+  .delivery-warning-actions{display:flex;gap:10px;}
+  .delivery-warning-actions button{flex:1;border:1px solid var(--border);border-radius:10px;padding:11px;font-weight:700;background:#fff;}
+  .delivery-warning-actions .yes{background:#2563eb;border-color:#2563eb;color:#fff;}
 
 
   .pagination{display:flex;justify-content:center;align-items:center;gap:6px;margin-bottom:26px;}
@@ -318,7 +325,14 @@
     </div>
     <div class="tracking-meta"><div>Estimated Delivery<strong id="trackingEstimated">Jul 27, 2025</strong></div><div>Delivery Person<strong id="trackingPerson">Kwame D.</strong></div></div>
     <div class="tracking-address">⌾ &nbsp;<span id="trackingAddress">180 E 80th St, New York, NY 10021</span></div>
-    <div class="tracking-footer"><button type="button" onclick="closeTracking()">Close</button></div>
+    <div class="tracking-footer"><button class="delivery-confirm" id="deliveryConfirmButton" type="button" aria-label="Confirm this order was delivered" onclick="openDeliveryConfirm()">Order Tracking</button><button type="button" onclick="closeTracking()">Close</button></div>
+  </div>
+</div>
+
+<div class="tracking-modal" id="deliveryWarningModal" role="alertdialog" aria-modal="true" aria-labelledby="deliveryWarningTitle" hidden>
+  <div class="tracking-dialog delivery-warning">
+    <h2 id="deliveryWarningTitle">Have you received the order?</h2>
+    <div class="delivery-warning-actions"><button class="yes" id="confirmDeliveryYes" type="button">Yes I have</button><button type="button" onclick="closeDeliveryConfirm()">No I haven’t</button></div>
   </div>
 </div>
 
